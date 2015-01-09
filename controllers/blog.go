@@ -10,13 +10,11 @@ type BlogController struct {
 }
 
 func (this *BlogController) Get() {
-	wp := models.NewWebPage("首页")
+	wp := models.NewWebPage("博客")
 	wp.IncrViewCount()
 
-	this.Data["PageTitle"] = wp.GetPageTitle()
+	this.Data["PageTitle"] = wp.GetPageTitle() + this.Ctx.Input.Param(":key")
 	this.Data["img_host"] = wp.GetImgHost()
 
-	this.Data["PageTitle"] = this.Ctx.Input.Param(":key")
-
-	this.TplNames = "index.tpl"
+	this.TplNames = "blog.tpl"
 }
