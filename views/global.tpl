@@ -7,4 +7,5 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<link href="/static/css/default.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="http://7u2ghp.com1.z0.glb.clouddn.com/i_logo1.png" >
 {{end}}

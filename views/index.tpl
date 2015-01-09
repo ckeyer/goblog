@@ -5,7 +5,7 @@
 <div id="header">
 	<div id="logo">
 		<h1><img href="" src="{{.img_host}}t_logo.png"/></h1>
-		<h2><a href="#">Man, I just luv technology...... </a></h2>
+		<h2><a href="/">Man, I just luv technology...... </a></h2>
 	</div>
 	<div id="menu">
 		<ul>
@@ -18,29 +18,57 @@
 	</div>
 </div>
 <div id="content">
-	<div id="colOne">
-	  	<div class="article">
-	  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
-	  		<div class="art_summary">
-				<h3> Site Maintenance in Progress... </p>
-				<h2> Happy Thanksgiving Day...... </h2>
-				<h4> Email: cjstudio@yeah.net</h4>
-	  		</div>
-	  		<div class="art_content"></div>
+	<div class="colOne">
+		<div class="art_content">
+		  	<div class="article">
+		  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+		  		<div class="art_time">2015年1月10日</div>
+		  		<div class="art_summary">
+					<h3> Site Maintenance in Progress... </p>
+					<h2> Happy Thanksgiving Day...... </h2>
+					<h4> Email: cjstudio@yeah.net</h4>
+		  		</div>
+		  		<div class="art_content"></div>
+		  			<!-- <hr class="art_separate"> -->
+			</div>
+			<div  class="art_separate">
+				<div class="art_separate2">
+				
+				</div>
+			</div>
 		</div>
-	  	<div class="article">
-	  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
-	  		<div class="art_summary">
-				<h3> Site Maintenance in Progress... </p>
-				<h2> Happy Thanksgiving Day...... </h2>
-				<h4> Email: cjstudio@yeah.net</h4>
-	  		</div>
-	  		<div class="art_content"></div>
+
+
+		<div class="art_content">
+		  	<div class="article">
+		  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+		  		<div class="art_summary">
+					<h3> Site Maintenance in Progress... </p>
+					<h2> Happy Thanksgiving Day...... </h2>
+					<h4> Email: cjstudio@yeah.net</h4>
+		  		</div>
+		  		<div class="art_content"></div>
+		  			<!-- <hr class="art_separate"> -->
+			</div>
+			<div  class="art_separate">
+				<div class="art_separate2">
+				</div>
+			</div>
+		</div>
+
+		<div class="art_content">
+		  	<div class="article">
+		  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+		  		<div class="art_summary">
+					<h3> Site Maintenance in Progress... </p>
+					<h2> Happy Thanksgiving Day...... </h2>
+					<h4> Email: cjstudio@yeah.net</h4>
+		  		</div>
+		  		<div class="art_content"></div>
+			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
+
 	<div id="colTwo">
 		<ul>
 			<li>
