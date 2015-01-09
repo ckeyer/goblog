@@ -28,6 +28,15 @@
 	  		</div>
 	  		<div class="art_content"></div>
 		</div>
+	  	<div class="article">
+	  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+	  		<div class="art_summary">
+				<h3> Site Maintenance in Progress... </p>
+				<h2> Happy Thanksgiving Day...... </h2>
+				<h4> Email: cjstudio@yeah.net</h4>
+	  		</div>
+	  		<div class="art_content"></div>
+		</div>
 	</div>
 	<br>
 	<br>
