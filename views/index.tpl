@@ -37,7 +37,11 @@
 				</div>
 			</div>
 		</div>
-
+		{{range $key, $val := .PageMap}}
+		<div>
+			<p>{{$key}} : {{$val}}</p>
+		</div>
+		{{end}}
 
 		<div class="art_content">
 		  	<div class="article">
@@ -58,11 +62,16 @@
 
 		<div class="art_content">
 		  	<div class="article">
-		  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+		  		<div class="art_title">{{.ArtTitle}}</div>
+		  		<div class="art_time">{{.ArtTime}}</div>
 		  		<div class="art_summary">
-					<h3> Site Maintenance in Progress... </p>
-					<h2> Happy Thanksgiving Day...... </h2>
-					<h4> Email: cjstudio@yeah.net</h4>
+				<div font-size="18px">
+					{{range $key, $val := .OneBlog}}
+					<div>
+						<p>{{$key}} : {{$val}}</p>
+					</div>
+					{{end}}
+				</div>
 		  		</div>
 		  		<div class="art_content"></div>
 			</div>

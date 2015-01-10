@@ -129,7 +129,8 @@ p, ul, ol, blockquote {
 	font-size: 3em;
 }
 .colOne .art_time {
-	letter-spacing: 2px;
+	letter-spacing: 1px;
+	font-style: bold;
 	font-size: 1em;
 }
 
