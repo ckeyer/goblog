@@ -10,11 +10,16 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
+	b := models.NewBlog()
+	_ = b
+	b.Read()
+	defer b.Close()
 	wp := models.NewWebPage("首页")
 	wp.IncrViewCount()
 
 	this.Data["PageTitle"] = wp.GetPageTitle()
 	this.Data["img_host"] = wp.GetImgHost()
 
+	// this.Data["TestStr"] = "s"
 	this.TplNames = "index.tpl"
 }
