@@ -1,11 +1,17 @@
-{{define "mainHead"}}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<link href="/static/css/default.css" rel="stylesheet" type="text/css" />
-	<link rel="shortcut icon" href="http://7u2ghp.com1.z0.glb.clouddn.com/i_logo1.png" >
-{{end}}
+<% define "HEADER"%>
+<div id="header">
+	<div id="logo">
+		<h1><img href="" src="<%.ImgHost%>i_logo1.png"/></h1>
+		<h2><a href="#">Man, I just luv technology...... </a></h2>
+	</div>
+	<div id="menu">
+		<ul>
+			<li class="first"><a href="/blog">My Blog</a></li>
+			<li><a href="/photo">My Photos</a></li>
+			<li><a href="/favorite">My Favorites</a></li>
+			<li><a href="/contact">Contact Me</a></li>
+			<li><a></a></li>
+		</ul>
+	</div>
+</div>
+<%end%>

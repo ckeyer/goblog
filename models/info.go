@@ -26,9 +26,6 @@ func NewWebPage(name string) (w *WebPage) {
 func (w *WebPage) GetPageTitle() string {
 	return beego.AppConfig.String("host_name") + " - " + w.Name
 }
-func (w *WebPage) GetImgHost() string {
-	return beego.AppConfig.String("img_host")
-}
 func (w *WebPage) IncrViewCount() (count int) {
 	key := strings.ToUpper(w.Name + "_ViewCount")
 	v, _ := w.rc.Incr(key)
@@ -71,6 +68,15 @@ func (w *WebPage) GetWebPageCount() int {
 	v, _ := w.rc.Scard(key)
 	return v
 }
+func (w *WebPage) GetImgHost() (s string) {
+	s = beego.AppConfig.String("img_host")
+	return s
+}
+func (w *WebPage) GetStaticHost() (s string) {
+	s = beego.AppConfig.String("static_host")
+	return
+}
+
 func (w *WebPage) Test() (count int) {
 	count = 0
 	return

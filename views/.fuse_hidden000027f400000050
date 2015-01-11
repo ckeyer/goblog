@@ -30,30 +30,57 @@
 	<div class="colOne">
 
 		<% range $index, $elem := .Blogs %>
-		<div class="art_content" id="art_content_<% $index %>">
-		  	<div class="article" id="article_<% $index %>">
-		  		<div class="art_title" id="art_title_<% $index %>">
-		  			<a href="/show/<% $elem.ID %>"><% $elem.Title|DECODEBASE64 %></a>
+		<div class="art_content">
+		  	<div class="article">
+		  		<div class="art_title">
+		  			<a href="<% $elem.ID %>"><% $elem.Title %></a>
 		  		</div>
-		  		<div class="art_time"><% $elem.CreatedTime %> &nbsp&nbsp
-		  			<span> 
-			  			<a href="#">网络</a>&nbsp
-			  			<a href="#">Ruby</a>&nbsp
-			  			<a href="#">Golang</a>&nbsp
-		  			</span>	
-	  			</div>
+		  		<div class="art_time"><% $elem.CreatedTime %></div>
 		  		<div class="art_summary">
-		  			<% $elem.Summary|DECODEBASE64 %>
-		  		</div>
-		  		<div class="read_more">
-		  			<a href="/show/<% $elem.ID %>" title="">阅读全文</a>
+		  			<% $elem.Summary %>
 		  		</div>
 		  		<div class="art_content"></div>
-
 		  			<!-- <hr class="art_separate"> -->
 			</div>
 		</div>
 		<% end %>
+
+
+		<div class="art_content">
+		  	<div class="article">
+		  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+		  		<div class="art_time">2015年1月10日</div>
+		  		<div class="art_summary">
+					<h3> Site Maintenance in Progress... </p>
+					<h2> Happy Thanksgiving Day...... </h2>
+					<h4> Email: cjstudio%yeah.net</h4>
+		  		</div>
+		  		<div class="art_content"></div>
+		  			<!-- <hr class="art_separate"> -->
+			</div>
+			<div  class="art_separate">
+				<div class="art_separate2">
+				
+				</div>
+			</div>
+		</div>
+
+		<div class="art_content">
+		  	<div class="article">
+		  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
+		  		<div class="art_summary">
+					<h3> Site Maintenance in Progress... </p>
+					<h2> Happy Thanksgiving Day...... </h2>
+					<h4> Email: cjstudio%yeah.net</h4>
+		  		</div>
+		  		<div class="art_content"></div>
+		  			<!-- <hr class="art_separate"> -->
+			</div>
+			<div  class="art_separate">
+				<div class="art_separate2">
+				</div>
+			</div>
+		</div>
 
 	</div>
 

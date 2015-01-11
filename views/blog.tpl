@@ -1,11 +1,19 @@
- {{template "mainHead"}}
-	<title>{{.PageTitle}}</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="stylesheet" type="text/css" href="<% .StaticHost%>css/default.css" />
+	<link rel="shortcut icon" href="<% .ImgHost%>i_logo1.png" >
+	<title><%.PageTitle%></title>
 </head>
 <body>
 <div id="header">
 	<div id="logo">
-		<h1><img href="" src="{{.img_host}}t_logo.png"/></h1>
-		<h2><a href="#">Man, I just luv technology...... </a></h2>
+		<h1><img href="" src="<% .ImgHost%>ckeyer.png"/></h1>
+		<h2><a href="/">Man, I just luv technology...... </a></h2>
 	</div>
 	<div id="menu">
 		<ul>
@@ -13,6 +21,7 @@
 			<li><a href="/photo">My Photos</a></li>
 			<li><a href="/favorite">My Favorites</a></li>
 			<li><a href="/contact">Contact Me</a></li>
+			<li><a href="/about">About Me</a></li>
 			<li><a></a></li>
 		</ul>
 	</div>

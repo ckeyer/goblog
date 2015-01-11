@@ -21,6 +21,10 @@ h1, h2, h3 {
 	color: #617703;
 }
 
+a {
+	color: #688000;
+}
+
 a:hover {
 	text-decoration: none;
 }
@@ -48,22 +52,21 @@ p, ul, ol, blockquote {
 	letter-spacing: -4px;
 	font-size: 4em;
 }
+
 #logo h2 {
 	margin-top: -10px;
 	margin-left: 50px;
 	text-align: center;
 	font-size: 1.7em;
 }
+
 #logo a {
 	text-decoration: none;
 	color: #86A406;
 }
-#logo img {
-	height: 100px;
-	width: 280px;
-}
 
 #menu {
+	margin-top: 10px;
 	float: right;
 	padding: 20px 70px 0 0;
 }
@@ -119,34 +122,20 @@ p, ul, ol, blockquote {
 }
 .colOne .article {
 	border-bottom: 1px dotted #A8C54B;
-	width: 880px;
-	word-break:break-all;
-}
-.colOne #article_0 {
-	margin-top: 20px;
 }
 
 .colOne .art_title {
 	letter-spacing: -2px;
 	font-size: 3em;
 }
-.colOne .art_title a{
-	color: #11550B;
-}
 .colOne .art_time {
 	letter-spacing: 1px;
 	font-style: bold;
-	font-size: 1.3em;
+	font-size: 1em;
 }
 
-.colOne .art_time a {
-	color: #11550B;
-	background: #C4FA64;
-	border-radius: 20%;
-}
 .colOne .art_summary {
-	font-size: 1.2em;
-	text-indent:2em;
+	font-size: x-small;
 }
 
 .colOne .art_separate {
@@ -157,10 +146,6 @@ p, ul, ol, blockquote {
 .colOne .art_separate {
 	background: url(/static/img/img5.gif) repeat-x;
 }
-.colOne .read_more a{
-	color: #6D520B;
-	font-size: 1.25em;
-}
 /* Column Two */
 
 #colTwo {
@@ -168,9 +153,7 @@ p, ul, ol, blockquote {
 	background: #E5FAA0 url(/static/img/img6.gif) repeat-x;
 	background-position: 0 0; 
 }
-#colTwo a{
-	color: #156909;
-}
+
 #colTwo #Friend_site_Link{
 	float: left;
 	width: 200px;

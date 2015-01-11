@@ -48,20 +48,40 @@ func (m *Message) ToString() (s string) {
 		s = `{"Code":"bmls"`
 	}
 	if "" != m.Data {
-		s += `,"Data":"` + m.Data + `"`
+		if strings.Count(m.Data, "{") > 0 {
+			s += `,"Data":` + m.Data
+		} else {
+			s += `,"Data":"` + m.Data + `"`
+		}
 	}
 	if "" != m.Desc {
-		s += `,"Desc":"` + m.Desc + `"`
+		if strings.Count(m.Desc, "{") > 0 {
+			s += `,"Desc":` + m.Desc
+		} else {
+			s += `,"Desc":"` + m.Desc + `"`
+		}
 	}
 	if 0 != len(m.Supp) {
 		for i, v := range m.Supp {
 			if 0 == i {
-				s += `,"Supp":["` + v
+				if strings.Count(v, "{") > 0 {
+					s += `,"Supp":[` + v
+				} else {
+					s += `,"Supp":["` + v
+				}
 			} else {
-				s += `","` + v
+				if strings.Count(v, "{") > 0 {
+					s += `,` + v
+				} else {
+					s += `","` + v
+				}
 			}
 		}
-		s += `"]`
+		if strings.Count(m.Supp[0], "{") > 0 {
+			s += `]`
+		} else {
+			s += `"]`
+		}
 	}
 	s += "}"
 	return
@@ -73,20 +93,41 @@ func (m *Message) ToBase64String() (s string) {
 		s = `{"Code":"bmls"`
 	}
 	if "" != m.Data {
-		s += `,"Data":"` + base64.URLEncoding.EncodeToString([]byte(m.Data)) + `"`
+		if strings.Count(m.Data, "{") > 0 {
+			s += `,"Data":` + m.Data
+		} else {
+			s += `,"Data":"` + base64.URLEncoding.EncodeToString([]byte(m.Data)) + `"`
+		}
 	}
 	if "" != m.Desc {
-		s += `,"Desc":"` + base64.URLEncoding.EncodeToString([]byte(m.Desc)) + `"`
+		if strings.Count(m.Desc, "{") > 0 {
+			s += `,"Desc":` + m.Desc
+		} else {
+			s += `,"Desc":"` + base64.URLEncoding.EncodeToString([]byte(m.Desc)) + `"`
+		}
 	}
 	if 0 != len(m.Supp) {
+
 		for i, v := range m.Supp {
 			if 0 == i {
-				s += `,"Supp":["` + base64.URLEncoding.EncodeToString([]byte(v))
+				if strings.Count(v, "{") > 0 {
+					s += `,"Supp":[` + v
+				} else {
+					s += `,"Supp":["` + base64.URLEncoding.EncodeToString([]byte(v))
+				}
 			} else {
-				s += `","` + base64.URLEncoding.EncodeToString([]byte(v))
+				if strings.Count(v, "{") > 0 {
+					s += `,` + v
+				} else {
+					s += `","` + base64.URLEncoding.EncodeToString([]byte(v))
+				}
 			}
 		}
-		s += `"]`
+		if strings.Count(m.Supp[0], "{") > 0 {
+			s += `]`
+		} else {
+			s += `"]`
+		}
 	}
 	s += "}"
 	s = strings.Replace(s, "-", "+", -1)

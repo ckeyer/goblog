@@ -16,6 +16,7 @@ type Blog struct {
 	Title       string
 	Page        int
 	AuthorID    int
+	Summary     string
 	Content     string
 	Status      int
 	CreatedTime string
@@ -28,12 +29,13 @@ func NewBlog() (b *Blog) {
 	b = &Blog{}
 	return b
 }
-func NewBlogByValue(id int, title string, page int, author_id int, content string, status int, created string, updated string) (b *Blog) {
+func NewBlogByValue(id int, title string, page int, author_id int, content string, summary string, status int, created string, updated string) (b *Blog) {
 	b = &Blog{
 		ID:          id,
 		Title:       title,
 		Page:        page,
 		AuthorID:    author_id,
+		Summary:     summary,
 		Content:     content,
 		Status:      status,
 		CreatedTime: created,
@@ -63,7 +65,7 @@ func (this *Blog) close() {
 func (this *Blog) Read() {
 	this.connectDB()
 	defer this.close()
-	sqlStr := "select id, title, page, author_id, content, status, DATE_FORMAT(created,'%Y年%c月%d日'), DATE_FORMAT(updated,'%Y年%c月%d日') from tb_article "
+	sqlStr := "select id, title, page, author_id, summary, content, status, DATE_FORMAT(created,'%Y年%c月%d日 %T'), DATE_FORMAT(updated,'%Y年%c月%d日 %T') from tb_article "
 
 	defer func() {
 		if e := recover(); e != nil {
@@ -81,14 +83,15 @@ func (this *Blog) Read() {
 	var title string
 	var page int
 	var author_id int
+	var summary string
 	var content string
 	var status int
 	var created string
 	var updated string
 
 	for rows.Next() {
-		if err := rows.Scan(&id, &title, &page, &author_id, &content, &status, &created, &updated); err == nil {
-			log.Println(id, title, page, author_id, content, status, created, updated)
+		if err := rows.Scan(&id, &title, &page, &author_id, &summary, &content, &status, &created, &updated); err == nil {
+			log.Println(id, title, page, author_id, summary, content, status, created, updated)
 		} else {
 			log.Println(err.Error())
 		}
@@ -97,7 +100,7 @@ func (this *Blog) Read() {
 func (this *Blog) GetBlogList(start, stop int) (bs *list.List) {
 	this.connectDB()
 	defer this.close()
-	sqlStr := "select id, title, page, author_id, content, status, DATE_FORMAT(created,'%Y年%c月%d日'), DATE_FORMAT(updated,'%Y年%c月%d日') from tb_article limit " +
+	sqlStr := "select id, title, page, author_id, content, summary, status, DATE_FORMAT(created,'%Y年%c月%d日 %T'), DATE_FORMAT(updated,'%Y年%c月%d日 %T') from tb_article limit " +
 		strconv.Itoa(start) + "," + strconv.Itoa(stop)
 	defer func() {
 		if e := recover(); e != nil {
@@ -115,6 +118,7 @@ func (this *Blog) GetBlogList(start, stop int) (bs *list.List) {
 	var title string
 	var page int
 	var author_id int
+	var summary string
 	var content string
 	var status int
 	var created string
@@ -122,9 +126,46 @@ func (this *Blog) GetBlogList(start, stop int) (bs *list.List) {
 
 	bs = list.New()
 	for rows.Next() {
-		if err := rows.Scan(&id, &title, &page, &author_id, &content, &status, &created, &updated); err == nil {
-			log.Println(id, title, page, author_id, content, status, created, updated)
-			bs.PushBack(NewBlogByValue(id, title, page, author_id, content, status, created, updated))
+		if err := rows.Scan(&id, &title, &page, &author_id, &summary, &content, &status, &created, &updated); err == nil {
+			// log.Println(id, title, page, author_id, summary, content, status, created, updated)
+			bs.PushBack(NewBlogByValue(id, title, page, author_id, summary, content, status, created, updated))
+		} else {
+			log.Println(err.Error())
+		}
+	}
+	return bs
+}
+func (this *Blog) GetBlogs(start, stop int) (bs []*Blog) {
+	this.connectDB()
+	defer this.close()
+	sqlStr := "select id, title, page, author_id, content, summary, status, DATE_FORMAT(created,'%Y年%c月%d日 %T'), DATE_FORMAT(updated,'%Y年%c月%d日 %T') from tb_article limit " +
+		strconv.Itoa(start) + "," + strconv.Itoa(stop)
+	defer func() {
+		if e := recover(); e != nil {
+			log.Println("Error:", e)
+		}
+	}()
+	rows, err := this.db.Query(sqlStr)
+	if err != nil {
+		log.Println("database select error: ", err.Error())
+		return nil
+	}
+	defer rows.Close()
+
+	var id int
+	var title string
+	var page int
+	var author_id int
+	var summary string
+	var content string
+	var status int
+	var created string
+	var updated string
+	for rows.Next() {
+		if err := rows.Scan(&id, &title, &page, &author_id, &summary, &content, &status, &created, &updated); err == nil {
+			// log.Println(id, title, page, author_id, summary, content, status, created, updated)
+			bs = append(bs, NewBlogByValue(id, title, page, author_id, summary, content, status, created, updated))
+			// log.Println(len(bs))
 		} else {
 			log.Println(err.Error())
 		}
@@ -136,6 +177,7 @@ func (this *Blog) ToMap() map[string]string {
 	bm["id"] = strconv.Itoa(this.ID)
 	bm["title"] = this.Title
 	bm["page"] = strconv.Itoa(this.Page)
+	bm["summary"] = this.Summary
 	bm["author_id"] = strconv.Itoa(this.AuthorID)
 	bm["content"] = this.Content
 	bm["status"] = strconv.Itoa(this.Status)
@@ -143,10 +185,22 @@ func (this *Blog) ToMap() map[string]string {
 	bm["updated"] = this.UpdateTme
 	return bm
 }
+func (this *Blog) ToJSON() (s string) {
+	s = `{"id":` + strconv.Itoa(this.ID) + `,` +
+		`"title":"` + this.Title + `",` +
+		`"page":` + strconv.Itoa(this.Page) + `,` +
+		`"summary":"` + this.Summary + `",` +
+		`"author_id":` + strconv.Itoa(this.AuthorID) + `,` +
+		`"content":"` + this.Content + `",` +
+		`"status":` + strconv.Itoa(this.Status) + `,` +
+		`"created":"` + this.CreatedTime + `",` +
+		`"updated":"` + this.UpdateTme + `"}`
+	return
+}
 func (this *Blog) ReadBlogByID(id_ string) error {
 	this.connectDB()
 	defer this.close()
-	sqlStr := "select id, title, page, author_id, content, status, DATE_FORMAT(created,'%Y年%c月%d日'), DATE_FORMAT(updated,'%Y年%c月%d日') from tb_article "
+	sqlStr := "select id, title, page, author_id, summary, content, status, DATE_FORMAT(created,'%Y年%c月%d日 %T'), DATE_FORMAT(updated,'%Y年%c月%d日 %T') from tb_article "
 
 	defer func() {
 		if e := recover(); e != nil {
@@ -162,17 +216,19 @@ func (this *Blog) ReadBlogByID(id_ string) error {
 	var title string
 	var page int
 	var author_id int
+	var summary string
 	var content string
 	var status int
 	var created string
 	var updated string
 
-	if err := rows.Scan(&id, &title, &page, &author_id, &content, &status, &created, &updated); err == nil {
-		log.Println(id, title, page, author_id, content, status, created, updated)
+	if err := rows.Scan(&id, &title, &page, &author_id, &summary, &content, &status, &created, &updated); err == nil {
+		log.Println(id, title, page, author_id, summary, content, status, created, updated)
 		this.ID = id
 		this.Title = title
 		this.Page = page
 		this.AuthorID = author_id
+		this.Summary = summary
 		this.Content = content
 		this.Status = status
 		this.CreatedTime = created
