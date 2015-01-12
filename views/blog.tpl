@@ -42,7 +42,7 @@
 		  			</span>
 	  			</div>
 		  		<div class="art_content">
-		  			想必各位平时在用任何网络设备的时候，或多或少的都遇到过IP变成了169.254.x.x段IP的情况，这个网段的一个共同特点是无法连接到外网，如果你恰好用的是windows操作系统的话，这时会发现网络连接状态会有一个黄色的惊叹号弹出。这个网段的IP真的是被诅咒了吗？
+		  			<% .ArticleContent|DECODEBASE64 %>
 		  		</div>  		
 			</div>
 		</div>

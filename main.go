@@ -11,6 +11,7 @@ func main() {
 	beego.TemplateLeft = "<%"
 	beego.TemplateRight = "%>"
 	beego.AddFuncMap("DECODEBASE64", decodeBase64)
+
 	beego.Run()
 }
 func decodeBase64(s string) string {
