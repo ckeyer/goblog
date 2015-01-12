@@ -1,5 +1,3 @@
-
-
 body {
 	margin: 40px 0 0 0;
 	padding: 0;
@@ -113,7 +111,7 @@ p, ul, ol, blockquote {
 	background: url(/static/img/img5.gif) repeat-x;
 	background-position: 0 0; 
 }
-.colOne .art_content {
+.colOne .art_area {
 	margin-left: 50px;
 	padding-top: 30px;
 }
@@ -122,10 +120,6 @@ p, ul, ol, blockquote {
 	width: 880px;
 	word-break:break-all;
 }
-.colOne #article_0 {
-	margin-top: 20px;
-}
-
 .colOne .art_title {
 	letter-spacing: -2px;
 	font-size: 3em;
@@ -138,28 +132,10 @@ p, ul, ol, blockquote {
 	font-style: bold;
 	font-size: 1.3em;
 }
-
-.colOne .art_time a {
+.colOne .art_label {
 	color: #11550B;
 	background: #C4FA64;
 	border-radius: 20%;
-}
-.colOne .art_summary {
-	font-size: 1.2em;
-	text-indent:2em;
-}
-
-.colOne .art_separate {
-	width: 910px;
-	height: 1px;
-	margin-left: -20px;
-}
-.colOne .art_separate {
-	background: url(/static/img/img5.gif) repeat-x;
-}
-.colOne .read_more a{
-	color: #6D520B;
-	font-size: 1.25em;
 }
 /* Column Two */
 

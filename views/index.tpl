@@ -6,13 +6,14 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<link href="<%.StaticHost%>css/default.css" rel="stylesheet" type="text/css" />
+	<link href="<%.StaticHost%>css/home.css" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="<%.ImgHost%>i_logo1.png" >
 	<title><% .PageTitle %></title>
 </head>
 <body>
 <div id="header">
 	<div id="logo">
-		<h1><img href="" src="<% .ImgHost%>ckeyer.png"/></h1>
+		<h1><img href="/" src="<% .ImgHost%>ckeyer.png" alt="ckeyer" /></h1>
 		<h2><a href="/">Man, I just luv technology...... </a></h2>
 	</div>
 	<div id="menu">
@@ -30,23 +31,23 @@
 	<div class="colOne">
 
 		<% range $index, $elem := .Blogs %>
-		<div class="art_content" id="art_content_<% $index %>">
+		<div class="art_area" id="art_content_<% $index %>">
 		  	<div class="article" id="article_<% $index %>">
 		  		<div class="art_title" id="art_title_<% $index %>">
-		  			<a href="/show/<% $elem.ID %>"><% $elem.Title|DECODEBASE64 %></a>
+		  			<a href="/blog/<% $elem.ID %>"><% $elem.Title|DECODEBASE64 %></a>
 		  		</div>
 		  		<div class="art_time"><% $elem.CreatedTime %> &nbsp&nbsp
 		  			<span> 
-			  			<a href="#">网络</a>&nbsp
-			  			<a href="#">Ruby</a>&nbsp
-			  			<a href="#">Golang</a>&nbsp
+			  			<a href="#" class="art_label">网络</a>&nbsp
+			  			<a href="#" class="art_label">Ruby</a>&nbsp
+			  			<a href="#" class="art_label">Golang</a>&nbsp
 		  			</span>	
 	  			</div>
 		  		<div class="art_summary">
 		  			<% $elem.Summary|DECODEBASE64 %>
 		  		</div>
 		  		<div class="read_more">
-		  			<a href="/show/<% $elem.ID %>" title="">阅读全文</a>
+		  			<a href="/blog/<% $elem.ID %>" title="">阅读全文</a>
 		  		</div>
 		  		<div class="art_content"></div>
 

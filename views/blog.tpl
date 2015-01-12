@@ -6,13 +6,14 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<link rel="stylesheet" type="text/css" href="<% .StaticHost%>css/default.css" />
+	<link rel="stylesheet" type="text/css" href="<% .StaticHost%>css/blog.css" />
 	<link rel="shortcut icon" href="<% .ImgHost%>i_logo1.png" >
 	<title><%.PageTitle%></title>
 </head>
 <body>
 <div id="header">
 	<div id="logo">
-		<h1><img href="" src="<% .ImgHost%>ckeyer.png"/></h1>
+		<h1><img href="/" src="<% .ImgHost%>ckeyer.png" alt="ckeyer" /></h1>
 		<h2><a href="/">Man, I just luv technology...... </a></h2>
 	</div>
 	<div id="menu">
@@ -27,29 +28,25 @@
 	</div>
 </div>
 <div id="content">
-	<div id="colOne">
-	  	<div class="article">
-	  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
-	  		<div class="art_summary">
-				<h3> Site Maintenance in Progress... </p>
-				<h2> Happy Thanksgiving Day...... </h2>
-				<h4> Email: cjstudio@yeah.net</h4>
-	  		</div>
-	  		<div class="art_content"></div>
-		</div>
-	  	<div class="article">
-	  		<div class="art_title">Welcome to luv.cjstudio.org!</div>
-	  		<div class="art_summary">
-				<h3> Site Maintenance in Progress... </p>
-				<h2> Happy Thanksgiving Day...... </h2>
-				<h4> Email: cjstudio@yeah.net</h4>
-	  		</div>
-	  		<div class="art_content"></div>
+	<div class="colOne">
+		<div class="art_area">
+		  	<div class="article">
+		  		<div class="art_title">
+		  			<a href="#">一个被诅咒的IP</a>
+		  		</div>
+		  		<div class="art_time">2015年1月11日 22:17:44 &nbsp&nbsp
+		  			<span> 
+			  			<a href="#" class="art_label">网络</a>&nbsp
+			  			<a href="#" class="art_label">Ruby</a>&nbsp
+			  			<a href="#" class="art_label">Golang</a>&nbsp
+		  			</span>
+	  			</div>
+		  		<div class="art_content">
+		  			想必各位平时在用任何网络设备的时候，或多或少的都遇到过IP变成了169.254.x.x段IP的情况，这个网段的一个共同特点是无法连接到外网，如果你恰好用的是windows操作系统的话，这时会发现网络连接状态会有一个黄色的惊叹号弹出。这个网段的IP真的是被诅咒了吗？
+		  		</div>  		
+			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
 	<div id="colTwo">
 		<ul>
 			<li>
