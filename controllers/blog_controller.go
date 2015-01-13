@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"blog/models"
+	"encoding/base64"
 	"github.com/astaxie/beego"
 	"strconv"
+	"strings"
 )
 
 type BlogController struct {
@@ -25,6 +27,9 @@ func (this *BlogController) Get() {
 	if nil == b.ReadBlogByID(s) {
 		this.Data["ArticleTitle"] = b.Title
 		this.Data["ArticleContent"] = b.Content
+	} else {
+		this.checkError()
+		return
 	}
 	this.Data["PageTitle"] = wp.GetPageTitle()
 	this.Data["ImgHost"] = wp.GetImgHost()
@@ -48,9 +53,9 @@ func (this *BlogController) Post() {
 
 }
 
-// func decodeBase64(s string) string {
-// 	s = strings.Replace(s, "+", "-", -1)
-// 	s = strings.Replace(s, "/", "_", -1)
-// 	v, _ := base64.URLEncoding.DecodeString(s)
-// 	return string(v)
-// }
+func decodeBase64(s string) string {
+	s = strings.Replace(s, "+", "-", -1)
+	s = strings.Replace(s, "/", "_", -1)
+	v, _ := base64.URLEncoding.DecodeString(s)
+	return string(v)
+}

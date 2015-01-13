@@ -42,8 +42,8 @@
 		  			</span>
 	  			</div>
 		  		<div class="art_content">
-		  			<% .ArticleContent|DECODEBASE64 %>
-		  		</div>  		
+		  			<% str2html ( .ArticleContent|DECODEBASE64 ) %>
+		  		</div>  
 			</div>
 		</div>
 	</div>

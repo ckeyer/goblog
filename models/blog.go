@@ -223,7 +223,7 @@ func (this *Blog) ReadBlogByID(id_ string) error {
 	var updated string
 
 	if err := rows.Scan(&id, &title, &page, &author_id, &summary, &content, &status, &created, &updated); err == nil {
-		log.Println(id, title, page, author_id, summary, content, status, created, updated)
+		// log.Println(id, title, page, author_id, summary, content, status, created, updated)
 		this.ID = id
 		this.Title = title
 		this.Page = page
