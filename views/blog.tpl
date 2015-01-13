@@ -45,6 +45,12 @@
 		  			<% str2html ( .ArticleContent|DECODEBASE64 ) %>
 		  		</div>  
 			</div>
+			<div class="next_art">
+		  		<a href="/blog/<%  .Previous.ID%>" title="">上一篇：<%  .Previous.Title|DECODEBASE64  %></a>
+			</div>
+			<div class="next_art">
+		  		<a href="/blog/<%  .Next.ID%>" title="">下一篇：<%  .Next.Title|DECODEBASE64  %></a>
+			</div>
 		</div>
 	</div>
 	<div id="colTwo">

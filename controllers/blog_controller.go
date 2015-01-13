@@ -20,7 +20,7 @@ func (this *BlogController) Get() {
 	// this.Data["OneBlog"] = ms.ToMap()
 
 	s := this.Ctx.Input.Param(":key")
-	if _, err := strconv.Atoi(s); err != nil {
+	if i, err := strconv.Atoi(s); err != nil || i == 0 {
 		this.checkError()
 		return
 	}
@@ -29,11 +29,28 @@ func (this *BlogController) Get() {
 		this.Data["ArticleTitle"] = b.Title
 		this.Data["ArticleContent"] = b.Content
 
-		log.Println(b.Tags)
 		this.Data["Tags"] = b.Tags
 		this.Data["HotTags"] = b.GetHotTags()
-		for i, v := range b.GetHotTags() {
-			log.Println(i, v)
+
+		previous := b.GetPreviousBlog()
+		next := b.GetNextBlog()
+		if previous == nil {
+			previous = models.NewBlog()
+			// previous.ID = 0
+			previous.Title = "6L+Z5bey5piv5pyA5YmN5LiA56+H"
+		}
+		if next == nil {
+			next = models.NewBlog()
+			// next.ID = 0
+			next.Title = "6L+Z5bey5piv5pyA5ZCO5LiA56+H"
+		}
+
+		this.Data["Previous"] = previous
+		this.Data["Next"] = next
+
+		sssss := b.GetBlogsByTagId(2, 0, 5)
+		for _, v := range sssss {
+			log.Println(v.ID)
 		}
 	} else {
 		this.checkError()
@@ -46,19 +63,21 @@ func (this *BlogController) Get() {
 	this.TplNames = "blog.tpl"
 }
 func (this *BlogController) checkError() {
-	wp := models.NewWebPage("博客-Error")
-
-	// this.Data["OneBlog"] = ms.ToMap()
-
+	wp := models.NewWebPage("首页")
 	wp.IncrViewCount()
+
 	this.Data["PageTitle"] = wp.GetPageTitle()
 	this.Data["ImgHost"] = wp.GetImgHost()
 	this.Data["StaticHost"] = wp.GetStaticHost()
 
-	this.TplNames = "blog.tpl"
+	b := models.NewBlog()
+	this.Data["Blogs"] = b.GetBlogs(0, 5)
+	this.Data["HotTags"] = b.GetHotTags()
+
+	this.TplNames = "index.tpl"
 }
 func (this *BlogController) Post() {
-
+	log.Println("")
 }
 
 func decodeBase64(s string) string {
