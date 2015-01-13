@@ -36,9 +36,9 @@
 		  		</div>
 		  		<div class="art_time">2015年1月11日 22:17:44 &nbsp&nbsp
 		  			<span> 
-			  			<a href="#" class="art_label">网络</a>&nbsp
-			  			<a href="#" class="art_label">Ruby</a>&nbsp
-			  			<a href="#" class="art_label">Golang</a>&nbsp
+					<% range $index, $elem := .Tags %>
+			  			<a href="/tag/<%$elem.ID%>" class="art_label"><%$elem.Name%></a>&nbsp
+					<%end%>
 		  			</span>
 	  			</div>
 		  		<div class="art_content">
@@ -62,14 +62,9 @@
 			<li>
 				<h2>Categories</h2>
 				<ul>
-					<li><a href="#">Linux</a> (0)</li>
-					<li><a href="#">Network</a> (0)</li>
-					<li><a href="#">Ruby</a> (0)</li>
-					<li><a href="#">Golang</a> (0)</li>
-					<li><a href="#">Geek</a> (0)</li>
-					<li><a href="#">Algorithm</a> (0)</li>
-					<li><a href="#">Nam vel risus at</a> (0)</li>
-					<li><a href="#">Praesent sit amet</a> (0)</li>
+					<% range $index, $elem := .HotTags %>
+						<li><a href="/tag/<%$elem.ID%>" ><%$elem.Name%></a> (<%$elem.ArtCount%>)</li>
+					<%end%>
 				</ul>
 			</li>
 

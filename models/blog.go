@@ -11,6 +11,13 @@ import (
 	"strconv"
 )
 
+type Tag struct {
+	ID       int
+	Name     string
+	ParentID int
+
+	ArtCount int
+}
 type Blog struct {
 	ID          int
 	Title       string
@@ -22,12 +29,23 @@ type Blog struct {
 	CreatedTime string
 	UpdateTme   string
 
+	Tags []*Tag
+
 	db *sql.DB
 }
 
 func NewBlog() (b *Blog) {
 	b = &Blog{}
 	return b
+}
+func NewTag(id int, name string, parent_id int, art_count int) (tag *Tag) {
+	tag = &Tag{
+		ID:       id,
+		Name:     name,
+		ParentID: parent_id,
+		ArtCount: art_count,
+	}
+	return
 }
 func NewBlogByValue(id int, title string, page int, author_id int, content string, summary string, status int, created string, updated string) (b *Blog) {
 	b = &Blog{
@@ -164,7 +182,9 @@ func (this *Blog) GetBlogs(start, stop int) (bs []*Blog) {
 	for rows.Next() {
 		if err := rows.Scan(&id, &title, &page, &author_id, &summary, &content, &status, &created, &updated); err == nil {
 			// log.Println(id, title, page, author_id, summary, content, status, created, updated)
-			bs = append(bs, NewBlogByValue(id, title, page, author_id, summary, content, status, created, updated))
+			b := NewBlogByValue(id, title, page, author_id, summary, content, status, created, updated)
+			b.readTags()
+			bs = append(bs, b)
 			// log.Println(len(bs))
 		} else {
 			log.Println(err.Error())
@@ -236,5 +256,62 @@ func (this *Blog) ReadBlogByID(id_ string) error {
 	} else {
 		return err
 	}
+	if err := this.readTags(); err != nil {
+		return err
+	}
 	return nil
+}
+func (this *Blog) readTags() error {
+	this.connectDB()
+	defer this.close()
+	sqlStr := "select tb_tag.* from tb_art_tag,tb_tag where tb_tag.id=tb_art_tag.tag_id "
+
+	defer func() {
+		if e := recover(); e != nil {
+			log.Println("Error:", e)
+		}
+	}()
+	rows, err := this.db.Query(sqlStr+" and tb_art_tag.art_id=? ", strconv.Itoa(this.ID))
+	if err != nil {
+		return err
+	}
+	var id int
+	var parent_id int
+	var name string
+
+	for rows.Next() {
+		if err := rows.Scan(&id, &parent_id, &name); err == nil {
+			this.Tags = append(this.Tags, NewTag(id, name, parent_id, 0))
+		} else {
+			return err
+		}
+	}
+
+	return nil
+}
+func (this *Blog) GetHotTags() (ts []*Tag) {
+	this.connectDB()
+	defer this.close()
+	sqlStr := "select tb_tag.*, count(tb1.art_id) as count_art_id " +
+		"from tb_art_tag as tb1 , tb_tag where tb_tag.id = tb1.tag_id " +
+		"group by tb1.tag_id order by count_art_id desc limit 0,7"
+
+	rows, err := this.db.Query(sqlStr)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	var id int
+	var parent_id int
+	var name string
+	var count_art_id int
+
+	for rows.Next() {
+		if err := rows.Scan(&id, &parent_id, &name, &count_art_id); err == nil {
+			ts = append(ts, NewTag(id, name, parent_id, count_art_id))
+		} else {
+			log.Println(err.Error())
+		}
+	}
+	return
 }

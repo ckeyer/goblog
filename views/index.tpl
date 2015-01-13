@@ -15,14 +15,15 @@
 	<div id="logo">
 		<h1><img href="/" src="<% .ImgHost%>ckeyer.png" alt="ckeyer" /></h1>
 		<h2><a href="/">Man, I just luv technology...... </a></h2>
+		<!-- <h2><a href="/">O ever youthful, O ever weeping. </a></h2> -->
 	</div>
 	<div id="menu">
 		<ul>
-			<li class="first"><a href="/blog">My Blog</a></li>
-			<li><a href="/photo">My Photos</a></li>
-			<li><a href="/favorite">My Favorites</a></li>
-			<li><a href="/contact">Contact Me</a></li>
-			<li><a href="/about">About Me</a></li>
+			<li class="first"><a href="/blog">博  客</a></li>
+			<li><a href="/photo">相  册</a></li>
+			<li><a href="/favorite">聊  天</a></li>
+			<li><a href="/contact">留  言</a></li>
+			<li><a href="/about">关  于</a></li>
 			<li><a></a></li>
 		</ul>
 	</div>
@@ -38,9 +39,9 @@
 		  		</div>
 		  		<div class="art_time"><% $elem.CreatedTime %> &nbsp&nbsp
 		  			<span> 
-			  			<a href="#" class="art_label">网络</a>&nbsp
-			  			<a href="#" class="art_label">Ruby</a>&nbsp
-			  			<a href="#" class="art_label">Golang</a>&nbsp
+					<% range $ind, $ele := $elem.Tags %>
+						<a href="/tag/<%$ele.ID%>" class="art_label"><%$ele.Name%></a>&nbsp
+					<% end %>
 		  			</span>	
 	  			</div>
 		  		<div class="art_summary">
@@ -73,14 +74,9 @@
 			<li>
 				<h2>Categories</h2>
 				<ul>
-					<li><a href="#">Linux</a> (0)</li>
-					<li><a href="#">Network</a> (0)</li>
-					<li><a href="#">Ruby</a> (0)</li>
-					<li><a href="#">Golang</a> (0)</li>
-					<li><a href="#">Geek</a> (0)</li>
-					<li><a href="#">Algorithm</a> (0)</li>
-					<li><a href="#">Nam vel risus at</a> (0)</li>
-					<li><a href="#">Praesent sit amet</a> (0)</li>
+					<% range $index, $elem := .HotTags %>
+						<li><a href="/tag/<%$elem.ID%>" ><%$elem.Name%></a> (<%$elem.ArtCount%>)</li>
+					<%end%>
 				</ul>
 			</li>
 

@@ -4,6 +4,7 @@ import (
 	"blog/models"
 	"encoding/base64"
 	"github.com/astaxie/beego"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -27,6 +28,13 @@ func (this *BlogController) Get() {
 	if nil == b.ReadBlogByID(s) {
 		this.Data["ArticleTitle"] = b.Title
 		this.Data["ArticleContent"] = b.Content
+
+		log.Println(b.Tags)
+		this.Data["Tags"] = b.Tags
+		this.Data["HotTags"] = b.GetHotTags()
+		for i, v := range b.GetHotTags() {
+			log.Println(i, v)
+		}
 	} else {
 		this.checkError()
 		return
