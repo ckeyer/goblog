@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"blog/models"
 	_ "container/list"
 	"github.com/astaxie/beego"
+	"github.com/ckeyer/goblog/models"
 )
 
 type TestController struct {
