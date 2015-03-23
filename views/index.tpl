@@ -5,15 +5,15 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
-	<link href="<%.StaticHost%>css/default.css" rel="stylesheet" type="text/css" />
-	<link href="<%.StaticHost%>css/home.css" rel="stylesheet" type="text/css" />
-	<link rel="shortcut icon" href="<%.ImgHost%>i_logo1.png" >
+	<link href="<% CUSTOM_URL_CSS%>default.css" rel="stylesheet" type="text/css" />
+	<link href="<% CUSTOM_URL_CSS%>home.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
 	<title><% .PageTitle %></title>
 </head>
 <body>
 <div id="header">
 	<div id="logo">
-		<h1><img href="/" src="<% .ImgHost%>ckeyer.png" alt="ckeyer" /></h1>
+		<h1><img href="/" src="<%STATIC_URL_IMG%>ckeyer.png" alt="ckeyer" /></h1>
 		<h2><a href="/">Man, I just luv technology...... </a></h2>
 		<!-- <h2><a href="/">O ever youthful, O ever weeping. </a></h2> -->
 	</div>
