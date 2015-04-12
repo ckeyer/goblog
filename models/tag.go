@@ -22,6 +22,6 @@ func GetTagByBlogId(blog_id int) *Tag {
 	return &Tag{}
 }
 
-func (this *Tag) name() {
+func (this *Tag) GetAllByName() {
 
 }

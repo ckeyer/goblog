@@ -11,13 +11,6 @@ import (
 	"strconv"
 )
 
-type Tag struct {
-	ID       int
-	Name     string
-	ParentID int
-
-	ArtCount int
-}
 type Blog struct {
 	ID          int
 	Title       string
