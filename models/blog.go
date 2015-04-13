@@ -3,28 +3,26 @@ package models
 import (
 	"container/list"
 	"database/sql"
-	// "errors"
-	// "fmt"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"strconv"
+	"time"
 )
 
 type Blog struct {
-	ID          int
-	Title       string
-	Page        int
-	AuthorID    int
-	Summary     string
-	Content     string
-	Status      int
-	CreatedTime string
-	UpdateTme   string
+	ID       int
+	Title    string
+	Page     int
+	AuthorID int
+	Summary  string
+	Content  string
+	Status   int
+	Created  time.Time `orm:"auto_now_add;type(datetime)"`
+	Updated  time.Time `orm:"auto_now;type(datetime)"`
 
 	Tags []*Tag
-
-	db *sql.DB
 }
 
 func NewBlog() (b *Blog) {
@@ -40,7 +38,7 @@ func NewTag(id int, name string, parent_id int, art_count int) (tag *Tag) {
 	}
 	return
 }
-func NewBlogByValue(id int, title string, page int, author_id int, content string, summary string, status int, created string, updated string) (b *Blog) {
+func NewBlogByValue(id int, title string, page int, author_id int, content string, summary string, status int) (b *Blog) {
 	b = &Blog{
 		ID:          id,
 		Title:       title,
@@ -49,8 +47,8 @@ func NewBlogByValue(id int, title string, page int, author_id int, content strin
 		Summary:     summary,
 		Content:     content,
 		Status:      status,
-		CreatedTime: created,
-		UpdateTme:   updated,
+		CreatedTime: time.Now(),
+		UpdateTme:   time.Now(),
 	}
 	return b
 }
@@ -82,8 +80,8 @@ func (this *Blog) ToMap() map[string]string {
 	bm["author_id"] = strconv.Itoa(this.AuthorID)
 	bm["content"] = this.Content
 	bm["status"] = strconv.Itoa(this.Status)
-	bm["created"] = this.CreatedTime
-	bm["updated"] = this.UpdateTme
+	bm["created"] = this.CreatedTime.String()
+	bm["updated"] = this.UpdateTme.String()
 	return bm
 }
 func (this *Blog) ToJSON() (s string) {
