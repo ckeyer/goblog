@@ -3,9 +3,7 @@
 
 package models
 
-import (
-	"log"
-)
+import ()
 
 type Tag struct {
 	Id       int

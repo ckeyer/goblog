@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
-	"log"
 	"strconv"
 )
 
@@ -27,12 +26,6 @@ func (this *ManageController) Get() {
 		this.Data["ArticleTitle"] = b.Title
 		this.Data["ArticleContent"] = b.Content
 
-		log.Println(b.Tags)
-		this.Data["Tags"] = b.Tags
-		this.Data["HotTags"] = b.GetHotTags()
-		for i, v := range b.GetHotTags() {
-			log.Println(i, v)
-		}
 	} else {
 		this.checkError()
 		return

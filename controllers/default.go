@@ -20,7 +20,7 @@ func (this *MainController) Get() {
 
 	b := models.NewBlog()
 	this.Data["Blogs"] = b.GetBlogs(0, 5)
-	this.Data["HotTags"] = b.GetHotTags()
+	// this.Data["HotTags"] = b.GetHotTags()
 
 	this.TplNames = "index.tpl"
 }

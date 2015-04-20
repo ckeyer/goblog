@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"encoding/base64"
+	// "encoding/base64"
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
 	"log"
 	"strconv"
-	"strings"
+	// "strings"
 )
 
 type BlogController struct {
@@ -30,7 +30,6 @@ func (this *BlogController) Get() {
 		this.Data["ArticleContent"] = b.Content
 
 		this.Data["Tags"] = b.Tags
-		this.Data["HotTags"] = b.GetHotTags()
 
 		previous := b.GetPreviousBlog()
 		next := b.GetNextBlog()
@@ -48,10 +47,7 @@ func (this *BlogController) Get() {
 		this.Data["Previous"] = previous
 		this.Data["Next"] = next
 
-		sssss := b.GetBlogsByTagId(2, 0, 5)
-		for _, v := range sssss {
-			log.Println(v.ID)
-		}
+		// sssss := b.GetBlogsByTagId(2, 0, 5)
 	} else {
 		this.checkError()
 		return
@@ -72,7 +68,6 @@ func (this *BlogController) checkError() {
 
 	b := models.NewBlog()
 	this.Data["Blogs"] = b.GetBlogs(0, 5)
-	this.Data["HotTags"] = b.GetHotTags()
 
 	this.TplNames = "index.tpl"
 }
@@ -80,9 +75,9 @@ func (this *BlogController) Post() {
 	log.Println("")
 }
 
-func decodeBase64(s string) string {
-	s = strings.Replace(s, "+", "-", -1)
-	s = strings.Replace(s, "/", "_", -1)
-	v, _ := base64.URLEncoding.DecodeString(s)
-	return string(v)
-}
+// func decodeBase64(s string) string {
+// 	s = strings.Replace(s, "+", "-", -1)
+// 	s = strings.Replace(s, "/", "_", -1)
+// 	v, _ := base64.URLEncoding.DecodeString(s)
+// 	return string(v)
+// }

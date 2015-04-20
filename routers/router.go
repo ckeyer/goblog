@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"blog/controllers"
 	"github.com/astaxie/beego"
+	"github.com/ckeyer/goblog/controllers"
 )
 
 func init() {
@@ -13,5 +13,6 @@ func init() {
 
 	beego.Router("/tag", &controllers.TagController{})
 	beego.Router("/tag/:key", &controllers.TagController{})
+
 	beego.Router("/test", &controllers.TestController{})
 }

@@ -29,8 +29,8 @@ func (this *TagController) Get() {
 		this.Data["ArticleTitle"] = b.Title
 		this.Data["ArticleContent"] = b.Content
 
-		this.Data["Tags"] = b.Tags
-		this.Data["HotTags"] = b.GetHotTags()
+		// this.Data["Tags"] = b.Tags
+		// this.Data["HotTags"] = b.GetHotTags()
 
 		previous := b.GetPreviousBlog()
 		next := b.GetNextBlog()
@@ -50,7 +50,7 @@ func (this *TagController) Get() {
 
 		sssss := b.GetBlogsByTagId(2, 0, 5)
 		for _, v := range sssss {
-			log.Println(v.ID)
+			log.Println(v.Id)
 		}
 	} else {
 		this.checkError()
@@ -72,13 +72,14 @@ func (this *TagController) checkError() {
 
 	b := models.NewBlog()
 	this.Data["Blogs"] = b.GetBlogs(0, 5)
-	this.Data["HotTags"] = b.GetHotTags()
+	// this.Data["HotTags"] = b.GetHotTags()
 
 	this.TplNames = "index.tpl"
 }
-func (this *TagController) Post() {
-	log.Println("")
-}
+
+// func (this *TagController) Post() {
+// 	log.Println("")
+// }
 
 func decodeBase64(s string) string {
 	s = strings.Replace(s, "+", "-", -1)
