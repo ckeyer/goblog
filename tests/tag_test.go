@@ -1,38 +1,41 @@
-// package test
+package test
 
-// import (
-// 	"github.com/ckeyer/goblog/models"
-// 	_ "github.com/ckeyer/goblog/routers"
-// 	"net/http"
-// 	"net/http/httptest"
-// 	"path/filepath"
-// 	"runtime"
-// 	"testing"
+import (
+	"github.com/ckeyer/goblog/models"
+	. "github.com/smartystreets/goconvey/convey"
+	"testing"
+)
 
-// 	"github.com/astaxie/beego"
-// 	. "github.com/smartystreets/goconvey/convey"
-// )
+func init() {
+	models.RegistDB()
 
-// func init() {
-// 	_, file, _, _ := runtime.Caller(1)
-// 	apppath, _ := filepath.Abs(filepath.Dir(filepath.Join(file, ".."+string(filepath.Separator))))
-// 	beego.TestBeegoInit(apppath)
-// }
+}
 
-// // TestMain is a sample to run an endpoint test
-// func TestMain(t *testing.T) {
-// 	r, _ := http.NewRequest("GET", "/", nil)
-// 	w := httptest.NewRecorder()
-// 	beego.BeeApp.Handlers.ServeHTTP(w, r)
-
-// 	beego.Trace("testing", "TestMain", "Code[%d]\n%s", w.Code, w.Body.String())
-
-// 	Convey("Subject: Test Station Endpoint\n", t, func() {
-// 		Convey("Status Code Should Be 200", func() {
-// 			So(w.Code, ShouldEqual, 200)
-// 		})
-// 		Convey("The Result Should Not Be Empty", func() {
-// 			So(w.Body.Len(), ShouldBeGreaterThan, 0)
-// 		})
-// 	})
-// }
+func TestTag(t *testing.T) {
+	Convey("should be test add tag", t, func() {
+		tag := models.NewTag("TEST", -1)
+		Convey("`tag` should not be nil", func() {
+			So(tag, ShouldNotBeNil)
+		})
+		Convey("insert tag to database", func() {
+			b := tag.Insert()
+			So(b, ShouldEqual, true)
+		})
+		Convey("update tag to database", func() {
+			b := tag.Update("Test", -2)
+			So(b, ShouldEqual, true)
+		})
+		Convey("get tag by id", func() {
+			_, e := models.GetTagById(tag.Id)
+			So(e, ShouldEqual, nil)
+		})
+		Convey("delete tag to database", func() {
+			b := tag.Delete()
+			So(b, ShouldEqual, true)
+		})
+		// Convey("find tag by tagname", func() {
+		// 	_, e := models.FindUserByName("sllt")
+		// 	So(e, ShouldEqual, nil)
+		// })
+	})
+}
