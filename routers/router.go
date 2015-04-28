@@ -8,6 +8,8 @@ import (
 func init() {
 	beego.Router("/", &controllers.MainController{})
 
+	beego.Router("/article_:id([0-9]+).html", &controllers.BlogController{})
+
 	beego.Router("/blog", &controllers.BlogController{})
 	beego.Router("/blog/:key", &controllers.BlogController{})
 

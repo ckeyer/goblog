@@ -19,8 +19,7 @@ type Blog struct {
 	Status   int
 	Created  time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated  time.Time `orm:"auto_now;type(datetime)"`
-
-	Tags []*Tag
+	Tags     []*Tag    `orm:"rel(m2m)"`
 }
 
 func NewBlog() (b *Blog) {

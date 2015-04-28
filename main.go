@@ -3,13 +3,18 @@ package main
 import (
 	"encoding/base64"
 	"github.com/astaxie/beego"
+	"github.com/ckeyer/goblog/models"
 	_ "github.com/ckeyer/goblog/routers"
 	"strings"
 )
 
 func main() {
 	config_init()
+	db_init()
 	beego.Run()
+}
+func db_init() {
+	models.RegistDB()
 }
 func config_init() {
 	beego.TemplateLeft = "<%"

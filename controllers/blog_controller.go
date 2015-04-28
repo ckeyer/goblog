@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
 	"log"
-	"strconv"
+	// "strconv"
 	// "strings"
 )
 
@@ -19,39 +19,39 @@ func (this *BlogController) Get() {
 
 	// this.Data["OneBlog"] = ms.ToMap()
 
-	s := this.Ctx.Input.Param(":key")
-	if i, err := strconv.Atoi(s); err != nil || i == 0 {
-		this.checkError()
-		return
-	}
-	b := models.NewBlog()
-	if nil == b.ReadBlogByID(s) {
-		this.Data["ArticleTitle"] = b.Title
-		this.Data["ArticleContent"] = b.Content
+	// s := this.Ctx.Input.Param(":key")
+	// if i, err := strconv.Atoi(s); err != nil || i == 0 {
+	// 	this.checkError()
+	// 	return
+	// }
+	// b := models.NewBlog()
+	// if nil == b.ReadBlogByID(s) {
+	// 	this.Data["ArticleTitle"] = b.Title
+	// 	this.Data["ArticleContent"] = b.Content
 
-		this.Data["Tags"] = b.Tags
+	// 	// this.Data["Tags"] = b.Tags
 
-		previous := b.GetPreviousBlog()
-		next := b.GetNextBlog()
-		if previous == nil {
-			previous = models.NewBlog()
-			// previous.ID = 0
-			previous.Title = "6L+Z5bey5piv5pyA5YmN5LiA56+H"
-		}
-		if next == nil {
-			next = models.NewBlog()
-			// next.ID = 0
-			next.Title = "6L+Z5bey5piv5pyA5ZCO5LiA56+H"
-		}
+	// 	previous := b.GetPreviousBlog()
+	// 	next := b.GetNextBlog()
+	// 	if previous == nil {
+	// 		previous = models.NewBlog()
+	// 		// previous.ID = 0
+	// 		previous.Title = "6L+Z5bey5piv5pyA5YmN5LiA56+H"
+	// 	}
+	// 	if next == nil {
+	// 		next = models.NewBlog()
+	// 		// next.ID = 0
+	// 		next.Title = "6L+Z5bey5piv5pyA5ZCO5LiA56+H"
+	// 	}
 
-		this.Data["Previous"] = previous
-		this.Data["Next"] = next
+	// 	this.Data["Previous"] = previous
+	// 	this.Data["Next"] = next
 
-		// sssss := b.GetBlogsByTagId(2, 0, 5)
-	} else {
-		this.checkError()
-		return
-	}
+	// 	// sssss := b.GetBlogsByTagId(2, 0, 5)
+	// } else {
+	// 	this.checkError()
+	// 	return
+	// }
 	this.Data["PageTitle"] = wp.GetPageTitle()
 	this.Data["ImgHost"] = wp.GetImgHost()
 	this.Data["StaticHost"] = wp.GetStaticHost()
