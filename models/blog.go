@@ -3,32 +3,30 @@ package models
 import (
 	"container/list"
 	// "github.com/astaxie/beego"
-	// "github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	// "strconv"
 	"time"
 )
 
 type Blog struct {
-	Id       int
+	Id       int64
 	Title    string
 	Page     int
 	AuthorId int
 	Summary  string
 	Content  string
 	Status   int
-	Created  time.Time `orm:"auto_now_add;type(datetime)"`
-	Updated  time.Time `orm:"auto_now;type(datetime)"`
-	Tags     []*Tag    `orm:"rel(m2m)"`
+	Source   string `orm:"null "`
+
+	Tags []*Tag `orm:"rel(m2m)"`
+
+	Created time.Time `orm:"auto_now_add;type(datetime)"`
+	Updated time.Time `orm:"auto_now;type(datetime)"`
 }
 
-func NewBlog() (b *Blog) {
-	b = &Blog{}
-	return b
-}
-func NewBlogByValue(id int, title string, page int, author_id int, content string, summary string, status int) (b *Blog) {
+func NewBlogByValue(title string, page int, author_id int, content string, summary string, status int) (b *Blog) {
 	b = &Blog{
-		Id:       id,
 		Title:    title,
 		Page:     page,
 		AuthorId: author_id,
@@ -36,10 +34,44 @@ func NewBlogByValue(id int, title string, page int, author_id int, content strin
 		Content:  content,
 		Status:   status,
 	}
+	o := orm.NewOrm()
+
+	id, err := o.Insert(b)
+	if err == nil {
+		b.Id = id
+	}
 	return b
 }
-func (this *Blog) insertToDB() {
 
+func GetBlogById(id int64) (b *Blog, err error) {
+	o := orm.NewOrm()
+	b = &Blog{Id: id}
+
+	err = o.Read(b)
+	return
+}
+func (this *Blog) Update(title string, page int, author_id int, content string, summary string, status int) bool {
+	this.Title = title
+	this.Page = page
+	this.AuthorId = author_id
+	this.Summary = summary
+	this.Content = content
+	this.Status = status
+
+	o := orm.NewOrm()
+	if o.Read(this) == nil {
+		if _, err := o.Update(&this); err == nil {
+			return true
+		}
+	}
+	return false
+}
+func (this *Blog) Delete() bool {
+	o := orm.NewOrm()
+	if _, err := o.Delete(this); err == nil {
+		return true
+	}
+	return false
 }
 
 func (this *Blog) ToMap() map[string]string {
@@ -119,10 +151,22 @@ func (this *Blog) ReadBlogByID(id_ string) error {
 // 	}
 // 	return
 // }
-func (this *Blog) GetNextBlog() (b *Blog) {
+func (this *Blog) GetNextBlog() (b *Blog, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(b)
+	qs.Filter("blog__id__lt", this.Id)
+	qs.Limit(1)
+	qs.OrderBy("-blog__id")
+	// ORDER BY id ASC, profile.age DESC
+	err = qs.One(b)
 	return
 }
-func (this *Blog) GetPreviousBlog() (b *Blog) {
+func (this *Blog) GetPreviousBlog() (b *Blog, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(b)
+	qs.Filter("blog__id__gt", this.Id)
+	qs.Limit(1)
+	err = qs.One(b)
 	return
 }
 

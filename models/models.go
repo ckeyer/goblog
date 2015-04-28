@@ -12,9 +12,10 @@ func RegistDB() {
 	orm.RegisterDataBase("default", "mysql", db_str)
 	orm.SetMaxIdleConns("default", 10)
 
-	orm.RegisterModelWithPrefix("tb_", new(Blog))
-	orm.RegisterModelWithPrefix("tb_", new(Tag))
-	orm.RegisterModelWithPrefix("tb_", new(Review))
+	// orm.RegisterModelWithPrefix("tb_", new(Blog))
+	// orm.RegisterModelWithPrefix("tb_", new(Tag))
+	// orm.RegisterModelWithPrefix("tb_", new(Review))
+	orm.RegisterModel(new(Blog), new(Tag), new(Review))
 
 	//start ORM debug
 	orm.Debug = true

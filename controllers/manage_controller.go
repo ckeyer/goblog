@@ -21,7 +21,7 @@ func (this *ManageController) Get() {
 		this.checkError()
 		return
 	}
-	b := models.NewBlog()
+	b, _ := models.GetBlogById(1)
 	if nil == b.ReadBlogByID(s) {
 		this.Data["ArticleTitle"] = b.Title
 		this.Data["ArticleContent"] = b.Content

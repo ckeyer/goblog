@@ -66,8 +66,8 @@ func (this *BlogController) checkError() {
 	this.Data["ImgHost"] = wp.GetImgHost()
 	this.Data["StaticHost"] = wp.GetStaticHost()
 
-	b := models.NewBlog()
-	this.Data["Blogs"] = b.GetBlogs(0, 5)
+	// b := models.NewBlog()
+	// this.Data["Blogs"] = b.GetBlogs(0, 5)
 
 	this.TplNames = "index.tpl"
 }
