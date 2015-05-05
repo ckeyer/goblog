@@ -2,45 +2,22 @@ package models
 
 import (
 	"container/list"
-	// "github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	_ "github.com/go-sql-driver/mysql"
-	// "strconv"
 	"time"
 )
 
 type Blog struct {
-	Id       int64
-	Title    string
-	Page     int
-	AuthorId int
-	Summary  string
-	Content  string
-	Status   int
-	Source   string `orm:"null "`
+	Id      int64
+	Title   string
+	Page    int `orm:"default(0)"`
+	Summary string
+	Content string
+	Status  int `orm:"default(0)"`
 
 	Tags []*Tag `orm:"rel(m2m)"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
-}
-
-func NewBlogByValue(title string, page int, author_id int, content string, summary string, status int) (b *Blog) {
-	b = &Blog{
-		Title:    title,
-		Page:     page,
-		AuthorId: author_id,
-		Summary:  summary,
-		Content:  content,
-		Status:   status,
-	}
-	o := orm.NewOrm()
-
-	id, err := o.Insert(b)
-	if err == nil {
-		b.Id = id
-	}
-	return b
 }
 
 func GetBlogById(id int64) (b *Blog, err error) {
@@ -50,28 +27,39 @@ func GetBlogById(id int64) (b *Blog, err error) {
 	err = o.Read(b)
 	return
 }
-func (this *Blog) Update(title string, page int, author_id int, content string, summary string, status int) bool {
-	this.Title = title
-	this.Page = page
-	this.AuthorId = author_id
-	this.Summary = summary
-	this.Content = content
-	this.Status = status
-
-	o := orm.NewOrm()
-	if o.Read(this) == nil {
-		if _, err := o.Update(&this); err == nil {
-			return true
-		}
-	}
-	return false
+func NewBlog() *Blog {
+	return &Blog{}
 }
-func (this *Blog) Delete() bool {
-	o := orm.NewOrm()
-	if _, err := o.Delete(this); err == nil {
-		return true
+func NewBlogByValue(title string, content string, summary string) (b *Blog) {
+	b = &Blog{
+		Title:   title,
+		Summary: summary,
+		Content: content,
 	}
-	return false
+	return b
+}
+func (this *Blog) Insert() error {
+	o := orm.NewOrm()
+
+	id, err := o.Insert(this)
+	if err == nil {
+		this.Id = id
+	}
+	return err
+}
+
+func (this *Blog) Update() error {
+	o := orm.NewOrm()
+	_, err := o.Update(this)
+	return err
+}
+func (this *Blog) Delete() error {
+	o := orm.NewOrm()
+	_, err := o.Delete(this)
+	return err
+}
+func (this *Blog) AddTag(t *Tag) {
+	this.Tags = append(this.Tags, t)
 }
 
 func (this *Blog) ToMap() map[string]string {

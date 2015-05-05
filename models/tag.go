@@ -25,37 +25,27 @@ func NewTag(name string, parent int) *Tag {
 func GetTagById(id int64) (tag *Tag, err error) {
 	o := orm.NewOrm()
 	tag = &Tag{Id: id}
-
 	err = o.Read(tag)
-
 	return
 }
-func (this *Tag) Insert() bool {
+func (this *Tag) Insert() error {
 	o := orm.NewOrm()
 
 	id, err := o.Insert(this)
 	if err == nil {
 		this.Id = id
-		return true
 	}
-	return false
+	return err
 }
-func (this *Tag) Update(name string, parent int) bool {
+func (this *Tag) Update() error {
 	o := orm.NewOrm()
-	this.Name = name
-	this.ParentId = parent
-	if _, err := o.Update(this); err == nil {
-		return true
-	}
-	return false
+	_, err := o.Update(this)
+	return err
 }
-
-func (this *Tag) Delete() bool {
+func (this *Tag) Delete() error {
 	o := orm.NewOrm()
-	if _, err := o.Delete(this); err == nil {
-		return true
-	}
-	return false
+	_, err := o.Delete(this)
+	return err
 }
 func GetTagByBlogId(blog_id int) *Tag {
 	return &Tag{}
