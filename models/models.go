@@ -4,8 +4,18 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/hoisie/redis"
+	logpkg "log"
+	"os"
 )
 
+var rc redis.Client
+var log *logpkg.Logger
+
+func init() {
+	rc.Addr = beego.AppConfig.String("redis_addr")
+	log = logpkg.New(os.Stderr, "model", logpkg.Ltime|logpkg.Llongfile)
+}
 func RegistDB() {
 
 	db_str := beego.AppConfig.String("sql_conn_str")

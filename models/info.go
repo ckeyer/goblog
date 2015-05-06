@@ -16,8 +16,8 @@ type WebPage struct {
 func NewWebPage(name string) (w *WebPage) {
 	w = &WebPage{}
 	w.Name = name
+	w.rc = rc
 
-	w.rc.Addr = beego.AppConfig.String("redis_addr")
 	if "none" != name {
 		w.rc.Sadd("WebPages", []byte(strings.ToUpper(w.Name)))
 	}

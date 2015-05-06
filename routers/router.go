@@ -16,5 +16,7 @@ func init() {
 	beego.Router("/tag", &controllers.TagController{})
 	beego.Router("/tag/:key", &controllers.TagController{})
 
+	beego.Router("/matrix", &controllers.MatrixController{})
+
 	beego.Router("/test", &controllers.TestController{})
 }

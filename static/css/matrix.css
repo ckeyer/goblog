@@ -1,0 +1,19 @@
+body {
+	text-align: center;
+}
+#matrix_content{
+	position:absolute;
+	width: 753px;
+	height: 180px;
+	/*background-color: #eeeeee;*/
+}
+.matrix_li{
+	clear:both;
+}
+.matrix_cell{
+	float:left;
+	width: 20px;
+	height: 20px;
+	background-color: #ff0000;
+	margin: 2.5px;
+}

@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"container/list"
 	"io"
-	"log"
 	"net/websocket"
 	"strconv"
 )

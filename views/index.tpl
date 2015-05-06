@@ -30,7 +30,6 @@
 </div>
 <div id="content">
 	<div class="colOne">
-
 		<% range $index, $elem := .Blogs %>
 		<div class="art_area" id="art_content_<% $index %>">
 		  	<div class="article" id="article_<% $index %>">
