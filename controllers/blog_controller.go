@@ -4,7 +4,7 @@ import (
 	// "encoding/base64"
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
-	"log"
+	// "log"
 	// "strconv"
 	// "strings"
 )

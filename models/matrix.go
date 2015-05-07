@@ -57,7 +57,7 @@ func getAllToArray() (vals *MatrixArray, err error) {
 	}
 	return
 }
-func UpdateMatrix(h, w, v int) (bool, error) {
+func UpdateMatrix(h, w int) (bool, error) {
 	bs, _ := rc.Hget(key_matrix, fmt.Sprintf("%d_%d", h, w))
 	count, _ := strconv.Atoi(fmt.Sprintf("%s", bs))
 	return rc.Hset(key_matrix, fmt.Sprintf("%d_%d", h, w), []byte(strconv.Itoa(count+1)))

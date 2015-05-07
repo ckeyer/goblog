@@ -4,7 +4,15 @@ import (
 	_ "container/list"
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
+	logpkg "log"
+	"os"
 )
+
+var log *logpkg.Logger
+
+func init() {
+	log = logpkg.New(os.Stderr, "controller", logpkg.Ltime|logpkg.Llongfile)
+}
 
 type MainController struct {
 	beego.Controller

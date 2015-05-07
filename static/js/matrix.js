@@ -43,8 +43,6 @@ function clickMatrixCell(event){
 	var c = parseInt($(this).attr("color_id"));
 	console.log( (h+1) +", "+(w+1)+", "+(c));
 	var new_c = (c+1)%5;
-	// $(this).attr('color_id', new_c);
-	// $(this).css("background-color", mColor[new_c]);
 	updateMatrixColor(h,w,new_c);
 
 	$.ajax({

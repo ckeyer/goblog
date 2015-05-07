@@ -6,7 +6,6 @@ import (
 	"github.com/ckeyer/goblog/models"
 	"golang.org/x/net/websocket"
 	"io"
-	"log"
 	"strconv"
 )
 

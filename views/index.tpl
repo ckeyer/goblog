@@ -29,6 +29,7 @@
 	</div>
 </div>
 <div id="content">
+	<div id="matrix_content"></div>
 	<div class="colOne">
 		<% range $index, $elem := .Blogs %>
 		<div class="art_area" id="art_content_<% $index %>">
@@ -97,5 +98,7 @@
 <div id="footer"><br>
 	<p>Copyright &copy; 2014 lab204. Designed by <a href="#"><strong>Lab204-CJStudio</strong></a></p>
 </div>
+<script type="text/javascript" src="<% STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="<% STATIC_URL_JS %>matrix.js"></script>
 </body>
 </html>
