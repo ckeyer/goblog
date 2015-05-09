@@ -11,7 +11,7 @@ import (
 var log *logpkg.Logger
 
 func init() {
-	log = logpkg.New(os.Stderr, "controller", logpkg.Ltime|logpkg.Llongfile)
+	log = logpkg.New(os.Stderr, "controller", logpkg.Ltime|logpkg.Lshortfile)
 }
 
 type MainController struct {

@@ -1,11 +1,15 @@
 body {
 	text-align: center;
+	background-color: #f99;
 }
 #matrix_content{
 	position:absolute;
-	width: 753px;
-	height: 180px;
-	/*background-color: #eeeeee;*/
+	/*width: 753px;*/
+	/*height: 180px;*/
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	text-align: center;
 }
 .matrix_li{
 	clear:both;
@@ -15,5 +19,15 @@ body {
 	width: 20px;
 	height: 20px;
 	background-color: #ff0000;
-	margin: 2.5px;
+	margin: 2px;
+
+	/*设置onmouseover事件*/
+	 onmouseover: expression(onmouseover=function (){
+	 this.style.backgroundColor='#f00';
+	 });
+
+	 /*设置onmouseout事件*/
+	 onmouseout: expression(onmouseout=function (){
+	 this.style.borderColor="#0f0";
+	 });
 }

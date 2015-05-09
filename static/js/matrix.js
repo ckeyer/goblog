@@ -1,7 +1,8 @@
 var mColor = new Array("#eee","#d6e685","#8cc665","#44a340","#1e6823");
-var server_url = "http://127.0.0.1:8080/matrix";
+var server_url = window.location.protocol+"//"+window.location.host +"/matrix";
 var MATRIX_H = 7,MATRIX_W = 30;
 $(document).ready(function() {
+	console.log(server_url);
 	for (var i = 0; i < MATRIX_H; i++) {
 		var divout= $('<div class="matrix_li" id="matrix_li_'+i+'" ></div>');
 		for (var j = 0; j < MATRIX_W; j++) {
@@ -25,11 +26,9 @@ $(document).ready(function() {
 });
 function clearMatrixAll(data){
 	for (var i = 0; i < MATRIX_H; i++) {
-		var divout= $('<div class="matrix_li" id="matrix_li_'+i+'" ></div>');
 		for (var j = 0; j < MATRIX_W; j++) {
 			updateMatrixColor(i,j,data[i][j]);
 		};
-		$("#matrix_content").append(divout);
 	};
 }
 function updateMatrixColor(h,w,c){

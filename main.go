@@ -4,14 +4,23 @@ import (
 	"encoding/base64"
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
-	_ "github.com/ckeyer/goblog/routers"
+	"github.com/ckeyer/goblog/routers"
 	"strings"
 )
 
 func main() {
 	config_init()
 	db_init()
+	https_init()
+	routers.Error_init()
 	beego.Run()
+}
+
+func https_init() {
+	beego.EnableHttpTLS = true
+	// beego.HttpsPort = 443
+	beego.HttpCertFile = "conf/https/cert.pem"
+	beego.HttpKeyFile = "conf/https/key.pem"
 }
 func db_init() {
 	models.RegistDB()

@@ -19,4 +19,5 @@ func init() {
 	beego.Router("/matrix", &controllers.MatrixController{})
 
 	beego.Router("/test", &controllers.TestController{})
+
 }
