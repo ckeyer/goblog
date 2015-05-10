@@ -29,6 +29,7 @@ func initMatrixRedis() {
 			rc.Hset(key_matrix, fmt.Sprintf("%d_%d", i, j), []byte(fmt.Sprint((i+j)%5)))
 		}
 	}
+	log.Println("Redis Init Matrix Success.")
 }
 func GetAllMatrix() (vals *MatrixArray, err error) {
 	var b bool
