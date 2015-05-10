@@ -50,6 +50,7 @@ func getAllToArray() (vals *MatrixArray, err error) {
 			b, err = rc.Hget(key_matrix, fmt.Sprintf("%d_%d", i, j))
 			if err != nil {
 				log.Println("error hget ", key_matrix, err.Error())
+				initMatrixRedis()
 				return
 			}
 			v, _ := strconv.Atoi(fmt.Sprintf("%s", b))
