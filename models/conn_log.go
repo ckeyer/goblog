@@ -9,13 +9,14 @@ import (
 
 type ConnLog struct {
 	Id       int64
+	IpInt    uint32 `orm:"default(0)"`
+	Ip       string `orm:"size(15)"`
+	Uri      string `orm:"size(32)"`
+	Method   string `orm:"size(8)"`
+	Status   int
 	Domain   string    `orm:"size(16)"`
 	Host     string    `orm:"size(16)"`
-	Uri      string    `orm:"size(32)"`
-	Ip       string    `orm:"size(15)"`
-	IpInt    uint32    `orm:"default(0)"`
 	Scheme   string    `orm:"size(6)"`
-	Method   string    `orm:"size(8)"`
 	Protocol string    `orm:"size(16)"`
 	DateTime time.Time `orm:"auto_now_add;type(datetime)"`
 }

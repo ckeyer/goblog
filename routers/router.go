@@ -10,12 +10,13 @@ import (
 func init() {
 	ns := beego.NewNamespace("/v1",
 		beego.NSBefore(resource_init),
+		beego.NSAfter(log_info),
 		beego.NSRouter("/test", &controllers.TestController{}),
 		beego.NSRouter("/", &controllers.MainController{}),
 		beego.NSRouter("/matrix", &controllers.MatrixController{}),
 		beego.NSNamespace("/blog",
-			beego.NSRouter("/", &controllers.BlogController{}),
-			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}),
+			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowList"),
+			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:ShowBlog"),
 		),
 		beego.NSNamespace("/tag",
 			beego.NSRouter("/", &controllers.TagController{}),
@@ -32,6 +33,10 @@ func init() {
 			return false
 		}),
 		beego.NSRouter("/", &controllers.MainController{}),
+		beego.NSNamespace("/blog",
+			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowEditList"),
+			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:EditBlog"),
+		),
 		beego.NSRouter("/test", &controllers.TestController{}),
 	)
 	beego.AddNamespace(ns)
@@ -48,6 +53,9 @@ func resource_init(ctx *context.Context) {
 		ctx.Output.Session("STATIC_URL_CSS", beego.AppConfig.String("static_url_css"))
 		ctx.Output.Session("STATIC_URL_IMG", beego.AppConfig.String("static_url_img"))
 	}
+}
+func log_info(ctx *context.Context) {
+
 	connlog := &models.ConnLog{
 		Domain:   ctx.Input.Domain(),
 		Host:     ctx.Input.Host(),
@@ -56,7 +64,10 @@ func resource_init(ctx *context.Context) {
 		Scheme:   ctx.Input.Scheme(),
 		Method:   ctx.Input.Method(),
 		Protocol: ctx.Input.Protocol(),
+		Status:   ctx.Output.Status,
 	}
+	println(ctx.Input.Site())
+	println(ctx.Input.SubDomains())
 	err := connlog.Insert()
 	if err != nil {
 		println(err.Error())

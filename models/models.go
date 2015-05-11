@@ -30,7 +30,7 @@ func RegistDB() {
 	//start ORM debug
 	orm.Debug = false
 	//create table
-	force := false
+	force := true
 	verbose := true
 	orm.RunSyncdb("default", force, verbose)
 }
