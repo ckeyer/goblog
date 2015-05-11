@@ -7,7 +7,7 @@
 	<meta name="description" content="" />
 	<link href="<% CUSTOM_URL_CSS%>default.css" rel="stylesheet" type="text/css" />
 	<link href="<% CUSTOM_URL_CSS%>home.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" type="text/css" href="<% STATIC_URL_CSS %>matrix.css" />
+	<link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" />
 	<link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
 	<title><% .PageTitle %></title>
 </head>
@@ -99,6 +99,6 @@
 	<p>Copyright &copy; 2014 lab204. Designed by <a href="#"><strong>Lab204-CJStudio</strong></a></p>
 </div>
 <script type="text/javascript" src="<% STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="<% STATIC_URL_JS %>matrix.js"></script>
+<script type="text/javascript" src="<% CUSTOM_URL_JS %>matrix.js"></script>
 </body>
 </html>

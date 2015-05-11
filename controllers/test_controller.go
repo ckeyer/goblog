@@ -3,20 +3,26 @@ package controllers
 import (
 	_ "container/list"
 	"github.com/astaxie/beego"
-	"github.com/ckeyer/goblog/models"
+	// "github.com/ckeyer/goblog/models"
 )
 
 type TestController struct {
 	beego.Controller
 }
 
-func (this *TestController) Get() {
+func (this *TestController) initData() {
+	this.Data["STATIC_URL_JS"] = this.GetSession("STATIC_URL_JS")
+	this.Data["STATIC_URL_IMG"] = this.GetSession("STATIC_URL_IMG")
+	this.Data["STATIC_URL_CSS"] = this.GetSession("STATIC_URL_CSS")
+}
 
-	wp := models.NewWebPage("测试")
-	wp.IncrViewCount()
-	this.Data["PageTitle"] = wp.GetPageTitle()
-	this.Data["ImgHost"] = wp.GetImgHost()
-	this.Data["StaticHost"] = wp.GetStaticHost()
+func (this *TestController) Get() {
+	this.initData()
+
+	this.Data["PageTitle"] = "测试"
+	this.SetSession("PageTitle", this.Data["PageTitle"])
+
+	log.Println("get session:", this.GetSession("STATIC_URL_JS"))
 	// this.Data["TestStr"] = "s"
 	this.TplNames = "test.tpl"
 }

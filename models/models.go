@@ -25,13 +25,12 @@ func RegistDB() {
 	// orm.RegisterModelWithPrefix("tb_", new(Blog))
 	// orm.RegisterModelWithPrefix("tb_", new(Tag))
 	// orm.RegisterModelWithPrefix("tb_", new(Review))
-	orm.RegisterModel(new(Blog), new(Tag), new(Review))
+	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog))
 
 	//start ORM debug
 	orm.Debug = false
 	//create table
 	force := false
-	verbose := false
+	verbose := true
 	orm.RunSyncdb("default", force, verbose)
-
 }
