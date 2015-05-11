@@ -21,7 +21,7 @@ func init() {
 	// beego.Router("/test", &controllers.TestController{})
 
 	ns :=
-		beego.NewNamespace("-",
+		beego.NewNamespace("/v1",
 			//此处正式版时改为验证加密请求
 			beego.NSCond(func(ctx *context.Context) bool {
 				println("hello all")
