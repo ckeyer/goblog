@@ -19,7 +19,8 @@ func (this *BlogController) Get() {
 
 	// this.Data["OneBlog"] = ms.ToMap()
 
-	// s := this.Ctx.Input.Param(":key")
+	s := this.Ctx.Input.Param(":key")
+	this.Ctx.WriteString(s)
 	// if i, err := strconv.Atoi(s); err != nil || i == 0 {
 	// 	this.checkError()
 	// 	return
@@ -52,11 +53,11 @@ func (this *BlogController) Get() {
 	// 	this.checkError()
 	// 	return
 	// }
-	this.Data["PageTitle"] = wp.GetPageTitle()
-	this.Data["ImgHost"] = wp.GetImgHost()
-	this.Data["StaticHost"] = wp.GetStaticHost()
+	// this.Data["PageTitle"] = wp.GetPageTitle()
+	// this.Data["ImgHost"] = wp.GetImgHost()
+	// this.Data["StaticHost"] = wp.GetStaticHost()
 
-	this.TplNames = "blog.tpl"
+	// this.TplNames = "blog.tpl"
 }
 func (this *BlogController) checkError() {
 	wp := models.NewWebPage("首页")

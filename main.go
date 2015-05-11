@@ -11,7 +11,7 @@ import (
 func main() {
 	config_init()
 	db_init()
-	https_init()
+	// https_init()
 	routers.Error_init()
 	beego.Run()
 }
@@ -19,6 +19,7 @@ func main() {
 func https_init() {
 	beego.EnableHttpTLS = true
 	// beego.HttpsPort = 443
+	beego.BeegoServerName = "ckeyer Server 1.0"
 	beego.HttpCertFile = "conf/https/cert.pem"
 	beego.HttpKeyFile = "conf/https/key.pem"
 }
