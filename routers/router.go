@@ -25,6 +25,8 @@ func init() {
 			//此处正式版时改为验证加密请求
 			beego.NSCond(func(ctx *context.Context) bool {
 				println("hello all")
+				println(ctx.Input.IP())
+				println(ctx.Input.Host())
 				if ua := ctx.Input.Request.UserAgent(); ua != "" {
 					return true
 				}
