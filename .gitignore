@@ -6,6 +6,7 @@
 # Folders
 _obj
 _test
+key.pem
 cert.pem
 # Architecture specific extensions/prefixes
 *.[568vq]

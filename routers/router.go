@@ -7,40 +7,28 @@ import (
 )
 
 func init() {
-	// beego.Router("/", &controllers.MainController{})
-
-	// beego.Router("/article_:id([0-9]+).html", &controllers.BlogController{})
-
-	// beego.Router("/blog", &controllers.BlogController{})
-	// beego.Router("/blog/:key([0-9]+).html", &controllers.BlogController{})
-	// beego.Router("/tag", &controllers.TagController{})
-	// beego.Router("/tag/:key", &controllers.TagController{})
-
-	// beego.Router("/matrix", &controllers.MatrixController{})
-
-	// beego.Router("/test", &controllers.TestController{})
-
-	ns :=
-		beego.NewNamespace("/v1",
-			//此处正式版时改为验证加密请求
+	ns := beego.NewNamespace("/v1",
+		beego.NSRouter("/test", &controllers.TestController{}),
+		beego.NSRouter("/", &controllers.MainController{}),
+		beego.NSRouter("/matrix", &controllers.MatrixController{}),
+		beego.NSNamespace("/blog",
+			beego.NSRouter("/", &controllers.BlogController{}),
+			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}),
+		),
+		beego.NSNamespace("/tag",
+			beego.NSRouter("/", &controllers.TagController{}),
+			beego.NSRouter("/:key([0-9]+).html", &controllers.TagController{}),
+		),
+		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
+		beego.NSNamespace("/admin",
 			beego.NSCond(func(ctx *context.Context) bool {
-				println("hello all")
-				println(ctx.Input.IP())
-				println(ctx.Input.Host())
-				if ua := ctx.Input.Request.UserAgent(); ua != "" {
+				if ctx.Input.IsSecure() {
 					return true
 				}
 				return false
 			}),
-			//CRUD Create(创建)、Read(读取)、Update(更新)和Delete(删除)
-			beego.NSNamespace("/blog",
-				beego.NSRouter("/", &controllers.BlogController{}),
-				// /api/ios/create/topic/
-				beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}),
-			),
-			beego.NSRouter("/test", &controllers.TestController{}),
-			beego.NSRouter("/matrix", &controllers.MatrixController{}),
-		)
+			beego.NSRouter("/", &controllers.MainController{}),
+		),
+	)
 	beego.AddNamespace(ns)
-
 }
