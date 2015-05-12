@@ -14,7 +14,7 @@ type Tag struct {
 	ParentId int    `orm:"default(0)"`
 	Name     string `orm:"index;size(32);unique"`
 
-	Blogs []*Blog `orm:"rel(m2m)"`
+	// Blogs []*Blog `orm:"reverse(many)"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
@@ -29,16 +29,20 @@ func GetTagById(id int64) (tag *Tag, err error) {
 	err = o.Read(tag)
 	return
 }
-func GetTagByName(name string) *Tag {
-	tag := &Tag{Name: strings.ToLower(name)}
+func GetTagIdByName(name string) int64 {
+	tag := &Tag{}
 	o := orm.NewOrm()
-	err := o.Read(tag)
-	if err == orm.ErrNoRows {
-		tag.Insert()
-	} else if err == orm.ErrMissPK {
+
+	qs := o.QueryTable("tag").Filter("name", strings.ToLower(name))
+	err := qs.One(tag)
+	// err := o.Read(tag)
+	if err != nil {
+		// log.Println(err.Error())
+		tag := &Tag{Name: strings.ToLower(name)}
 		tag.Insert()
 	}
-	return tag
+	// log.Println("add log in there", tag)
+	return tag.Id
 }
 func (this *Tag) Insert() error {
 	o := orm.NewOrm()

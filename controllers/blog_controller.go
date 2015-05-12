@@ -98,9 +98,9 @@ func (this *BlogController) NewBlog() {
 			this.Ctx.WriteString(`{"msgcode":-2,"data":"auth error""}`)
 			return
 		}
-		var tags []*models.Tag = make([]*models.Tag, len(blogpost.Tags))
+		var tags []int64 = make([]int64, len(blogpost.Tags))
 		for i, v := range blogpost.Tags {
-			tags[i] = models.GetTagByName(v)
+			tags[i] = models.GetTagIdByName(v)
 		}
 		blog := &models.Blog{
 			Title:   blogpost.Title,
@@ -109,9 +109,11 @@ func (this *BlogController) NewBlog() {
 			Type:    blogpost.BlogType,
 			Tags:    tags,
 		}
+		// log.Println("add blog", blog.Tags[0])
 		if err := blog.Insert(); err != nil {
 			this.Ctx.WriteString(`{"msgcode":-3,"data":"` + err.Error() + `""}`)
 		} else {
+			// log.Printf("add blog %v\n", blog.Tags[0])
 			this.Ctx.WriteString(`{"msgcode":1}`)
 			return
 		}

@@ -14,7 +14,7 @@ var log *logpkg.Logger
 
 func init() {
 	rc.Addr = beego.AppConfig.String("redis_addr")
-	log = logpkg.New(os.Stderr, "model", logpkg.Ltime|logpkg.Llongfile)
+	log = logpkg.New(os.Stderr, "model", logpkg.Ltime|logpkg.Lshortfile)
 }
 func RegistDB() {
 
@@ -28,7 +28,7 @@ func RegistDB() {
 	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog))
 
 	//start ORM debug
-	orm.Debug = true
+	orm.Debug = false
 	//create table
 	force := false
 	verbose := true

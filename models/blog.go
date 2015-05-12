@@ -15,7 +15,7 @@ type Blog struct {
 	Type    string `orm:"size(12)"`
 	Status  int    `orm:"default(0)"`
 
-	Tags []*Tag `orm:"reverse(many)"`
+	Tags []int64 `orm:"-"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
@@ -59,9 +59,10 @@ func (this *Blog) Delete() error {
 	_, err := o.Delete(this)
 	return err
 }
-func (this *Blog) AddTag(t *Tag) {
-	this.Tags = append(this.Tags, t)
-}
+
+// func (this *Blog) AddTag(t *Tag) {
+// 	this.Tags = append(this.Tags, t)
+// }
 
 func (this *Blog) ToMap() map[string]string {
 	bm := make(map[string]string)
