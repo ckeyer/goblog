@@ -8,6 +8,7 @@ import (
 )
 
 func TestTag(t *testing.T) {
+	fmt.Println("Start")
 	Convey("should be test Tag", t, func() {
 		tag := models.NewTag("TEST", -1)
 		Convey("`tag` should not be nil", func() {
@@ -29,7 +30,7 @@ func TestTag(t *testing.T) {
 		})
 		Convey("get tag by name", func() {
 			t := models.GetTagByName("linux")
-			fmt.Println(t)
+			fmt.Println("new tag", t)
 			So(t.Id, ShouldNotEqual, 0)
 		})
 		Convey("delete tag to database", func() {

@@ -12,9 +12,9 @@ import (
 type Tag struct {
 	Id       int64
 	ParentId int    `orm:"default(0)"`
-	Name     string `orm:"index;size(32);unique;index"`
+	Name     string `orm:"index;size(32);unique"`
 
-	Blogs []*Blog `orm:"reverse(many)"`
+	Blogs []*Blog `orm:"rel(m2m)"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`

@@ -10,7 +10,6 @@ func TestMatrix(t *testing.T) {
 	Convey("should be test Tag", t, func() {
 		vals, err := models.GetAllMatrix()
 		jsonstr := vals.ToJson()
-		print(jsonstr)
 		Convey("`matrix` should not be nil", func() {
 			So(err, ShouldBeNil)
 			So(vals, ShouldNotBeNil)

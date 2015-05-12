@@ -28,9 +28,9 @@ func RegistDB() {
 	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog))
 
 	//start ORM debug
-	orm.Debug = false
+	orm.Debug = true
 	//create table
-	force := true
+	force := false
 	verbose := true
 	orm.RunSyncdb("default", force, verbose)
 }

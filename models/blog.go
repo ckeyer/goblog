@@ -15,7 +15,7 @@ type Blog struct {
 	Type    string `orm:"size(12)"`
 	Status  int    `orm:"default(0)"`
 
-	Tags []*Tag `orm:"rel(m2m)"`
+	Tags []*Tag `orm:"reverse(many)"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
