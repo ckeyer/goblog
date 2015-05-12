@@ -34,6 +34,7 @@ func init() {
 		}),
 		beego.NSRouter("/", &controllers.MainController{}),
 		beego.NSNamespace("/blog",
+			beego.NSRouter("/new", &controllers.BlogController{}, "post:NewBlog;get:AddBlog"),
 			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowEditList"),
 			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:EditBlog"),
 		),

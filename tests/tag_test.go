@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"github.com/ckeyer/goblog/models"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
@@ -25,6 +26,11 @@ func TestTag(t *testing.T) {
 		Convey("get tag by id", func() {
 			_, e := models.GetTagById(tag.Id)
 			So(e, ShouldEqual, nil)
+		})
+		Convey("get tag by name", func() {
+			t := models.GetTagByName("linux")
+			fmt.Println(t)
+			So(t.Id, ShouldNotEqual, 0)
 		})
 		Convey("delete tag to database", func() {
 			e := tag.Delete()

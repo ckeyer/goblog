@@ -5,13 +5,14 @@ package models
 
 import (
 	"github.com/astaxie/beego/orm"
+	"strings"
 	"time"
 )
 
 type Tag struct {
 	Id       int64
 	ParentId int    `orm:"default(0)"`
-	Name     string `orm:"index;size(32);unique"`
+	Name     string `orm:"index;size(32);unique;index"`
 
 	Blogs []*Blog `orm:"reverse(many)"`
 
@@ -28,10 +29,24 @@ func GetTagById(id int64) (tag *Tag, err error) {
 	err = o.Read(tag)
 	return
 }
+func GetTagByName(name string) *Tag {
+	tag := &Tag{Name: strings.ToLower(name)}
+	o := orm.NewOrm()
+	err := o.Read(tag)
+	if err == orm.ErrNoRows {
+		tag.Insert()
+	} else if err == orm.ErrMissPK {
+		tag.Insert()
+	}
+	return tag
+}
 func (this *Tag) Insert() error {
 	o := orm.NewOrm()
 
 	id, err := o.Insert(this)
+	if err != nil {
+		log.Println(err.Error())
+	}
 	if err == nil {
 		this.Id = id
 	}
@@ -40,8 +55,12 @@ func (this *Tag) Insert() error {
 func (this *Tag) Update() error {
 	o := orm.NewOrm()
 	_, err := o.Update(this)
+	if err != nil {
+		log.Println(err.Error())
+	}
 	return err
 }
+
 func (this *Tag) Delete() error {
 	o := orm.NewOrm()
 	_, err := o.Delete(this)

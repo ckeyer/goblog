@@ -8,11 +8,12 @@ import (
 
 type Blog struct {
 	Id      int64
-	Title   string
-	Page    int `orm:"default(0)"`
+	Title   string `orm:"size(32)"`
+	Page    int    `orm:"default(0)"`
 	Summary string
 	Content string
-	Status  int `orm:"default(0)"`
+	Type    string `orm:"size(12)"`
+	Status  int    `orm:"default(0)"`
 
 	Tags []*Tag `orm:"rel(m2m)"`
 
