@@ -3,6 +3,8 @@
 *.a
 *.so
 .fuse*
+
+*.fuse*
 # Folders
 _obj
 _test

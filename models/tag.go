@@ -70,10 +70,11 @@ func (this *Tag) Delete() error {
 	_, err := o.Delete(this)
 	return err
 }
-func GetTagByBlogId(blog_id int) *Tag {
-	return &Tag{}
+func GetAllBlogsById(blog_id int) []*Blog {
+	blogs := make([]*Blog)
+	return
 }
 
-func (this *Tag) GetAllByName() {
+func (this *Tag) GetAllBlogsByName(name string) {
 
 }
