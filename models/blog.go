@@ -2,46 +2,67 @@ package models
 
 import (
 	"container/list"
-	// "github.com/astaxie/beego"
-	// "github.com/astaxie/beego/orm"
-	_ "github.com/go-sql-driver/mysql"
-	// "strconv"
+	"github.com/astaxie/beego/orm"
 	"time"
 )
 
 type Blog struct {
-	Id       int
-	Title    string
-	Page     int
-	AuthorId int
-	Summary  string
-	Content  string
-	Status   int
-	Created  time.Time `orm:"auto_now_add;type(datetime)"`
-	Updated  time.Time `orm:"auto_now;type(datetime)"`
+	Id      int64
+	Title   string `orm:"size(32)"`
+	Page    int    `orm:"default(0)"`
+	Summary string
+	Content string
+	Type    string `orm:"size(12)"`
+	Status  int    `orm:"default(0)"`
 
-	Tags []*Tag
+	Tags []int64 `orm:"-"`
+
+	Created time.Time `orm:"auto_now_add;type(datetime)"`
+	Updated time.Time `orm:"auto_now;type(datetime)"`
 }
 
-func NewBlog() (b *Blog) {
-	b = &Blog{}
-	return b
+func GetBlogById(id int64) (b *Blog, err error) {
+	o := orm.NewOrm()
+	b = &Blog{Id: id}
+
+	err = o.Read(b)
+	return
 }
-func NewBlogByValue(id int, title string, page int, author_id int, content string, summary string, status int) (b *Blog) {
+func NewBlog() *Blog {
+	return &Blog{}
+}
+func NewBlogByValue(title string, content string, summary string) (b *Blog) {
 	b = &Blog{
-		Id:       id,
-		Title:    title,
-		Page:     page,
-		AuthorId: author_id,
-		Summary:  summary,
-		Content:  content,
-		Status:   status,
+		Title:   title,
+		Summary: summary,
+		Content: content,
 	}
 	return b
 }
-func (this *Blog) insertToDB() {
+func (this *Blog) Insert() error {
+	o := orm.NewOrm()
 
+	id, err := o.Insert(this)
+	if err == nil {
+		this.Id = id
+	}
+	return err
 }
+
+func (this *Blog) Update() error {
+	o := orm.NewOrm()
+	_, err := o.Update(this)
+	return err
+}
+func (this *Blog) Delete() error {
+	o := orm.NewOrm()
+	_, err := o.Delete(this)
+	return err
+}
+
+// func (this *Blog) AddTag(t *Tag) {
+// 	this.Tags = append(this.Tags, t)
+// }
 
 func (this *Blog) ToMap() map[string]string {
 	bm := make(map[string]string)
@@ -120,10 +141,22 @@ func (this *Blog) ReadBlogByID(id_ string) error {
 // 	}
 // 	return
 // }
-func (this *Blog) GetNextBlog() (b *Blog) {
+func (this *Blog) GetNextBlog() (b *Blog, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(b)
+	qs.Filter("blog__id__lt", this.Id)
+	qs.Limit(1)
+	qs.OrderBy("-blog__id")
+	// ORDER BY id ASC, profile.age DESC
+	err = qs.One(b)
 	return
 }
-func (this *Blog) GetPreviousBlog() (b *Blog) {
+func (this *Blog) GetPreviousBlog() (b *Blog, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(b)
+	qs.Filter("blog__id__gt", this.Id)
+	qs.Limit(1)
+	err = qs.One(b)
 	return
 }
 

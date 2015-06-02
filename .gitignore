@@ -2,11 +2,14 @@
 *.o
 *.a
 *.so
+.fuse*
 
+*.fuse*
 # Folders
 _obj
 _test
-
+key.pem
+cert.pem
 # Architecture specific extensions/prefixes
 *.[568vq]
 [568vq].out

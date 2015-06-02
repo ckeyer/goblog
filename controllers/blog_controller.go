@@ -4,80 +4,148 @@ import (
 	// "encoding/base64"
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
-	"log"
+	// "log"
+	"crypto/md5"
+	"fmt"
+	"io"
+	"sort"
 	"strconv"
-	// "strings"
+	"strings"
 )
 
 type BlogController struct {
 	beego.Controller
 }
 
-func (this *BlogController) Get() {
+type BlogData struct {
+	MsgCode    int      `form:"msgcode"`
+	Title      string   `form:"titile"`
+	Tags       []string `form:"tags[]"`
+	BlogType   string   `form:"blog_type"`
+	Password   string   `form:"password"`
+	CommitSalt string   `form:"commit_value"`
+	Summary    string   `form:"summary"`
+	Content    string   `form:"content"`
+}
+
+func (this *BlogController) initData() {
+	this.Data["STATIC_URL_JS"] = this.GetSession("STATIC_URL_JS")
+	this.Data["STATIC_URL_IMG"] = this.GetSession("STATIC_URL_IMG")
+	this.Data["STATIC_URL_CSS"] = this.GetSession("STATIC_URL_CSS")
+}
+
+// @router /v1/blog [get]
+func (this *BlogController) ShowList() {
+	this.initData()
+	log.Println("// @router /v1/blog [get]")
 	wp := models.NewWebPage("博客")
 	wp.IncrViewCount()
+	this.Ctx.WriteString("// @router /v1/blog [get]")
+}
 
-	// this.Data["OneBlog"] = ms.ToMap()
-
+// @router /v1/blog::key([0-9]+).html [get]
+func (this *BlogController) ShowBlog() {
+	this.initData()
+	log.Println("// @router /v1/blog::key([0-9]+).html [get]")
 	s := this.Ctx.Input.Param(":key")
-	if i, err := strconv.Atoi(s); err != nil || i == 0 {
-		this.checkError()
-		return
-	}
-	b := models.NewBlog()
-	if nil == b.ReadBlogByID(s) {
-		this.Data["ArticleTitle"] = b.Title
-		this.Data["ArticleContent"] = b.Content
-
-		this.Data["Tags"] = b.Tags
-
-		previous := b.GetPreviousBlog()
-		next := b.GetNextBlog()
-		if previous == nil {
-			previous = models.NewBlog()
-			// previous.ID = 0
-			previous.Title = "6L+Z5bey5piv5pyA5YmN5LiA56+H"
-		}
-		if next == nil {
-			next = models.NewBlog()
-			// next.ID = 0
-			next.Title = "6L+Z5bey5piv5pyA5ZCO5LiA56+H"
-		}
-
-		this.Data["Previous"] = previous
-		this.Data["Next"] = next
-
-		// sssss := b.GetBlogsByTagId(2, 0, 5)
-	} else {
-		this.checkError()
-		return
-	}
-	this.Data["PageTitle"] = wp.GetPageTitle()
-	this.Data["ImgHost"] = wp.GetImgHost()
-	this.Data["StaticHost"] = wp.GetStaticHost()
-
-	this.TplNames = "blog.tpl"
+	this.Ctx.WriteString(s)
+	this.Ctx.WriteString("// @router /v1/blog:key [get]")
 }
-func (this *BlogController) checkError() {
-	wp := models.NewWebPage("首页")
-	wp.IncrViewCount()
 
-	this.Data["PageTitle"] = wp.GetPageTitle()
-	this.Data["ImgHost"] = wp.GetImgHost()
-	this.Data["StaticHost"] = wp.GetStaticHost()
-
-	b := models.NewBlog()
-	this.Data["Blogs"] = b.GetBlogs(0, 5)
-
-	this.TplNames = "index.tpl"
-}
 func (this *BlogController) Post() {
 	log.Println("")
 }
 
-// func decodeBase64(s string) string {
-// 	s = strings.Replace(s, "+", "-", -1)
-// 	s = strings.Replace(s, "/", "_", -1)
-// 	v, _ := base64.URLEncoding.DecodeString(s)
-// 	return string(v)
-// }
+// @router /v1/admin/blog [get]
+func (this *BlogController) ShowEditList() {
+	this.initData()
+	log.Println("// @router /v1/admin/blog [get]")
+	this.Ctx.WriteString("// @router /v1/admin/blog [get]")
+}
+
+// @router /v1/admin/blog:key([0-9]+).html [get]
+func (this *BlogController) EditBlog() {
+	this.initData()
+	// s := this.Ctx.Input.Param(":key")
+	// this.Ctx.WriteString(s)
+	// this.Ctx.WriteString("// @router /v1/admin/blog [get]")
+	this.TplNames = "blogEdit.tpl"
+}
+
+func (this *BlogController) AddBlog() {
+	this.initData()
+	// s := this.Ctx.Input.Param(":key")
+	// this.Ctx.WriteString(s)
+	// this.Ctx.WriteString("// @router /v1/admin/blog [get]")
+	this.TplNames = "blogEdit.tpl"
+}
+
+// @router /v1/admin/blog/new [post]
+func (this *BlogController) NewBlog() {
+
+	blogpost := &BlogData{}
+	err := this.ParseForm(blogpost)
+	if err != nil {
+		log.Println(err.Error())
+		this.Ctx.WriteString(`{"msgcode":-1,"data":"` + err.Error() + `""}`)
+	}
+	log.Println("tags", blogpost.Tags)
+	log.Println("post datat", blogpost)
+	// log.Println(authCommit(blogpost.Password, blogpost.CommitSalt))
+	switch blogpost.MsgCode {
+	case 1:
+		if !authCommit(blogpost.Password, blogpost.CommitSalt) {
+			this.Ctx.WriteString(`{"msgcode":-2,"data":"auth error""}`)
+			return
+		}
+		var tags []int64 = make([]int64, len(blogpost.Tags))
+		for i, v := range blogpost.Tags {
+			tags[i] = models.GetTagIdByName(v)
+		}
+		blog := &models.Blog{
+			Title:   blogpost.Title,
+			Summary: blogpost.Summary,
+			Content: blogpost.Content,
+			Type:    blogpost.BlogType,
+			Tags:    tags,
+		}
+		// log.Println("add blog", blog.Tags[0])
+		if err := blog.Insert(); err != nil {
+			this.Ctx.WriteString(`{"msgcode":-3,"data":"` + err.Error() + `""}`)
+		} else {
+			// log.Printf("add blog %v\n", blog.Tags[0])
+			this.Ctx.WriteString(`{"msgcode":1}`)
+			return
+		}
+	}
+	this.Ctx.WriteString(`{"msgcode":0}`)
+}
+
+func authCommit(pwd, salt string) bool {
+	fmtSalt := func(s string) string {
+		var ns []int = make([]int, len(s))
+		for i := 0; i < len(s); i++ {
+			ns[i], _ = strconv.Atoi(string(s[i]))
+		}
+		nsort := sort.IntSlice(ns)
+		nsort.Sort()
+		a, b := 0, 0
+		for i := 0; i < len(nsort)/2; i++ {
+			a += nsort[i]
+		}
+		for i := len(nsort) / 2; i < len(nsort); i++ {
+			b += nsort[i]
+		}
+		return fmt.Sprintf("%d%d", a, b)
+	}
+	// 获取字符串的MD5值
+	getMD5 := func(s string) (md5s string) {
+		f := md5.New()
+		io.WriteString(f, s)
+		md5s = fmt.Sprintf("%x", f.Sum(nil))
+		return
+	}
+
+	pass := "wangcj" + fmtSalt(salt)
+	return strings.ToLower(pwd) == strings.ToLower(getMD5(pass))
+}

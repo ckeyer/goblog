@@ -24,7 +24,16 @@ func NewReview(title, content, author, email string, parenttype int, parentid in
 		ParentId:   parentid,
 	}
 }
-
+func NewReviewByValues(title, content, author, email string, parenttype int, parentid int64) *Review {
+	return &Review{
+		Title:      title,
+		Content:    content,
+		Author:     author,
+		Email:      email,
+		ParentType: parenttype,
+		ParentId:   parentid,
+	}
+}
 func (this *Review) GetArticleReviewsById(articleid int) {
 
 }

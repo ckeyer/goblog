@@ -7,6 +7,7 @@
 	<meta name="description" content="" />
 	<link href="<% CUSTOM_URL_CSS%>default.css" rel="stylesheet" type="text/css" />
 	<link href="<% CUSTOM_URL_CSS%>home.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" />
 	<link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
 	<title><% .PageTitle %></title>
 </head>
@@ -30,7 +31,6 @@
 </div>
 <div id="content">
 	<div class="colOne">
-
 		<% range $index, $elem := .Blogs %>
 		<div class="art_area" id="art_content_<% $index %>">
 		  	<div class="article" id="article_<% $index %>">
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 		<% end %>
-
+	<div id="matrix_content"></div>
 	</div>
 
 	<div id="colTwo">
@@ -83,11 +83,11 @@
 			<li id="Friend_site_Link">
 				<h2>Friend Site Link </h2>
 				<ul>
-					<li><a href="http://ys.cjstudio.org/" target="_blank">严申的个人博客</a></li>
+					<!-- <li><a href="http://ys.cjstudio.org/" target="_blank">严申的个人博客</a></li>
 					<li><a href="http://www.originate.com/">Originate</a></li>
 					<li><a href="http://programmer.csdn.net/programmer.html">程序员杂志</a></li>
 					<li><a href="http://www.litrin.net/">开源小站</a></li>
-					<li><a href="http://lusongsong.com/">卢松松博客</a></li>
+					<li><a href="http://lusongsong.com/">卢松松博客</a></li> -->
 					<li><a href="https://gowalker.org/">gowalker.org</a></li>
 				</ul>
 			</li>
@@ -98,5 +98,7 @@
 <div id="footer"><br>
 	<p>Copyright &copy; 2014 lab204. Designed by <a href="#"><strong>Lab204-CJStudio</strong></a></p>
 </div>
+<script type="text/javascript" src="<% STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="<% CUSTOM_URL_JS %>matrix.js"></script>
 </body>
 </html>
