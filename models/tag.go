@@ -71,8 +71,8 @@ func (this *Tag) Delete() error {
 	return err
 }
 func GetAllBlogsById(blog_id int) []*Blog {
-	blogs := make([]*Blog)
-	return
+	blogs := make([]*Blog, 0)
+	return blogs
 }
 
 func (this *Tag) GetAllBlogsByName(name string) {

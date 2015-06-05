@@ -25,7 +25,7 @@ func RegistDB() {
 	// orm.RegisterModelWithPrefix("tb_", new(Blog))
 	// orm.RegisterModelWithPrefix("tb_", new(Tag))
 	// orm.RegisterModelWithPrefix("tb_", new(Review))
-	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog))
+	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog), new(BlogTagRelation))
 
 	//start ORM debug
 	orm.Debug = false
