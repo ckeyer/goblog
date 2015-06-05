@@ -1,0 +1,183 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+              font-family: 'Quicksand', sans-serif;
+    font-family: Roboto, Helvetica;
+    position: relative;
+}
+a {
+  color: white;
+}
+canvas {
+  position:fixed;
+  bottom: 0;
+  top: 0;
+  left:0;
+  z-index:-2000;
+}
+.left-menu{
+  position:fixed;
+  background: #666;
+  width: 200px;
+  top: 0;
+  bottom: 0;
+  z-index:0;
+}
+.accordion {
+  color: #FFF;
+  width: 100%;
+}
+.accordion .sectionlabel {
+  width: 100%;
+}
+.accordion .sectionlabel input[type='radio'] {
+  display: none;
+}
+.accordion .sectionlabel input[type='radio']:checked + label {
+  background: #363636;
+}
+.accordion .sectionlabel input[type='radio']:checked + label:before {
+  content: " ";
+  position: absolute;
+  border-left: 3px solid #21CCFC;
+  height: 100%;
+  left: 0;
+}
+.accordion .sectionlabel input[type='radio']:checked ~ .content {
+  max-height: 380px;
+  opacity: 1;
+  z-index: 10;
+  overflow-y: auto;
+}
+.accordion .sectionlabel label {
+  position: relative;
+  cursor: pointer;
+  padding: 10px 20px;
+  display: table;
+  background: #222;
+  width: 100%;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  -ms-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.accordion .sectionlabel label:before {
+  content: " ";
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  border-top: 1px solid #363636;
+}
+.accordion .sectionlabel label:hover {
+  background: #363636;
+}
+.accordion .sectionlabel label span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.accordion .sectionlabel:last-of-type {
+  border-bottom: 1px solid #363636;
+}
+.accordion .sectionlabel .content {
+  max-height: 0;
+  background-color: #444;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  transition: all 0.4s;
+  opacity: 0;
+  position: relative;
+  overflow-y: hidden;
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.accordion {
+  font-size: 14px;
+}
+.accordion .sectionlabel .content {
+  padding: 0 15px;
+}
+.accordion .sectionlabel input[type='radio'] {
+  display: none;
+}
+.accordion .sectionlabel input[type='radio']:checked ~ .content {
+  padding: 15px;
+}
+
+ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+ul li {
+  padding: 10px;
+  text-align: center;
+}
+ul li i {
+  font-size: 13px;
+  width: 15px;
+  margin-right: 15px;
+}
+ul li:hover {
+  cursor: pointer;
+  background-color: #555;
+}
+ul li:hover i {
+  color: #21CCFC;
+}
+
+.logo {
+  padding: 30px 10px;
+  width: 200px;
+  text-align: center;
+  color: #FFF;
+  font-size: 20px;
+}
+.logo i {
+  font-size: 70px;
+  color: #21CCFC;
+}
+
+/*#################################################*/
+
+#matrix_content{
+  text-align: center;
+  width: 600px;
+  height: 140px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  text-align: center;
+  /*z-index: -200;*/
+}
+.matrix_li{
+  clear:both;
+}
+.matrix_cell{
+  float:left;
+  width: 20px;
+  height: 20px;
+  border-width: 2px; 
+  border-style:solid;
+  border-color: white;
+}
+.matrix_cell:hover{
+  border-color: #fb1;
+}

@@ -1,104 +1,118 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
+<html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<link href="<% CUSTOM_URL_CSS%>default.css" rel="stylesheet" type="text/css" />
-	<link href="<% CUSTOM_URL_CSS%>home.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" />
-	<link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
-	<title><% .PageTitle %></title>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" />
+  <link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
+  <title><% .PageTitle %></title>
+
+    <link rel="stylesheet" href="<% CUSTOM_URL_CSS%>style.css" media="screen" type="text/css" />
+
 </head>
+
 <body>
-<div id="header">
-	<div id="logo">
-		<h1><img href="/" src="<%STATIC_URL_IMG%>ckeyer.png" alt="ckeyer" /></h1>
-		<h2><a href="/">Man, I just luv technology...... </a></h2>
-		<!-- <h2><a href="/">O ever youthful, O ever weeping. </a></h2> -->
-	</div>
-	<div id="menu">
-		<ul>
-			<li class="first"><a href="/blog">博  客</a></li>
-			<li><a href="/photo">相  册</a></li>
-			<li><a href="/favorite">聊  天</a></li>
-			<li><a href="/contact">留  言</a></li>
-			<li><a href="/about">关  于</a></li>
-			<li><a></a></li>
-		</ul>
-	</div>
-</div>
-<div id="content">
-	<div class="colOne">
-		<% range $index, $elem := .Blogs %>
-		<div class="art_area" id="art_content_<% $index %>">
-		  	<div class="article" id="article_<% $index %>">
-		  		<div class="art_title" id="art_title_<% $index %>">
-		  			<a href="/blog/<% $elem.ID %>"><% $elem.Title|DECODEBASE64 %></a>
-		  		</div>
-		  		<div class="art_time"><% $elem.CreatedTime %> &nbsp&nbsp
-		  			<span> 
-					<% range $ind, $ele := $elem.Tags %>
-						<a href="/tag/<%$ele.ID%>" class="art_label"><%$ele.Name%></a>&nbsp
-					<% end %>
-		  			</span>	
-	  			</div>
-		  		<div class="art_summary">
-		  			<% $elem.Summary|DECODEBASE64 %>
-		  		</div>
-		  		<div class="read_more">
-		  			<a href="/blog/<% $elem.ID %>" title="">阅读全文</a>
-		  		</div>
-		  		<div class="art_content"></div>
 
-		  			<!-- <hr class="art_separate"> -->
-			</div>
-		</div>
-		<% end %>
-	<div id="matrix_content"></div>
-	</div>
+<div class="left-menu">
+  <div class="logo"><i class="fa fa-align-justify"></i>
+    <div><h2> Ckeyer</h2></div>
+    <div>
+      <font size="3">Man, just luv techoligy.</font>
+    </div>
+  </div>
+  <div class="accordion">
+    <div class="sectionlabel">
+      <input type="radio" name="accordion-1" id="sectionlabel-1" checked="checked"/>
+      <label for="sectionlabel-1"><span class="sectionlabel-title">博客</span></label>
+      <div class="content">
+        <ul>
+        <% range $index, $elem := .Tags %>
+          <li><i class="fa fa-inbox"></i><span><% $elem.Name %></span></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="sectionlabel">
+      <input type="radio" name="accordion-1" id="sectionlabel-2" value="toggle"/>
+      <label for="sectionlabel-2"><span>收藏夹</span></label>
+      <div class="content">
+        <ul>
+          <li><i class="fa fa-cog"></i><span>System</span></li>
+          <li><i class="fa fa-group"></i><span>Users    </span></li>
+          <li><i class="fa fa-sitemap"></i><span>Visitation</span></li>
+        </ul>
+      </div>
+    </div>
 
-	<div id="colTwo">
-		<ul>
-			<li>
-				<h2>Archives</h2>
-				<ul>
-					<li><a href="#">December 2014</a></li>
-					<li><a href="#">November 2014</a></li>
-					<li><a href="#">October 2014</a></li>
-					<li><a href="#">September 2014</a></li>
-					<li><a href="#">August 2014</a></li>
-				</ul>
-			</li>
-			<li>
-				<h2>Categories</h2>
-				<ul>
-					<% range $index, $elem := .HotTags %>
-						<li><a href="/tag/<%$elem.ID%>" ><%$elem.Name%></a> (<%$elem.ArtCount%>)</li>
-					<%end%>
-				</ul>
-			</li>
+    <div class="sectionlabel">
+      <input type="radio" name="accordion-1" id="sectionlabel-3" value="toggle"/>
+      <label for="sectionlabel-3"><span>小工具</span></label>
+      <div class="content">
+        <ul>
+          <li onclick="console.log('fuckyou');"><i class="fa fa-coffee"></i><span>聊天室</span></li>
+          <li onclick="console.log('fuckyou');"><i class="fa fa-coffee"></i><span>地球</span></li>
+        </ul>
+      </div>
+    </div>
 
-			<li id="Friend_site_Link">
-				<h2>Friend Site Link </h2>
-				<ul>
-					<!-- <li><a href="http://ys.cjstudio.org/" target="_blank">严申的个人博客</a></li>
-					<li><a href="http://www.originate.com/">Originate</a></li>
-					<li><a href="http://programmer.csdn.net/programmer.html">程序员杂志</a></li>
-					<li><a href="http://www.litrin.net/">开源小站</a></li>
-					<li><a href="http://lusongsong.com/">卢松松博客</a></li> -->
-					<li><a href="https://gowalker.org/">gowalker.org</a></li>
-				</ul>
-			</li>
-		</ul>
-		<div style="clear: both;">&nbsp;</div>
-	</div>
+      <div class="sectionlabel">
+      <input type="radio" name="accordion-1" id="sectionlabel-4" value="toggle"/>
+      <label for="sectionlabel-4"onclick="clic('/admin');"><span>留言</span></label>
+      <div class="content">
+      给我留言
+      </div>
+    </div>
+
+    <div class="sectionlabel">
+      <input type="radio" name="accordion-1" id="sectionlabel-5" value="toggle"/>
+      <label for="sectionlabel-5"><span>关于</span></label>
+      <div class="content">
+        <h3>Github.</h3>
+        <a href="https://github.com/ckeyer" target="_blank">https://github.com/ckeyer</a> 
+        <h3>Wechat.</h3>
+        <img src="<% CUSTOM_URL_IMG%>wechat.jpg" width="150px" alt="">
+        <span>More...</span>
+      </div>
+    </div>
+  </div>
 </div>
-<div id="footer"><br>
-	<p>Copyright &copy; 2014 lab204. Designed by <a href="#"><strong>Lab204-CJStudio</strong></a></p>
-</div>
+
+<div style="text-align:center;clear:both">
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>   helloasdfabr <br>    helloasdfabr <br>    <div id="matrix_content"></div>
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    546 <br>    546 <br>
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>    514 <br>   514 <br>   514 <br>   514 <br>
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
+    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    asdf
+  </div>
+
+ <canvas id="body_bg" >A drawing of something...</canvas>
+
 <script type="text/javascript" src="<% STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
+  <script src="<% STATIC_URL_JS %>modernizr.js"></script>
+  <script src='<% STATIC_URL_JS %>dat.gui.min.js'></script>
+  <script src='<% STATIC_URL_JS %>toxiclibs.min.js'></script>
+  <script src='<% STATIC_URL_JS %>animitter.min.js'></script>
+  <script src="<% STATIC_URL_JS %>bg_index.js"></script>
 <script type="text/javascript" src="<% CUSTOM_URL_JS %>matrix.js"></script>
+  <script type="text/javascript" charset="utf-8" >
+      function clic(new_url){
+        var title = document.title;
+        var url = window.location.pathname;
+        var state = { title: title,url:url};
+        bg_app.reset();
+        console.log(state);
+        window.history.pushState(state, document.title, new_url);
+      }
+      </script>
 </body>
 </html>

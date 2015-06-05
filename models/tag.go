@@ -4,57 +4,50 @@
 package models
 
 import (
+	// "strings"
 	"github.com/astaxie/beego/orm"
-	"strings"
 	"time"
 )
 
 type Tag struct {
 	Id       int64
 	ParentId int    `orm:"default(0)"`
-	Name     string `orm:"index;size(32);unique"`
-
-	// Blogs []*Blog `orm:"reverse(many)"`
+	Name     string `orm:"size(32);unique"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
 }
 
-func NewTag(name string, parent int) *Tag {
-	return &Tag{Name: name, ParentId: parent}
-}
-func GetTagById(id int64) (tag *Tag, err error) {
-	o := orm.NewOrm()
-	tag = &Tag{Id: id}
-	err = o.Read(tag)
-	return
-}
-func GetTagIdByName(name string) int64 {
-	tag := &Tag{}
-	o := orm.NewOrm()
+// func NewTag(name string, parent int) *Tag {
+// 	return &Tag{Name: name, ParentId: parent}
+// }
 
-	qs := o.QueryTable("tag").Filter("name", strings.ToLower(name))
-	err := qs.One(tag)
-	// err := o.Read(tag)
-	if err != nil {
-		// log.Println(err.Error())
-		tag := &Tag{Name: strings.ToLower(name)}
-		tag.Insert()
-	}
-	// log.Println("add log in there", tag)
-	return tag.Id
+func GetTag(tag_name string) *Tag {
+	tag := &Tag{Name: tag_name}
+	tag.getByName()
+	return tag
 }
-func (this *Tag) Insert() error {
-	o := orm.NewOrm()
-
-	id, err := o.Insert(this)
-	if err != nil {
-		log.Println(err.Error())
+func (this *Tag) Get() error {
+	if this.Name != "" {
+		return this.getByName()
+	} else {
+		return this.getById()
 	}
+}
+func (this *Tag) getById() error {
+	o := orm.NewOrm()
+	return o.Read(this)
+}
+func (this *Tag) getByName() error {
+	o := orm.NewOrm()
+	_, id, err := o.ReadOrCreate(this, "name")
+	log.Println("#$@#################@", id, err)
+	o.ReadOrCreate(this, "Name")
 	if err == nil {
 		this.Id = id
 	}
 	return err
+
 }
 func (this *Tag) Update() error {
 	o := orm.NewOrm()
@@ -64,17 +57,14 @@ func (this *Tag) Update() error {
 	}
 	return err
 }
-
 func (this *Tag) Delete() error {
 	o := orm.NewOrm()
 	_, err := o.Delete(this)
 	return err
 }
-func GetAllBlogsById(blog_id int) []*Blog {
-	blogs := make([]*Blog)
+func GetHotTags(max int) (tags []*Tag) {
+	o := orm.NewOrm()
+	// num, err :=
+	o.Raw("select * from blog_tag_relation as bt group by bt.tag_id  order by count(bt.blog_id) desc", 1).QueryRows(tags)
 	return
-}
-
-func (this *Tag) GetAllBlogsByName(name string) {
-
 }

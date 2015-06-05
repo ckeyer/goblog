@@ -52,7 +52,7 @@ func ChatroomServer(ws *websocket.Conn) {
 			break
 		}
 		log.Println("Received: " + string(data))
-		rmsg := models.DecodeJson(string(data))
+		rmsg, _ := models.DecodeJson(data)
 		if rmsg.Code == "close" {
 			break
 		} else {
