@@ -12,13 +12,13 @@ import (
 func main() {
 	config_init()
 	db_init()
-	https_init()
+	server_init()
 	routers.Error_init()
 	beego.Run()
 }
 
-func https_init() {
-	beego.EnableHttpTLS = true
+func server_init() {
+	// beego.EnableHttpTLS = true
 	// beego.HttpsPort = 443
 	beego.SessionOn = true
 	beego.SessionGCMaxLifetime = 2
