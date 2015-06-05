@@ -11,12 +11,8 @@ import (
 
 func main() {
 	db_init()
-<<<<<<< HEAD
 	server_init()
-=======
 	config_init()
-	https_init()
->>>>>>> dadae27774c9f0f3dd2648490671c3fdedb617fb
 	routers.Error_init()
 	beego.Run()
 }
