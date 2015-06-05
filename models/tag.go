@@ -4,17 +4,15 @@
 package models
 
 import (
+	// "strings"
 	"github.com/astaxie/beego/orm"
-	"strings"
 	"time"
 )
 
 type Tag struct {
 	Id       int64
 	ParentId int    `orm:"default(0)"`
-	Name     string `orm:"index;size(32);unique"`
-
-	// Blogs []*Blog `orm:"reverse(many)"`
+	Name     string `orm:"pk;size(32);unique"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
@@ -23,38 +21,16 @@ type Tag struct {
 func NewTag(name string, parent int) *Tag {
 	return &Tag{Name: name, ParentId: parent}
 }
-func GetTagById(id int64) (tag *Tag, err error) {
+func GetTag(tag_name string) *Tag {
 	o := orm.NewOrm()
-	tag = &Tag{Id: id}
-	err = o.Read(tag)
-	return
-}
-func GetTagIdByName(name string) int64 {
-	tag := &Tag{}
-	o := orm.NewOrm()
-
-	qs := o.QueryTable("tag").Filter("name", strings.ToLower(name))
-	err := qs.One(tag)
-	// err := o.Read(tag)
+	tag := &Tag{Name: tag_name}
+	_, id, err := o.ReadOrCreate(tag, tag_name)
+	o.ReadOrCreate(tag, "Name")
 	if err != nil {
-		// log.Println(err.Error())
-		tag := &Tag{Name: strings.ToLower(name)}
-		tag.Insert()
+		return nil
 	}
-	// log.Println("add log in there", tag)
-	return tag.Id
-}
-func (this *Tag) Insert() error {
-	o := orm.NewOrm()
-
-	id, err := o.Insert(this)
-	if err != nil {
-		log.Println(err.Error())
-	}
-	if err == nil {
-		this.Id = id
-	}
-	return err
+	tag.Id = id
+	return tag
 }
 func (this *Tag) Update() error {
 	o := orm.NewOrm()
@@ -64,17 +40,8 @@ func (this *Tag) Update() error {
 	}
 	return err
 }
-
 func (this *Tag) Delete() error {
 	o := orm.NewOrm()
 	_, err := o.Delete(this)
 	return err
-}
-func GetAllBlogsById(blog_id int) []*Blog {
-	blogs := make([]*Blog, 0)
-	return blogs
-}
-
-func (this *Tag) GetAllBlogsByName(name string) {
-
 }

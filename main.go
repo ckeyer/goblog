@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	config_init()
 	db_init()
+	config_init()
 	https_init()
 	routers.Error_init()
 	beego.Run()

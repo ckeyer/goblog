@@ -20,19 +20,19 @@ func (this *MatrixController) Post() {
 
 	resmag := &models.MatrixUpJson{}
 	if err := this.ParseForm(resmag); err != nil {
-		this.Ctx.WriteString(`{"msgcode":-1"data":"` + err.Error() + `"}`)
+		this.Ctx.WriteString(`{"code":-1"data":"` + err.Error() + `"}`)
 		return
 	}
 
-	switch resmag.Msgcode {
+	switch resmag.Code {
 	case 1:
 		vals, err := models.GetAllMatrix()
 		if err != nil {
-			this.Ctx.WriteString(`{"msgcode":-2,"data":"models.GetAllMatrix"}`)
+			this.Ctx.WriteString(`{"code":-2,"data":"models.GetAllMatrix"}`)
 			return
 		}
 		jsonstr := vals.ToJson()
-		this.Ctx.WriteString(`{"msgcode":1,"data":` + jsonstr + `}`)
+		this.Ctx.WriteString(`{"code":1,"data":` + jsonstr + `}`)
 	case 2:
 		resmag.H, _ = strconv.Atoi(this.GetString("h"))
 		resmag.W, _ = strconv.Atoi(this.GetString("w"))
@@ -41,13 +41,13 @@ func (this *MatrixController) Post() {
 		b, e := models.UpdateMatrix(resmag.H, resmag.W)
 		if e != nil {
 			log.Println(e)
-			this.Ctx.WriteString(`{"msgcode":-3,"data":"up error"}`)
+			this.Ctx.WriteString(`{"code":-3,"data":"up error"}`)
 		} else if b {
-			this.Ctx.WriteString(`{"msgcode":0,"data":"up false"}`)
+			this.Ctx.WriteString(`{"code":0,"data":"up false"}`)
 		} else {
-			this.Ctx.WriteString(`{"msgcode":0,"data":"up success"}`)
+			this.Ctx.WriteString(`{"code":0,"data":"up success"}`)
 		}
 	default:
-		this.Ctx.WriteString(`{"msgcode":-1,"data":"none"}`)
+		this.Ctx.WriteString(`{"code":-1,"data":"none"}`)
 	}
 }
