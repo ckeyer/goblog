@@ -7,6 +7,7 @@ import (
 )
 
 func TestBlog(t *testing.T) {
+	models.RegistDB()
 	Convey("should be test Blog", t, func() {
 		blog := &models.Blog{
 			Title:   "Test Blog",
@@ -33,10 +34,12 @@ func TestBlog(t *testing.T) {
 			So(e, ShouldEqual, nil)
 			So(newblog.Title, ShouldEqual, blog.Title)
 		})
-		// Convey("delete blog to database", func() {
-		// 	blog.Insert()
-		// 	e := blog.Delete()
-		// 	So(e, ShouldEqual, nil)
-		// })
+		Convey("write blog into db", func() {
+			blog.AddTagName("tag1")
+			blog.AddTagName("tag5")
+			blog.AddTagName("tag3")
+			e := blog.WriteToDB()
+			So(e, ShouldEqual, nil)
+		})
 	})
 }

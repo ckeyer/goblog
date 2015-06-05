@@ -18,20 +18,15 @@ type BlogTagRelation struct {
 	Updated    time.Time `orm:"auto_now;type(datetime)"`
 }
 
-func InsertBlogTags(b *Blog, t *Tag) *BlogTagRelation {
+func InsertBlogTagRelation(b *Blog, t *Tag) error {
 	blogtag := &BlogTagRelation{
 		Blog: b,
 		Tag:  t,
 	}
 	o := orm.NewOrm()
-	id, err := o.Insert(blogtag)
+	_, _, err := o.ReadOrCreate(blogtag, "blog_id", "tag_id")
 
-	if err != nil {
-		o.Read(blogtag)
-	} else {
-		blogtag.Id = id
-	}
-	return blogtag
+	return err
 }
 func DelBlogTags(b *Blog, tags []*Tag) int {
 	o := orm.NewOrm()

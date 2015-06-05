@@ -21,23 +21,16 @@ type Blog struct {
 	Updated time.Time `orm:"auto_now;type(datetime)"`
 }
 
+func (this *Blog) AddTagName(tag_name string) {
+	tag := &Tag{Name: tag_name}
+	this.Tags = append(this.Tags, tag)
+}
 func GetBlogById(id int64) (b *Blog, err error) {
 	o := orm.NewOrm()
 	b = &Blog{Id: id}
 
 	err = o.Read(b)
 	return
-}
-func NewBlog() *Blog {
-	return &Blog{}
-}
-func NewBlogByValue(title string, content string, summary string) (b *Blog) {
-	b = &Blog{
-		Title:   title,
-		Summary: summary,
-		Content: content,
-	}
-	return b
 }
 func (this *Blog) Insert() error {
 	o := orm.NewOrm()
@@ -48,7 +41,30 @@ func (this *Blog) Insert() error {
 	}
 	return err
 }
+func (this *Blog) WriteToDB() (e error) {
+	o := orm.NewOrm()
+	e = o.Begin()
+	// BEGIN
+	e = this.Insert()
+	if e == nil {
+		for _, v := range this.Tags {
+			log.Println(v)
+			e = v.Get()
+			if e != nil {
+				break
+			}
+			InsertBlogTagRelation(this, v)
+		}
+	}
 
+	// END
+	if e != nil {
+		e = o.Rollback()
+	} else {
+		e = o.Commit()
+	}
+	return
+}
 func (this *Blog) Update() error {
 	o := orm.NewOrm()
 	_, err := o.Update(this)

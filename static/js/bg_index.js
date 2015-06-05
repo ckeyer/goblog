@@ -2,11 +2,11 @@ var bezier,
     layouts,
     cloudMotion,
     sketch,
-    app,
+    bg_app,
     settings,
     take,
-    index=0,
-    count=300,
+    bg_app_index=0,
+    bg_app_count=500,
     main;
 
 // "bezier" by Mathias Paumgarten
@@ -25,11 +25,11 @@ bezier = (function(){
         },
 
         update: function() {
-            if (index<count) {
-                
+            if (bg_app_index<bg_app_count) {
+                bg_app_index++;
             }else{
                 sketch.loop.stop();
-                return ;
+                return;
             };
             var t = this.t || 0;
             var anchors = this.anchors || [];
@@ -182,7 +182,7 @@ sketch = (function( cloudMotion ){
     function render(frameCount){
         focus.set(motion.getPosition()).addSelf(center);
         //add a subtle white fill
-        ctx.fillStyle = 'rgba(255,255,255,0.0005)';
+        ctx.fillStyle = 'rgba(255,255,255,0.005)';
         circles.forEach(function( circle, i ){
             drawTangents( ctx, focus, circle, colors[i%colors.length] );
         });
@@ -269,7 +269,7 @@ settings = {
 
 
 //control all of the pieces
-app = {
+bg_app = {
     updateMotion: function(){
         sketch.setMotion(settings.motionRadius, settings.motionSpeed);
     },
@@ -295,9 +295,10 @@ app = {
         for( var prop in generator ){
             settings[prop] = generator[prop]();
         }
-        app.reset();
+        bg_app.reset();
     },
     reset: function(){
+        bg_app_index = 0;
         sketch.clear();
         sketch.setCircles( layouts["random"](settings.numCircles, sketch.center) );
         sketch.setMotion( settings.motionRadius, settings.motionSpeed );
@@ -314,7 +315,7 @@ app = {
 //kick off the sketch
 main = function(){
     document.body.appendChild(sketch.el);
-    app.reset();
+    bg_app.reset();
 };
 
 window.onload = main;

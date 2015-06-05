@@ -8,6 +8,9 @@ html, body {
     font-family: Roboto, Helvetica;
     position: relative;
 }
+a {
+  color: white;
+}
 canvas {
   position:fixed;
   bottom: 0;
@@ -44,7 +47,7 @@ canvas {
   left: 0;
 }
 .accordion .sectionlabel input[type='radio']:checked ~ .content {
-  max-height: 300px;
+  max-height: 380px;
   opacity: 1;
   z-index: 10;
   overflow-y: auto;
@@ -81,6 +84,7 @@ canvas {
 .accordion .sectionlabel label span {
   display: table-cell;
   vertical-align: middle;
+  text-align: center;
 }
 .accordion .sectionlabel:last-of-type {
   border-bottom: 1px solid #363636;
@@ -124,6 +128,7 @@ ul {
 }
 ul li {
   padding: 10px;
+  text-align: center;
 }
 ul li i {
   font-size: 13px;
@@ -158,7 +163,7 @@ ul li:hover i {
   height: 140px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #f00;
+  background-color: white;
   text-align: center;
   /*z-index: -200;*/
 }
