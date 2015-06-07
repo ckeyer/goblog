@@ -98,12 +98,12 @@
  <canvas id="body_bg" >A drawing of something...</canvas>
 
 <script type="text/javascript" src="<% STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="<% CUSTOM_URL_JS %>matrix.js"></script>
   <script src="<% STATIC_URL_JS %>modernizr.js"></script>
   <script src='<% STATIC_URL_JS %>dat.gui.min.js'></script>
   <script src='<% STATIC_URL_JS %>toxiclibs.min.js'></script>
   <script src='<% STATIC_URL_JS %>animitter.min.js'></script>
   <script src="<% STATIC_URL_JS %>bg_index.js"></script>
-<script type="text/javascript" src="<% CUSTOM_URL_JS %>matrix.js"></script>
   <script type="text/javascript" charset="utf-8" >
       function clic(new_url){
         var title = document.title;
