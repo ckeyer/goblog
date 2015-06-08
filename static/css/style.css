@@ -157,6 +157,9 @@ ul li:hover i {
 
 /*#################################################*/
 
+#body_content{
+  margin-left: 200px;
+}
 #matrix_content{
   text-align: center;
   width: 600px;

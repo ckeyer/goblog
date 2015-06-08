@@ -9,8 +9,7 @@
   <link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" />
   <link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
   <title><% .PageTitle %></title>
-
-    <link rel="stylesheet" href="<% CUSTOM_URL_CSS%>style.css" media="screen" type="text/css" />
+  <link rel="stylesheet" href="<% CUSTOM_URL_CSS%>style.css" media="screen" type="text/css" />
 
 </head>
 
@@ -30,7 +29,11 @@
       <div class="content">
         <ul>
         <% range $index, $elem := .Tags %>
-          <li><i class="fa fa-inbox"></i><span><% $elem.Name %></span></li>
+          <li class="tag_label" tag_id="<% $elem.Id %>">
+            <i class="fa fa-inbox"></i>
+            <span><% $elem.Name %></span>
+            (<span><% $elem.BlogCount %></span>)
+          </li>
         <% end %>
         </ul>
       </div>
@@ -81,7 +84,7 @@
   </div>
 </div>
 
-<div style="text-align:center;clear:both">
+<div id ="body_content" style="text-align:center;clear:both">
     helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
     helloasdfabr <br>   helloasdfabr <br>    helloasdfabr <br>    <div id="matrix_content"></div>
     helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    helloasdfabr <br>    
@@ -112,7 +115,8 @@
         bg_app.reset();
         console.log(state);
         window.history.pushState(state, document.title, new_url);
-      }
+      };
+      
       </script>
 </body>
 </html>
