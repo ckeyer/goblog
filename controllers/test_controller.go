@@ -18,11 +18,7 @@ func (this *TestController) initData() {
 
 func (this *TestController) Get() {
 	this.initData()
-
 	this.Data["PageTitle"] = "测试"
-	this.SetSession("PageTitle", this.Data["PageTitle"])
-
-	log.Println("get session:", this.GetSession("STATIC_URL_JS"))
 	// this.Data["TestStr"] = "s"
-	this.TplNames = "test.tpl"
+	this.TplNames = "404.tpl"
 }
