@@ -23,8 +23,8 @@ func https_init() {
 	beego.SessionOn = true
 	beego.SessionGCMaxLifetime = 2
 	beego.BeegoServerName = "ckeyer Server 1.0"
-	beego.HttpCertFile = "conf/https/cert.pem"
-	beego.HttpKeyFile = "conf/https/key.pem"
+	beego.HttpCertFile = "/var/www/https/ca.cer"
+	beego.HttpKeyFile = "/var/www/https/ca.pem"
 }
 func db_init() {
 	models.RegistDB()
