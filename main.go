@@ -18,13 +18,14 @@ func main() {
 }
 
 func https_init() {
-	// beego.EnableHttpTLS = true
+	beego.EnableHttpTLS = true
 	// beego.HttpsPort = 443
 	beego.SessionOn = true
 	beego.SessionGCMaxLifetime = 2
+	beego.SessionName = "CkeyerSession"
 	beego.BeegoServerName = "ckeyer Server 1.0"
-	beego.HttpCertFile = "/var/www/https/cert.pem"
-	beego.HttpKeyFile = "/var/www/https/key.pem"
+	// beego.HttpCertFile = "/var/www/https/cert.pem"
+	// beego.HttpKeyFile = "/var/www/https/key.pem"
 }
 func db_init() {
 	models.RegistDB()
