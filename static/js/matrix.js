@@ -1,5 +1,5 @@
-var mColor = new Array("#eee","#d6e685","#8cc665","#44a340","#1e6823");
-var server_url = "/v1/matrix";
+﻿var mColor = new Array("#eee","#d6e685","#8cc665","#44a340","#1e6823");
+var server_url = "/matrix";
 var MATRIX_H = 7,MATRIX_W = 30;
 $(document).ready(function() {
 	console.log(server_url);
