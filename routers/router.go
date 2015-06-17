@@ -22,6 +22,7 @@ func init() {
 			beego.NSRouter("/", &controllers.TagController{}),
 			beego.NSRouter("/:key([0-9]+).html", &controllers.TagController{}),
 		),
+		beego.NSRouter("/test", &controllers.TestController{}),
 		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
 	)
 	ns_admin := beego.NewNamespace("/admin",

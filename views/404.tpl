@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html><head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" href="https://dn-daoerror-page.qbox.me/bower_components/normalize-css/normalize.css">
-		<link rel="stylesheet" href="https://dn-daoerror-page.qbox.me/styles/css/main.css">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="https://dn-daoerror-page.qbox.me/bower_components/parallax/deploy/jquery.parallax.js"></script>
-	</head><body style="overflow: hidden;"></body>
-	<body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ckeyer - Error</title>
+        <link rel="stylesheet" href="<% CUSTOM_URL_CSS %>404.css">
+    </head>
+    <body style="overflow: hidden;">
+        
+    </body>
+	<body style="overflow: hidden;">
 		<div id="container">
     		<ul id="scene" style="transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
     		    <li class="layer" data-depth="0.10" style="position: relative; display: block; left: 0px; top: 0px; transform: translate3d(11.61px, -5.944px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="star diamond"></div></li>
@@ -24,17 +25,4 @@
     		    </li>
     		</ul>
         </div>
-	
-	<script type="text/javascript">	
-        $('#scene').parallax({
-        invertX: false,
-        invertY: false,
-        limitX: false,
-        limitY: false,
-        scalarX: 10,
-        scalarY: 8,
-        frictionX: 0.5,
-        frictionY: 0.5
-        });
-    </script>
 </body></html>

@@ -14,25 +14,29 @@ type Tag struct {
 	ParentId int    `orm:"default(0)"`
 	Name     string `orm:"size(32);unique"`
 
+	Blogs     []*Blog `orm:"-"`
+	BlogCount int64   `orm:"-"`
+
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
 }
-
-// func NewTag(name string, parent int) *Tag {
-// 	return &Tag{Name: name, ParentId: parent}
-// }
 
 func GetTag(tag_name string) *Tag {
 	tag := &Tag{Name: tag_name}
 	tag.getByName()
 	return tag
 }
-func (this *Tag) Get() error {
+func (this *Tag) Get() (err error) {
 	if this.Name != "" {
-		return this.getByName()
+		err = this.getByName()
 	} else {
-		return this.getById()
+		err = this.getById()
 	}
+	if err != nil {
+		return
+	}
+	this.getBlogs()
+	return
 }
 func (this *Tag) getById() error {
 	o := orm.NewOrm()
@@ -41,7 +45,6 @@ func (this *Tag) getById() error {
 func (this *Tag) getByName() error {
 	o := orm.NewOrm()
 	_, id, err := o.ReadOrCreate(this, "name")
-	log.Println("#$@#################@", id, err)
 	o.ReadOrCreate(this, "Name")
 	if err == nil {
 		this.Id = id
@@ -62,9 +65,32 @@ func (this *Tag) Delete() error {
 	_, err := o.Delete(this)
 	return err
 }
+func (this *Tag) getBlogs() {
+	o := orm.NewOrm()
+	sql := "select blog.* from blog, blog_tag_relation as bt  where blog.id = bt.blog_id and bt.tag_id = ?"
+	o.Raw(sql, this.Id).QueryRows(&this.Blogs)
+
+}
+func (this *Tag) GetBlogCount() int64 {
+	if this.Blogs != nil {
+		this.BlogCount = int64(len(this.Blogs))
+		return this.BlogCount
+	}
+	o := orm.NewOrm()
+	cnt, err := o.QueryTable("blog_tag_relation").Filter("tag_id", this.Id).Count()
+	if err != nil {
+		return 0
+	}
+	this.BlogCount = cnt
+	return cnt
+
+}
 func GetHotTags(max int) (tags []*Tag) {
 	o := orm.NewOrm()
-	// num, err :=
-	o.Raw("select * from blog_tag_relation as bt group by bt.tag_id  order by count(bt.blog_id) desc", 1).QueryRows(tags)
+	sql := "select tag.* from tag,blog_tag_relation as bt  where tag.id = bt.tag_id group by bt.tag_id  order by count(bt.blog_id) desc limit 0,?"
+	o.Raw(sql, max).QueryRows(&tags)
+	for _, v := range tags {
+		v.GetBlogCount()
+	}
 	return
 }

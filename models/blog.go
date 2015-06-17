@@ -39,7 +39,13 @@ func (this *Blog) Insert() error {
 	if err == nil {
 		this.Id = id
 	}
+	this.getTags()
 	return err
+}
+func (this *Blog) getTags() {
+	o := orm.NewOrm()
+	sql := "select tag.* from tag, blog_tag_relation as bt  where tag.id = bt.tag_id and bt.blog_id = ?"
+	o.Raw(sql, this.Id).QueryRows(&this.Tags)
 }
 func (this *Blog) WriteToDB() (e error) {
 	o := orm.NewOrm()
@@ -56,7 +62,6 @@ func (this *Blog) WriteToDB() (e error) {
 			InsertBlogTagRelation(this, v)
 		}
 	}
-
 	// END
 	if e != nil {
 		e = o.Rollback()
@@ -111,7 +116,6 @@ func (this *Blog) GetPreviousBlog() (b *Blog, err error) {
 	err = qs.One(b)
 	return
 }
-
 func (this *Blog) GetBlogList(start, stop int) (bs *list.List) {
 	return
 }
