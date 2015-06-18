@@ -56,8 +56,8 @@
       <label for="sectionlabel-3"><span>小工具</span></label>
       <div class="content">
         <ul>
-          <li onclick="console.log('fuckyou');"><i class="fa fa-coffee"></i><span>聊天室</span></li>
-          <li onclick="console.log('fuckyou');"><i class="fa fa-coffee"></i><span>地球</span></li>
+          <li onclick="window.location.href='http://chat.ckeyer.com/';"><i class="fa fa-coffee"></i><span>聊天室</span></li>
+          <li onclick="window.location.href='http://earth.ckeyer.com/';"><i class="fa fa-coffee"></i><span>地球</span></li>
         </ul>
       </div>
     </div>
