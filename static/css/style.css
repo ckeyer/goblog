@@ -47,7 +47,7 @@ canvas {
   left: 0;
 }
 .accordion .sectionlabel input[type='radio']:checked ~ .content {
-  max-height: 320px;
+  max-height: 300px;
   opacity: 1;
   z-index: 10;
   overflow-y: auto;
