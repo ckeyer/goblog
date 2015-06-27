@@ -4,6 +4,7 @@
 *.so
 .fuse*
 goblog
+blog
 *.fuse*
 # Folders
 _obj
