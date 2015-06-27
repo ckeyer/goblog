@@ -57,8 +57,25 @@
 </div>
 
 <div class="sectionlabel">
-  <input type="radio" name="accordion-1" id="sectionlabel-3" value="toggle"/>
-  <label for="sectionlabel-3"><span>工具</span></label>
+    <input type="radio" name="accordion-1" id="sectionlabel-3" value="toggle"/>
+    <label for="sectionlabel-3"><span>收藏夹 </span></label>
+    <div class="content">
+      <ul>
+          <ul>
+            <% range $index, $elem := .BlogsTag %>
+            <li class="tag_label" tag_id="<% $elem.Id %>">
+              <i class="fa fa-inbox"></i>
+              <span><% $elem.Name %></span>
+              (<span><% $elem.BlogCount %></span>)
+          </li>
+          <% end %>
+      </ul>
+  </div>
+</div>
+
+<div class="sectionlabel">
+  <input type="radio" name="accordion-1" id="sectionlabel-4" value="toggle"/>
+  <label for="sectionlabel-4"><span>工具</span></label>
   <div class="content">
       <ul>
         <li onclick="window.location.href='/chat';"><i class="fa fa-coffee"></i><span>聊天室</span></li>
@@ -70,22 +87,23 @@
 </div>
 
 <div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-4" value="toggle"/>
-    <label for="sectionlabel-4"onclick="clic('/admin');"><span>留言</span></label>
+    <input type="radio" name="accordion-1" id="sectionlabel-5" value="toggle"/>
+    <label for="sectionlabel-5"onclick="clic('/admin');"><span>留言</span></label>
     <div class="content">
       给我留言
   </div>
 </div>
 
 <div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-5" value="toggle"/>
-    <label for="sectionlabel-5"><span>关于</span></label>
+    <input type="radio" name="accordion-1" id="sectionlabel-6" value="toggle"/>
+    <label for="sectionlabel-6"><span>关于</span></label>
     <div class="content">
       <h3>Github.</h3>
       <a href="https://github.com/ckeyer" target="_blank">https://github.com/ckeyer</a> 
-      <h3>Wechat.</h3>
-      <img src="<% CUSTOM_URL_IMG%>wechat.jpg" width="150px" alt="">
-      <span>More...</span>
+      <h3>Email.</h3>
+      <a href="Mailto:me@ckeyer.com">me@ckeyer.com</a> <br>
+      <h4><a href="/about/me.html">More...</a> </h4>
+      
   </div>
 </div>
 </div>
