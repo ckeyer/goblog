@@ -14,7 +14,7 @@ type MatrixController struct {
 }
 
 func (this *MatrixController) Post() {
-	log.Println("is https: ", this.Ctx.Input.IsSecure())
+	// log.Println("is https: ", this.Ctx.Input.IsSecure())
 	wp := models.NewWebPage("首页Matrix")
 	wp.IncrViewCount()
 

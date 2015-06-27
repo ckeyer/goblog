@@ -11,9 +11,11 @@ func init() {
 	ns := beego.NewNamespace("/v1",
 		beego.NSBefore(resource_init),
 		beego.NSAfter(log_info),
-		beego.NSRouter("/test", &controllers.TestController{}),
 		beego.NSRouter("/", &controllers.MainController{}),
+		beego.NSRouter("/test", &controllers.TestController{}),
 		beego.NSRouter("/matrix", &controllers.MatrixController{}),
+		beego.NSRouter("/test", &controllers.TestController{}),
+		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
 		beego.NSNamespace("/blog",
 			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowList"),
 			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:ShowBlog"),
@@ -22,27 +24,17 @@ func init() {
 			beego.NSRouter("/", &controllers.TagController{}),
 			beego.NSRouter("/:key([0-9]+).html", &controllers.TagController{}),
 		),
-		beego.NSRouter("/test", &controllers.TestController{}),
-		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
-	)
-	ns_admin := beego.NewNamespace("/admin",
-		beego.NSBefore(resource_init),
-		beego.NSCond(func(ctx *context.Context) bool {
-			if ctx.Input.IsSecure() {
-				return true
-			}
-			return false
-		}),
-		beego.NSRouter("/", &controllers.MainController{}),
-		beego.NSNamespace("/blog",
-			beego.NSRouter("/new", &controllers.BlogController{}, "post:NewBlog;get:AddBlog"),
-			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowEditList"),
-			beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:EditBlog"),
+		beego.NSNamespace("/admin",
+			beego.NSRouter("/", &controllers.MainController{}),
+			beego.NSNamespace("/blog",
+				beego.NSRouter("/new", &controllers.BlogController{}, "post:NewBlog;get:AddBlog"),
+				beego.NSRouter("/", &controllers.BlogController{}, "get:ShowEditList"),
+				beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:EditBlog"),
+			),
 		),
 		beego.NSRouter("/test", &controllers.TestController{}),
 	)
 	beego.AddNamespace(ns)
-	beego.AddNamespace(ns_admin)
 }
 
 func resource_init(ctx *context.Context) {
@@ -68,8 +60,6 @@ func log_info(ctx *context.Context) {
 		Protocol: ctx.Input.Protocol(),
 		Status:   ctx.Output.Status,
 	}
-	println(ctx.Input.Site())
-	println(ctx.Input.SubDomains())
 	err := connlog.Insert()
 	if err != nil {
 		println(err.Error())

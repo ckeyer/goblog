@@ -20,6 +20,10 @@ type Blog struct {
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
 }
+type BlogsMonth struct {
+	Month     string
+	BlogCount int
+}
 
 func (this *Blog) AddTagName(tag_name string) {
 	tag := &Tag{Name: tag_name}
@@ -57,6 +61,8 @@ func (this *Blog) WriteToDB() (e error) {
 			log.Println(v)
 			e = v.Get()
 			if e != nil {
+				log.Println("EEEEEEEE")
+				log.Println(e)
 				break
 			}
 			InsertBlogTagRelation(this, v)
@@ -123,5 +129,15 @@ func (this *Blog) GetBlogs(start, stop int) (bs []*Blog) {
 	return
 }
 func (this *Blog) GetBlogsByTagId(tag_id, start, stop int) (bs []*Blog) {
+	return
+}
+func GetBlogsMonth(cols int) (bs []*BlogsMonth) {
+	o := orm.NewOrm()
+	sql := "select DATE_FORMAT(created,'%Y-%m') as month,count(id) as blog_count from blog   group by month   order by month limit 0,?"
+	// res := make(orm.Params)
+	num, err := o.Raw(sql, cols).QueryRows(&bs)
+	if num == 0 || err != nil {
+		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	}
 	return
 }

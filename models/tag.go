@@ -92,5 +92,6 @@ func GetHotTags(max int) (tags []*Tag) {
 	for _, v := range tags {
 		v.GetBlogCount()
 	}
+	log.Printf("%V\n###", tags)
 	return
 }
