@@ -1,7 +1,6 @@
 package models
 
 import (
-	"container/list"
 	"github.com/astaxie/beego/orm"
 	"time"
 )
@@ -34,6 +33,11 @@ func GetBlogById(id int64) (b *Blog, err error) {
 	b = &Blog{Id: id}
 
 	err = o.Read(b)
+	if err != nil {
+		log.Println(err)
+	}
+	b.getTags()
+	log.Printf("%V\n", b)
 	return
 }
 func (this *Blog) Insert() error {
@@ -61,7 +65,6 @@ func (this *Blog) WriteToDB() (e error) {
 			log.Println(v)
 			e = v.Get()
 			if e != nil {
-				log.Println("EEEEEEEE")
 				log.Println(e)
 				break
 			}
@@ -89,10 +92,6 @@ func (this *Blog) Delete() error {
 	}
 	_, err = o.Delete(this)
 	return err
-}
-
-func (this *Blog) ToMap() (bm map[string]string) {
-	return
 }
 func (this *Blog) ToJSON() (s string) {
 	return ""
@@ -122,13 +121,17 @@ func (this *Blog) GetPreviousBlog() (b *Blog, err error) {
 	err = qs.One(b)
 	return
 }
-func (this *Blog) GetBlogList(start, stop int) (bs *list.List) {
-	return
-}
-func (this *Blog) GetBlogs(start, stop int) (bs []*Blog) {
-	return
-}
-func (this *Blog) GetBlogsByTagId(tag_id, start, stop int) (bs []*Blog) {
+func GetBlogs(start, count int) (bs []*Blog) {
+	o := orm.NewOrm()
+	// res := make(orm.Params)
+	sql := "select * from blog order by created desc limit ?,?"
+	num, err := o.Raw(sql, start, start+count).QueryRows(&bs)
+	if num == 0 || err != nil {
+		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	}
+	for _, v := range bs {
+		v.getTags()
+	}
 	return
 }
 func GetBlogsMonth(cols int) (bs []*BlogsMonth) {

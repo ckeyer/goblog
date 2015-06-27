@@ -27,7 +27,7 @@ func (this *MainController) Get() {
 	this.Data["StaticHost"] = wp.GetStaticHost()
 	this.Data["BlogsMonth"] = models.GetBlogsMonth(5)
 	this.Data["BlogsTag"] = models.GetHotTags(5)
-	// this.Data["HotTags"] = b.GetHotTags()
+	this.Data["LatestBlogs"] = models.GetBlogs(0, 5)
 
 	this.TplNames = "index.tpl"
 }
