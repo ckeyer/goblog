@@ -2,8 +2,8 @@
 <html>
 
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
       <!--<meta http-equiv="refresh" content="0;url=https://www.ckeyer.com/">-->
-      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
       <meta name="keywords" content="" />
       <meta name="description" content="" />
       <link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" />

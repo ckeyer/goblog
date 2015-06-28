@@ -9,8 +9,8 @@ type Blog struct {
 	Id      int64
 	Title   string `orm:"size(32)"`
 	Page    int    `orm:"default(0)"`
-	Summary string
-	Content string
+	Summary string `orm:"type(text) "`
+	Content string `orm:"type(text) "`
 	Type    string `orm:"size(12)"`
 	Status  int    `orm:"default(0)"`
 

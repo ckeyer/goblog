@@ -6,6 +6,7 @@ import (
 	"github.com/hoisie/redis"
 	logpkg "log"
 	"os"
+	"time"
 )
 
 var (
@@ -26,6 +27,7 @@ func init() {
 
 func RegistDB() {
 	orm.Debug = true
+	orm.DefaultTimeLoc = time.UTC
 
 	orm.RegisterDataBase("default", "mysql", db_str)
 	orm.SetMaxIdleConns("default", 10)
