@@ -167,18 +167,25 @@ ul li:hover i {
 /*#################################################*/
 
 #body_content{
+        min-width: 640px;
       margin-left: 200px;
       padding-top: 30px;
       background-color: rgba(0,0,0,0.1);
 }
-#body_content #body_content_1{
+#body_content .body_content_label{
         margin: 0px 20px 0px 20px ;
         padding-top: 10px;
         padding-bottom: 10px;
         border-radius: 10px; 
-        border: 4px solid #CCC;
+        min-width: 620px;
+        border: 2px solid #CCC;
         text-align: center;
-      background-color: rgba(255,255,255,0.8);
+      background-color: rgba(255,255,255,0.7);
+}
+#body_content .body_content_label:hover{
+        border: 3px solid #888;
+}
+#body_content #body_content_1{
 }
 #matrix_content{
       text-align: center;
@@ -186,8 +193,6 @@ ul li:hover i {
       height: 140px;
       margin-left: auto;
       margin-right: auto;
-      text-align: center;
-      /*z-index: -200;*/
 }
 #matrix_content .matrix_li{
       clear:both;
@@ -198,10 +203,11 @@ ul li:hover i {
       height: 20px;
       border-width: 2px; 
       border-style:solid;
+      background-color: white;
       border-color: white;
 }
 #matrix_content .matrix_cell:hover{
-      border-color: #fb1;
+      border-color: #e81;
 }
 #body_content #article_label_content{
       margin-top: 30px;

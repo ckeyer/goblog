@@ -110,12 +110,13 @@
 </div>
 
 <div id ="body_content" style="text-align:center;clear:both">
-        <div id="body_content_1">
+        <div id="body_content_1" class="body_content_label">
                 <div id="matrix_content"></div>
         </div>
+        
         <div id="article_label_content">
                   <% range $index, $elem := .LatestBlogs %>
-                  <div class="article_label" tag_id="<% $elem.Id %>">
+                  <div class="body_content_label" tag_id="<% $elem.Id %>">
                         <i class="fa fa-inbox"></i>
                         <span><% $elem.Title %></span> <br>
                         <span><% $elem.Summary %></span><br>
@@ -128,18 +129,22 @@
                 <% end %>
         </div>
 
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  546  546 <br>
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  514  514  514  514 <br>
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  
-  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  helloasdfabr  asdf
-</div>
+        <div class="body_content_label">
+                
+                  helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>546<br>546 <br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>514<br>514<br>514<br>514 <br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>
+                <br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>helloasdfabr<br>asdf
+                </div>
+
+        </div>
 
 <canvas id="body_bg" >A drawing of something...</canvas>
 
