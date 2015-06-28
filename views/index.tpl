@@ -113,18 +113,27 @@
         <div id="body_content_1" class="body_content_label">
                 <div id="matrix_content"></div>
         </div>
-        
-        <div id="article_label_content">
+
+        <div id="body_content_2">
                   <% range $index, $elem := .LatestBlogs %>
                   <div class="body_content_label" tag_id="<% $elem.Id %>">
-                        <i class="fa fa-inbox"></i>
-                        <span><% $elem.Title %></span> <br>
-                        <span><% $elem.Summary %></span><br>
-                        TAG:
-                        <% range $index2,$elem2 := $elem.Tags %>
-                        #<span><% $elem2.Id  %>(<% $elem2.Name %>)</span>#
-                        <% end %>
-                        <br>
+                        <div class="body_content_article">
+                                <div class="article_title_div">
+                                        <span class="article_title_tag">[BLOG]</span>
+                                        <span class="article_title"> <% $elem.Title %></span>
+                                </div>
+                                <div class="article_tags">
+                                        <% range $index2,$elem2 := $elem.Tags %>
+                                        <span class="article_tag" id="<% $elem2.Id  %>"><% $elem2.Name %></span>
+                                        <% end %>
+                                        <span class="article_created">
+                                                <% FMT_DATETIME $elem.Created %>
+                                        </span>
+                                </div>
+                                <div class="article_summary">
+                                        <% $elem.Summary %>
+                                </div>
+                        </div>
                 </div>
                 <% end %>
         </div>

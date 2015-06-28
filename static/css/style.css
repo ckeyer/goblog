@@ -166,29 +166,8 @@ ul li:hover i {
 
 /*#################################################*/
 
-#body_content{
-        min-width: 640px;
-      margin-left: 200px;
-      padding-top: 30px;
-      background-color: rgba(0,0,0,0.1);
-}
-#body_content .body_content_label{
-        margin: 0px 20px 0px 20px ;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-radius: 10px; 
-        min-width: 620px;
-        border: 2px solid #CCC;
-        text-align: center;
-      background-color: rgba(255,255,255,0.7);
-}
-#body_content .body_content_label:hover{
-        border: 3px solid #888;
-}
-#body_content #body_content_1{
-}
+/********** MATRIX START  ********/
 #matrix_content{
-      text-align: center;
       width: 600px;
       height: 140px;
       margin-left: auto;
@@ -208,7 +187,74 @@ ul li:hover i {
 }
 #matrix_content .matrix_cell:hover{
       border-color: #e81;
+        cursor: pointer;
 }
-#body_content #article_label_content{
+/********** MATRIX END  ********/
+
+/********** BODY_CONTENT START  ********/
+#body_content{
+        min-width: 640px;
+      margin-left: 200px;
+      padding-top: 30px;
+      background-color: rgba(0,0,0,0.1);
+}
+ .body_content_label{
+        margin: 5px 20px 0px 20px ;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px; 
+        min-width: 620px;
+        border: 2px solid #CCC;
+      background-color: rgba(255,255,255,0.7);
+}
+ .body_content_label:hover{
+        border: 3px solid #888;
+      background-color: rgba(255,255,255,0.85);
+}
+#body_content_1{
+}
+#body_content_2{
+        text-align: left;
       margin-top: 30px;
 }
+ .body_content_article{
+        margin: 0px 20px 0px 30px;
+}
+ .body_content_article .article_title{
+        margin-left: 5px;
+        font-size: 33px;
+}
+ .body_content_article .article_title:hover{
+        color: red;
+        text-decoration:underline;
+        cursor: pointer;
+}
+ .body_content_article .article_title_tag{
+        font-size: 15px;
+        color:rgb(242, 172, 20);
+}
+ .body_content_article .article_tags{
+        font-size: 18px;
+}
+ .body_content_article .article_tag{
+        font-size: 15px;
+        color: white;
+        margin: 0px 2px 0px 2px;
+        padding: 2px 10px 2px 10px;
+        border-radius: 5px; 
+        background-color: #666;
+}
+.body_content_article .article_tag:hover{
+        cursor: pointer;
+        border: 2px solid #666;
+}
+.body_content_article .article_summary{
+        margin-top: 5px;
+        text-indent: 2em;
+        font-size: 20px;
+}
+.body_content_article .article_summary:hover{
+        cursor: pointer;
+        border: 2px solid #eee;
+}
+/********** BODY_CONTENT END  ********/
