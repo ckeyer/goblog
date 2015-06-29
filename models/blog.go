@@ -1,7 +1,6 @@
 package models
 
 import (
-	"container/list"
 	"github.com/astaxie/beego/orm"
 	"time"
 )
@@ -10,8 +9,8 @@ type Blog struct {
 	Id      int64
 	Title   string `orm:"size(32)"`
 	Page    int    `orm:"default(0)"`
-	Summary string
-	Content string
+	Summary string `orm:"type(text) "`
+	Content string `orm:"type(text) "`
 	Type    string `orm:"size(12)"`
 	Status  int    `orm:"default(0)"`
 
@@ -19,6 +18,10 @@ type Blog struct {
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`
+}
+type BlogsMonth struct {
+	Month     string
+	BlogCount int
 }
 
 func (this *Blog) AddTagName(tag_name string) {
@@ -30,6 +33,11 @@ func GetBlogById(id int64) (b *Blog, err error) {
 	b = &Blog{Id: id}
 
 	err = o.Read(b)
+	if err != nil {
+		log.Println(err)
+	}
+	b.getTags()
+	log.Printf("%V\n", b)
 	return
 }
 func (this *Blog) Insert() error {
@@ -57,6 +65,7 @@ func (this *Blog) WriteToDB() (e error) {
 			log.Println(v)
 			e = v.Get()
 			if e != nil {
+				log.Println(e)
 				break
 			}
 			InsertBlogTagRelation(this, v)
@@ -83,10 +92,6 @@ func (this *Blog) Delete() error {
 	}
 	_, err = o.Delete(this)
 	return err
-}
-
-func (this *Blog) ToMap() (bm map[string]string) {
-	return
 }
 func (this *Blog) ToJSON() (s string) {
 	return ""
@@ -116,12 +121,26 @@ func (this *Blog) GetPreviousBlog() (b *Blog, err error) {
 	err = qs.One(b)
 	return
 }
-func (this *Blog) GetBlogList(start, stop int) (bs *list.List) {
+func GetBlogs(start, count int) (bs []*Blog) {
+	o := orm.NewOrm()
+	// res := make(orm.Params)
+	sql := "select * from blog order by created desc limit ?,?"
+	num, err := o.Raw(sql, start, start+count).QueryRows(&bs)
+	if num == 0 || err != nil {
+		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	}
+	for _, v := range bs {
+		v.getTags()
+	}
 	return
 }
-func (this *Blog) GetBlogs(start, stop int) (bs []*Blog) {
-	return
-}
-func (this *Blog) GetBlogsByTagId(tag_id, start, stop int) (bs []*Blog) {
+func GetBlogsMonth(cols int) (bs []*BlogsMonth) {
+	o := orm.NewOrm()
+	sql := "select DATE_FORMAT(created,'%Y-%m') as month,count(id) as blog_count from blog   group by month   order by month limit 0,?"
+	// res := make(orm.Params)
+	num, err := o.Raw(sql, cols).QueryRows(&bs)
+	if num == 0 || err != nil {
+		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	}
 	return
 }

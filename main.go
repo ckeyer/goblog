@@ -4,9 +4,11 @@ import (
 	"encoding/base64"
 	"github.com/astaxie/beego"
 	// "github.com/astaxie/beego/session"
+	"fmt"
 	"github.com/ckeyer/goblog/models"
 	"github.com/ckeyer/goblog/routers"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -34,6 +36,13 @@ func config_init() {
 	beego.TemplateLeft = "<%"
 	beego.TemplateRight = "%>"
 
+	beego.AddFuncMap("FMT_DATETIME", func(t time.Time) string {
+		return fmt.Sprintf("%v-%02d-%02d  %02d:%02d",
+			t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute())
+	})
+	beego.AddFuncMap("FMT_DATE_MONTH", func(t time.Time) string {
+		return fmt.Sprintf("%v-%02d", t.Year(), t.Month())
+	})
 	beego.AddFuncMap("STATIC_URL", func() string {
 		return beego.AppConfig.String("static_rul")
 	})

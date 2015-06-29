@@ -6,7 +6,7 @@ var bezier,
     settings,
     take,
     bg_app_index=0,
-    bg_app_count=500,
+    bg_app_count=1500,
     main;
 
 // "bezier" by Mathias Paumgarten
@@ -134,7 +134,7 @@ sketch = (function( cloudMotion ){
         center = new toxi.geom.Vec2D(),
         focus = new toxi.geom.Vec2D(),
         circles = [],
-        color = toxi.color.TColor.newHex('3b2141').setAlpha(0.015),
+        color = toxi.color.TColor.newHex('3b2141').setAlpha(0.02),
         motion,
         drawTangents;
 
@@ -262,7 +262,7 @@ layouts = (function(toxi, sketch, take){
 //some of the basic configuration
 settings = {
     numCircles: Math.ceil(Math.random()*50),
-    colors: toxi.color.TColor.newHex('3b2141').setAlpha(0.015),
+    colors: toxi.color.TColor.newHex('3b2141').setAlpha(0.02),
     motionRadius: Math.ceil(Math.random()*1500)+200,
     motionSpeed: Math.ceil(Math.random()*15) * 0.01
 };

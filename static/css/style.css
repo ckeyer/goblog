@@ -1,186 +1,260 @@
 html, body {
-    width: 100%;
-    height: 100%;
-    border: 0px;
-    padding: 0px;
-    margin: 0px;
-              font-family: 'Quicksand', sans-serif;
-    font-family: Roboto, Helvetica;
-    position: relative;
+      width: 100%;
+      height: 100%;
+      border: 0px;
+      padding: 0px;
+      margin: 0px;
+      font-family: 'Quicksand', sans-serif;
+      font-family: Roboto, Helvetica;
+      position: relative;
 }
 a {
-  color: white;
+      color: white;
 }
 canvas {
-  position:fixed;
-  bottom: 0;
-  top: 0;
-  left:0;
-  z-index:-2000;
+      position:fixed;
+      bottom: 0;
+      top: 0;
+      left:0;
+      z-index:-2000;
 }
 .left-menu{
-  position:fixed;
-  background: #666;
-  width: 200px;
-  top: 0;
-  bottom: 0;
-  z-index:0;
+      position:fixed;
+      background: #666;
+      width: 200px;
+      top: 0;
+      bottom: 0;
+      z-index:0;
 }
 .accordion {
-  color: #FFF;
-  width: 100%;
+      color: #FFF;
+      width: 100%;
 }
 .accordion .sectionlabel {
-  width: 100%;
+      width: 100%;
 }
 .accordion .sectionlabel input[type='radio'] {
-  display: none;
+      display: none;
 }
 .accordion .sectionlabel input[type='radio']:checked + label {
-  background: #363636;
+      background: #363636;
 }
 .accordion .sectionlabel input[type='radio']:checked + label:before {
-  content: " ";
-  position: absolute;
-  border-left: 3px solid #21CCFC;
-  height: 100%;
-  left: 0;
+      content: " ";
+      position: absolute;
+      border-left: 3px solid #21CCFC;
+      height: 100%;
+      left: 0;
 }
 .accordion .sectionlabel input[type='radio']:checked ~ .content {
-  max-height: 300px;
-  opacity: 1;
-  z-index: 10;
-  overflow-y: auto;
+      max-height: 300px;
+      opacity: 1;
+      z-index: 10;
+      overflow-y: auto;
 }
 .accordion .sectionlabel label {
-  position: relative;
-  cursor: pointer;
-  padding: 10px 20px;
-  display: table;
-  background: #222;
-  width: 100%;
-  -webkit-transition: background 0.3s ease-in-out;
-  -moz-transition: background 0.3s ease-in-out;
-  -ms-transition: background 0.3s ease-in-out;
-  transition: background 0.3s ease-in-out;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+      position: relative;
+      cursor: pointer;
+      padding: 10px 20px;
+      display: table;
+      background: #222;
+      width: 100%;
+      -webkit-transition: background 0.3s ease-in-out;
+      -moz-transition: background 0.3s ease-in-out;
+      -ms-transition: background 0.3s ease-in-out;
+      transition: background 0.3s ease-in-out;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
 }
 .accordion .sectionlabel label:before {
-  content: " ";
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  border-top: 1px solid #363636;
+      content: " ";
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 1px;
+      border-top: 1px solid #363636;
 }
 .accordion .sectionlabel label:hover {
-  background: #363636;
+      background: #363636;
 }
 .accordion .sectionlabel label span {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
 }
 .accordion .sectionlabel:last-of-type {
-  border-bottom: 1px solid #363636;
+      border-bottom: 1px solid #363636;
 }
 .accordion .sectionlabel .content {
-  max-height: 0;
-  background-color: #444;
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -ms-transition: all 0.4s;
-  transition: all 0.4s;
-  opacity: 0;
-  position: relative;
-  overflow-y: hidden;
+      max-height: 0;
+      background-color: #444;
+      -webkit-transition: all 0.4s;
+      -moz-transition: all 0.4s;
+      -ms-transition: all 0.4s;
+      transition: all 0.4s;
+      opacity: 0;
+      position: relative;
+      overflow-y: hidden;
 }
 
 *, *:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
 }
 
 .accordion {
-  font-size: 14px;
+      font-size: 14px;
 }
 .accordion .sectionlabel .content {
-  padding: 0 15px;
+      padding: 0 15px;
+}
+.accordion .sectionlabel .content  h3{
+      margin:10px 0px 0px 3px;
+}
+.accordion .sectionlabel .content  a{
+      margin:0px 0px 15px 10px;
+}
+.accordion .sectionlabel .content  h4{
+      margin:10px 0px 0px 100px;
 }
 .accordion .sectionlabel input[type='radio'] {
-  display: none;
+      display: none;
 }
 .accordion .sectionlabel input[type='radio']:checked ~ .content {
-  padding: 15px;
+      padding: 15px;
 }
 
 ul {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
 }
 ul li {
-  padding: 10px;
-  text-align: center;
+      padding: 10px;
+      text-align: center;
 }
 ul li i {
-  font-size: 13px;
-  width: 15px;
-  margin-right: 15px;
+      font-size: 13px;
+      width: 15px;
+      margin-right: 15px;
 }
 ul li:hover {
-  cursor: pointer;
-  background-color: #555;
+      cursor: pointer;
+      background-color: #555;
 }
 ul li:hover i {
-  color: #21CCFC;
+      color: #21CCFC;
 }
 
 .logo {
-  padding: 30px 10px;
-  width: 200px;
-  text-align: center;
-  color: #FFF;
-  font-size: 20px;
+      padding: 10px 10px;
+      width: 200px;
+      text-align: center;
+      color: #FFF;
+      font-size: 20px;
 }
 .logo i {
-  font-size: 70px;
-  color: #21CCFC;
+      font-size: 70px;
+      color: #21CCFC;
 }
 
 /*#################################################*/
 
-#body_content{
-  margin-left: 200px;
-}
+/********** MATRIX START  ********/
 #matrix_content{
-  text-align: center;
-  width: 600px;
-  height: 140px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: white;
-  text-align: center;
-  /*z-index: -200;*/
+      width: 600px;
+      height: 140px;
+      margin-left: auto;
+      margin-right: auto;
 }
-.matrix_li{
-  clear:both;
+#matrix_content .matrix_li{
+      clear:both;
 }
-.matrix_cell{
-  float:left;
-  width: 20px;
-  height: 20px;
-  border-width: 2px; 
-  border-style:solid;
-  border-color: white;
+#matrix_content .matrix_cell{
+      float:left;
+      width: 20px;
+      height: 20px;
+      border-width: 2px; 
+      border-style:solid;
+      background-color: white;
+      border-color: white;
 }
-.matrix_cell:hover{
-  border-color: #fb1;
+#matrix_content .matrix_cell:hover{
+      border-color: #e81;
+        cursor: pointer;
 }
+/********** MATRIX END  ********/
+
+/********** BODY_CONTENT START  ********/
+#body_content{
+        min-width: 640px;
+      margin-left: 200px;
+      padding-top: 30px;
+      background-color: rgba(0,0,0,0.1);
+}
+ .body_content_label{
+        margin: 5px 20px 0px 20px ;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px; 
+        min-width: 620px;
+        border: 2px solid #CCC;
+      background-color: rgba(255,255,255,0.7);
+}
+ .body_content_label:hover{
+        border: 3px solid #888;
+      background-color: rgba(255,255,255,0.85);
+}
+#body_content_1{
+}
+#body_content_2{
+        text-align: left;
+      margin-top: 30px;
+}
+ .body_content_article{
+        margin: 0px 20px 0px 30px;
+}
+ .body_content_article .article_title{
+        margin-left: 5px;
+        font-size: 33px;
+}
+ .body_content_article .article_title:hover{
+        color: red;
+        text-decoration:underline;
+        cursor: pointer;
+}
+ .body_content_article .article_title_tag{
+        font-size: 15px;
+        color:rgb(242, 172, 20);
+}
+ .body_content_article .article_tags{
+        font-size: 18px;
+}
+ .body_content_article .article_tag{
+        font-size: 15px;
+        color: white;
+        margin: 0px 2px 0px 2px;
+        padding: 2px 10px 2px 10px;
+        border-radius: 5px; 
+        background-color: #666;
+}
+.body_content_article .article_tag:hover{
+        cursor: pointer;
+        border: 2px solid #666;
+}
+.body_content_article .article_summary{
+        margin-top: 5px;
+        text-indent: 2em;
+        font-size: 20px;
+}
+.body_content_article .article_summary:hover{
+        cursor: pointer;
+        border: 2px solid #eee;
+}
+/********** BODY_CONTENT END  ********/

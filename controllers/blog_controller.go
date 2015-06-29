@@ -110,7 +110,7 @@ func (this *BlogController) NewBlog() {
 			Tags:    tags,
 		}
 		// log.Println("add blog", blog.Tags[0])
-		if err := blog.Insert(); err != nil {
+		if err := blog.WriteToDB(); err != nil {
 			this.Ctx.WriteString(`{"msgcode":-3,"data":"` + err.Error() + `""}`)
 		} else {
 			// log.Printf("add blog %v\n", blog.Tags[0])

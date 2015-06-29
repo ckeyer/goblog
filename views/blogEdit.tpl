@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 	<link rel="Stylesheet" type="text/css" href="<% html2str .STATIC_URL_CSS%>jquery-ui.1.11.3.min.css" />
 	<link rel="Stylesheet" type="text/css" href="<% html2str .STATIC_URL_CSS%>jHtmlArea.css" />
 </head>

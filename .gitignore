@@ -4,7 +4,9 @@
 *.so
 .fuse*
 goblog
+blog
 *.fuse*
+*.rdb
 # Folders
 _obj
 _test
