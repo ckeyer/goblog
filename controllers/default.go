@@ -14,20 +14,24 @@ func init() {
 	log = logpkg.New(os.Stderr, "controller", logpkg.Ltime|logpkg.Lshortfile)
 }
 
-type MainController struct {
+type BaseController struct {
 	beego.Controller
 }
 
-func (this *MainController) Get() {
-	wp := models.NewWebPage("首页")
-	wp.IncrViewCount()
+func (this *BaseController) Prepare() {
 
-	this.Data["PageTitle"] = wp.GetPageTitle()
-	this.Data["ImgHost"] = wp.GetImgHost()
-	this.Data["StaticHost"] = wp.GetStaticHost()
+	this.Data["Title"] = "Download you with my self"
+	this.Data["Scripts"] = `<link rel="stylesheet" href="/static/css/style.css" media="screen" type="text/css" />`
+	this.Data["HtmlHead"] = `<script type="text/javascript" src="/static/js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="/static/js/matrix.js"></script>
+<script src="/static/js/modernizr.js"></script>
+<script src='/static/js/dat.gui.min.js'></script>
+<script src='/static/js/toxiclibs.min.js'></script>
+<script src='/static/js/animitter.min.js'></script>
+<script src="/static/js/bg_index.js"></script>`
+
 	this.Data["BlogsMonth"] = models.GetBlogsMonth(5)
 	this.Data["BlogsTag"] = models.GetHotTags(5)
-	this.Data["LatestBlogs"] = models.GetBlogs(0, 5)
 
-	this.TplNames = "index.tpl"
+	this.Layout = "layout/layout.html"
 }
