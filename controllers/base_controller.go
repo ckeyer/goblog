@@ -10,15 +10,16 @@ import (
 
 var (
 	log                *logpkg.Logger
-	static_url_js_ssl  = " /static/js/"
-	static_url_css_ssl = " /static/css/"
-	static_url_img_ssl = "/static/img/"
-	static_url_js      = " /static/js/"
-	static_url_css     = " /static/css/"
-	static_url_img     = "/static/img/"
-	custom_url_js      = " /static/js/"
-	custom_url_css     = " /static/css/"
-	custom_url_img     = " /static/img/"
+	static_url         = beego.AppConfig.String("static_url")
+	static_url_js_ssl  = beego.AppConfig.String("static_url_js_ssl")
+	static_url_css_ssl = beego.AppConfig.String("static_url_css_ssl")
+	static_url_img_ssl = beego.AppConfig.String("static_url_img_ssl")
+	static_url_js      = beego.AppConfig.String("static_url_js")
+	static_url_css     = beego.AppConfig.String("static_url_css")
+	static_url_img     = beego.AppConfig.String("static_url_img")
+	custom_url_js      = beego.AppConfig.String("custom_url_js")
+	custom_url_css     = beego.AppConfig.String("custom_url_css")
+	custom_url_img     = beego.AppConfig.String("custom_url_img")
 )
 
 func init() {
@@ -30,7 +31,15 @@ type BaseController struct {
 }
 
 func (this *BaseController) Prepare() {
-
+	url_head := this.Ctx.Input.Scheme() + "://" + this.Ctx.Input.Host()
+	if url_head+"/" != static_url {
+		this.Ctx.WriteString(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=` +
+			static_url + string([]byte(this.Ctx.Input.Url())[4:]) + `" /></head></html>`)
+		this.StopRun()
+	}
+	this.Data["Metes"] = ""
+	this.Data["Keywords"] = "CKeyer"
+	this.Data["Description"] = "CKeyer"
 	this.Data["Title"] = "Download you with my self"
 	this.Data["Styles"] = `<link rel="stylesheet" href="` + static_url_css + `style.css" media="screen" type="text/css" />`
 	this.Data["Scripts"] = `<script type="text/javascript" src="` + static_url_js + `jquery-2.1.3.min.js"></script>
