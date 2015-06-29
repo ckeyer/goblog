@@ -252,6 +252,7 @@ ul li:hover i {
         margin-top: 5px;
         text-indent: 2em;
         font-size: 20px;
+        border: 2px solid #FFF;
 }
 .body_content_article .article_summary:hover{
         cursor: pointer;
