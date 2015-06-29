@@ -18,7 +18,7 @@ func main() {
 }
 
 func server_init() {
-	beego.EnableHttpTLS = true
+	// beego.EnableHttpTLS = true
 	// beego.HttpsPort = 443
 	beego.SessionOn = true
 	beego.SessionGCMaxLifetime = 2
