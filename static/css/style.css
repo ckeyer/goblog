@@ -263,6 +263,7 @@ ul li:hover i {
 /********** 编辑栏及显示的部分 START  ********/
  .article_content{
         margin: 0px 20px 0px 30px;
+        text-indent: 2em;
 }
 #blog_edit{
          margin: 0px 20px 0px 30px;
