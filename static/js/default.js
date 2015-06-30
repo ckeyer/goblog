@@ -1,4 +1,4 @@
-﻿var  matrix ; 
+﻿var  matrix, article ; 
 
 //  Github的Commit矩阵
 matrix=(function(){
@@ -26,7 +26,7 @@ matrix=(function(){
 			var w = parseInt($(this).attr("cell_w"));
 			var h = parseInt($(this).attr("cell_h"));
 			var c = parseInt($(this).attr("color_id"));
-			console.log( (h+1) +", "+(w+1)+", "+(c));
+			// console.log( (h+1) +", "+(w+1)+", "+(c));
 			var new_c = (c+1)%5;
 			proto.updateMatrixColor(h,w,new_c);
 
@@ -36,12 +36,12 @@ matrix=(function(){
 				data: {"code":2,"h":h,"w":w,"val":new_c },
 				dataType: "json",
 				success: function(result){
-					console.log(result);
+					console.log("Download your use my life");
 				}
 			});
 		},
 		//$(document).ready(
-		initMatrix:function() {
+		init:function() {
 			for (var i = 0; i < proto.MATRIX_H; i++) {
 				var divout= $('<div class="matrix_li" id="matrix_li_'+i+'" ></div>');
 				for (var j = 0; j < proto.MATRIX_W; j++) {
@@ -69,8 +69,41 @@ matrix=(function(){
 	return proto;
 })();
 
+article =(function(){
+	var proto ={
+		server_url : "/blog",
+		init:function(){
+			$(".article_title").click(proto.clickArticleTitle);
+			$(".article_summary").click(proto.clickArticleTitle);
+		},
+		clickArticleTitle:function(){
+			var id = parseInt($(this).attr("art_id"));
+			proto.getArticle(id);
+		},
+		getArticle:function(id){
+			$.ajax({
+				type: 'POST',
+				url: proto.server_url,
+				data: {"code":1,"id":id },
+				dataType: "json",
+				success: function(result){
+					console.log("Success");
+					proto.showArticle(result.data);
+				}
+			});
+		},
+		showArticle:function(data){
+			console.log("hello");
+			console.log(data);
+		}
+	}
+	return proto;
+})();
+
+
 main = function(){
-	matrix.initMatrix();
+	article.init();
+	matrix.init();
 };
 
 $(document).ready(main());

@@ -1,12 +1,9 @@
 package controllers
 
 import (
-	// "encoding/base64"
-	"github.com/astaxie/beego"
-	"github.com/ckeyer/goblog/models"
-	// "log"
 	"crypto/md5"
 	"fmt"
+	"github.com/ckeyer/goblog/models"
 	"io"
 	"sort"
 	"strconv"
@@ -14,11 +11,11 @@ import (
 )
 
 type BlogController struct {
-	beego.Controller
+	BaseController
 }
 
 type BlogData struct {
-	MsgCode    int      `form:"msgcode"`
+	Code       int      `form:"code"`
 	Title      string   `form:"titile"`
 	Tags       []string `form:"tags[]"`
 	BlogType   string   `form:"blog_type"`
@@ -27,16 +24,11 @@ type BlogData struct {
 	Summary    string   `form:"summary"`
 	Content    string   `form:"content"`
 }
-
-func (this *BlogController) initData() {
-	this.Data["STATIC_URL_JS"] = this.GetSession("STATIC_URL_JS")
-	this.Data["STATIC_URL_IMG"] = this.GetSession("STATIC_URL_IMG")
-	this.Data["STATIC_URL_CSS"] = this.GetSession("STATIC_URL_CSS")
+type BlogUpJson struct {
 }
 
 // @router /v1/blog [get]
 func (this *BlogController) ShowList() {
-	this.initData()
 	log.Println("// @router /v1/blog [get]")
 	wp := models.NewWebPage("博客")
 	wp.IncrViewCount()
@@ -45,27 +37,53 @@ func (this *BlogController) ShowList() {
 
 // @router /v1/blog::key([0-9]+).html [get]
 func (this *BlogController) ShowBlog() {
-	this.initData()
-	log.Println("// @router /v1/blog::key([0-9]+).html [get]")
-	s := this.Ctx.Input.Param(":key")
-	this.Ctx.WriteString(s)
-	this.Ctx.WriteString("// @router /v1/blog:key [get]")
+
+	skey := this.Ctx.Input.Param(":key")
+	key, err := strconv.Atoi(skey)
+	if err != nil {
+		this.Ctx.WriteString("Error")
+		return
+	}
+	blog, err := models.GetBlogById(int64(key))
+	if err != nil {
+		this.Ctx.WriteString("Error")
+		return
+	}
+	this.Data["Article"] = blog
+	this.TplNames = "blog.tpl"
 }
 
 func (this *BlogController) Post() {
-	log.Println("")
+	log.Println("Post oKKKKKKKK")
+	code, _ := this.GetInt32("code")
+	switch code {
+	case 1:
+		id, err := this.GetInt64("id")
+		if err != nil {
+			this.Ctx.WriteString(`{"code":-2,"data":"Get err id "}`)
+			break
+		}
+		blog, err := models.GetBlogById(id)
+		if err != nil {
+			this.Ctx.WriteString(`{"code":-3,"data":"Get err blog "}`)
+			break
+		}
+		log.Println("...")
+		this.Ctx.WriteString(`{"code":-3,"data":` + blog.ToJSON() + `}`)
+		return
+	default:
+		this.Ctx.WriteString(`{"code":-1,"data":"Crying"}`)
+	}
 }
 
 // @router /v1/admin/blog [get]
 func (this *BlogController) ShowEditList() {
-	this.initData()
 	log.Println("// @router /v1/admin/blog [get]")
 	this.Ctx.WriteString("// @router /v1/admin/blog [get]")
 }
 
 // @router /v1/admin/blog:key([0-9]+).html [get]
 func (this *BlogController) EditBlog() {
-	this.initData()
 	// s := this.Ctx.Input.Param(":key")
 	// this.Ctx.WriteString(s)
 	// this.Ctx.WriteString("// @router /v1/admin/blog [get]")
@@ -73,10 +91,16 @@ func (this *BlogController) EditBlog() {
 }
 
 func (this *BlogController) AddBlog() {
-	this.initData()
 	// s := this.Ctx.Input.Param(":key")
 	// this.Ctx.WriteString(s)
 	// this.Ctx.WriteString("// @router /v1/admin/blog [get]")
+	this.Data["CusStyles"] = `<link rel="Stylesheet" type="text/css" href="` + static_url_css + `jquery-ui.1.11.3.min.css" />
+<link rel="Stylesheet" type="text/css" href="` + static_url_css + `jHtmlArea.css" />`
+
+	this.Data["CusScripts"] = `<script type="text/javascript" src="` + static_url_js + `jquery-ui.1.11.3.min.js"></script>
+<script type="text/javascript" src="` + static_url_js + `jHtmlArea-0.8.min.js"></script>
+<script type="text/javascript" src="` + static_url_js + `edit_blog.js"></script>`
+
 	this.TplNames = "blogEdit.tpl"
 }
 
@@ -87,15 +111,15 @@ func (this *BlogController) NewBlog() {
 	err := this.ParseForm(blogpost)
 	if err != nil {
 		log.Println(err.Error())
-		this.Ctx.WriteString(`{"msgcode":-1,"data":"` + err.Error() + `""}`)
+		this.Ctx.WriteString(`{"code":-1,"data":"` + err.Error() + `""}`)
 	}
 	log.Println("tags", blogpost.Tags)
 	log.Println("post datat", blogpost)
 	// log.Println(authCommit(blogpost.Password, blogpost.CommitSalt))
-	switch blogpost.MsgCode {
+	switch blogpost.Code {
 	case 1:
 		if !authCommit(blogpost.Password, blogpost.CommitSalt) {
-			this.Ctx.WriteString(`{"msgcode":-2,"data":"auth error""}`)
+			this.Ctx.WriteString(`{"code":-2,"data":"auth error""}`)
 			return
 		}
 		var tags []*models.Tag = make([]*models.Tag, len(blogpost.Tags))
@@ -111,14 +135,14 @@ func (this *BlogController) NewBlog() {
 		}
 		// log.Println("add blog", blog.Tags[0])
 		if err := blog.WriteToDB(); err != nil {
-			this.Ctx.WriteString(`{"msgcode":-3,"data":"` + err.Error() + `""}`)
+			this.Ctx.WriteString(`{"code":-3,"data":"` + err.Error() + `""}`)
 		} else {
 			// log.Printf("add blog %v\n", blog.Tags[0])
-			this.Ctx.WriteString(`{"msgcode":1}`)
+			this.Ctx.WriteString(`{"code":1}`)
 			return
 		}
 	}
-	this.Ctx.WriteString(`{"msgcode":0}`)
+	this.Ctx.WriteString(`{"code":0}`)
 }
 
 func authCommit(pwd, salt string) bool {

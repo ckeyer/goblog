@@ -47,7 +47,7 @@ canvas {
       left: 0;
 }
 .accordion .sectionlabel input[type='radio']:checked ~ .content {
-      max-height: 300px;
+      max-height: 280px;
       opacity: 1;
       z-index: 10;
       overflow-y: auto;
@@ -130,7 +130,7 @@ canvas {
 }
 
 ul {
-      width: 100%;
+      /*width: 100%;*/
       padding: 0;
       margin: 0;
       list-style: none;
@@ -258,4 +258,45 @@ ul li:hover i {
         cursor: pointer;
         border: 2px solid #eee;
 }
+
+
+/********** 编辑栏及显示的部分 START  ********/
+ .article_content{
+        margin: 0px 20px 0px 30px;
+}
+#blog_edit{
+         margin: 0px 20px 0px 30px;
+}
+.article_content p{
+  color: red;
+}
+.article_content h1{
+  
+}
+.article_content h2{
+  
+}
+.article_content h3{
+  
+}
+.article_content h4{
+  
+}
+.article_content h5{
+  
+}
+.article_content b{
+  
+}
+.article_content i{
+  
+}
+.article_content a{
+  
+}
+.article_content img{
+  
+}
+/********** 编辑栏及显示的部分 START  ********/
+
 /********** BODY_CONTENT END  ********/

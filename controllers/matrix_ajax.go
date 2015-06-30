@@ -20,7 +20,7 @@ func (this *MatrixController) Post() {
 
 	resmag := &models.MatrixUpJson{}
 	if err := this.ParseForm(resmag); err != nil {
-		this.Ctx.WriteString(`{"code":-1"data":"` + err.Error() + `"}`)
+		this.Ctx.WriteString(`{"code":-1,"data":"` + err.Error() + `"}`)
 		return
 	}
 
