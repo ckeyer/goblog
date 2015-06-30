@@ -134,10 +134,12 @@ func GetBlogs(start, count int) (bs []*Blog) {
 	}
 	return
 }
+
+// 获取按月的文章数
 func GetBlogsMonth(cols int) (bs []*BlogsMonth) {
 	o := orm.NewOrm()
 	sql := "select DATE_FORMAT(created,'%Y-%m') as month,count(id) as blog_count from blog   group by month   order by month limit 0,?"
-	// res := make(orm.Params)
+
 	num, err := o.Raw(sql, cols).QueryRows(&bs)
 	if num == 0 || err != nil {
 		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)

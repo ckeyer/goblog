@@ -2,12 +2,11 @@ package controllers
 
 import (
 	_ "container/list"
-	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
 )
 
 type MainController struct {
-	beego.Controller
+	BaseController
 }
 
 func (this *MainController) Get() {

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <% str2html .Metes %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
+  <meta name="keywords" content="<% .Keywords %>" />
+  <meta name="description" content="<% .Description %>" />
   <link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
   <title>CKeyer - <% .PageTitle %></title>
-  <% .HtmlHead %>
+  <% str2html .Styles %>
 </head>
 
 <body>
@@ -112,10 +113,12 @@
 
   <div id="body_content_2">
    <% .LayoutContent %>
-</div>
+  </div>
 
 <canvas id="body_bg" >A drawing of something...</canvas>
-<% .Scripts %>
+
+<div><% str2html .Tail %></div>
+<% str2html .Scripts %>
 
 <script type="text/javascript" charset="utf-8" >
     function clic(new_url){
