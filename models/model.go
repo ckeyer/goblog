@@ -13,7 +13,7 @@ var (
 	rc      redis.Client
 	log     *logpkg.Logger
 	db_str  string
-	force   = true // force create tables
+	force   = false // force create tables
 	verbose = true // show sql
 )
 
