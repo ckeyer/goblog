@@ -7,10 +7,12 @@ goblog
 blog
 *.fuse*
 *.rdb
+conf/app.conf
 # Folders
+conf
 _obj
 _test
-conf/app.conf
+*.conf
 key.pem
 cert.pem
 # Architecture specific extensions/prefixes
