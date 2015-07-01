@@ -94,6 +94,7 @@ article =(function(){
 			});
 		},
 		showArticle:function(data){
+			console.log(data);
 			var newbody2= $('#body_content_2');
 			newbody2.empty();
 
