@@ -219,7 +219,7 @@ function commit(){
 	var password = $.md5($('#password').val());
 	var commit_value = $('#commit_button').val();
 
-	var postData  = {"msgcode":1,
+	var postData  = {"code":1,
 		"titile":title,
 		"blog_type":blog_type,
 		"tags":tags,

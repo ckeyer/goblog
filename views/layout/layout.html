@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" >
   <title>CKeyer - <% .PageTitle %></title>
   <% str2html .Styles %>
+  <% str2html .CusStyles %>
 </head>
 
 <body>
@@ -119,17 +120,18 @@
 
 <div><% str2html .Tail %></div>
 <% str2html .Scripts %>
+<% str2html .CusScripts %>
 
-<script type="text/javascript" charset="utf-8" >
-    function clic(new_url){
-      var title = document.title;
-      var url = window.location.pathname;
-      var state = { title: title,url:url};
-      bg_app.reset();
-      console.log(state);
-      window.history.pushState(state, document.title, new_url);
-  };
+ <script type="text/javascript" charset="utf-8" >
+//     function clic(new_url){
+//       var title = document.title;
+//       var url = window.location.pathname;
+//       var state = { title: title,url:url};
+//       bg_app.reset();
+//       console.log(state);
+//       window.history.pushState(state, document.title, new_url);
+//   };
 
-</script>
+// </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"github.com/astaxie/beego/orm"
 	"time"
 )
@@ -94,7 +95,11 @@ func (this *Blog) Delete() error {
 	return err
 }
 func (this *Blog) ToJSON() (s string) {
-	return ""
+	b, e := json.Marshal(this)
+	if e != nil {
+		return ""
+	}
+	return string(b)
 }
 
 func (this *Blog) Read() {

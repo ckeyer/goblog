@@ -17,7 +17,7 @@ func init() {
 		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
 		beego.NSRouter("/article_:key([0-9]+).html", &controllers.BlogController{}, "get:ShowBlog"),
 		beego.NSNamespace("/blog",
-			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowList"),
+			beego.NSRouter("/", &controllers.BlogController{}, "get:ShowList;post:Post"),
 		),
 		beego.NSNamespace("/tag",
 			beego.NSRouter("/", &controllers.TagController{}),
