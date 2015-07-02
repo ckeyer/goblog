@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/astaxie/beego/orm"
 	"time"
 )
@@ -94,11 +95,20 @@ func (this *Blog) Delete() error {
 	_, err = o.Delete(this)
 	return err
 }
+
+// 用于格式化时间字段
+// func (this Blog) MarshalText() ([]byte, error) {
+// 	return []byte(fmt.Sprintf("%d-%02d-%02d %02d:%02d",
+// 		this.Created.Year(), this.Created.Month(), this.Created.Day(),
+// 		this.Created.Hour(), this.Created.Minute())), nil
+// }
+
 func (this *Blog) ToJSON() (s string) {
 	b, e := json.Marshal(this)
 	if e != nil {
 		return ""
 	}
+	fmt.Println(string(b))
 	return string(b)
 }
 

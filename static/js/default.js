@@ -78,6 +78,7 @@ article =(function(){
 		},
 		clickArticleTitle:function(){
 			var id = parseInt($(this).attr("art_id"));
+			// window.location.href = "/article_"+id+".html";
 			proto.getArticle(id);
 		},
 		getArticle:function(id){
@@ -93,8 +94,35 @@ article =(function(){
 			});
 		},
 		showArticle:function(data){
-			console.log("hello");
 			console.log(data);
+			var newbody2= $('#body_content_2');
+			newbody2.empty();
+
+			var title =$( '<div class="article_title_div">\
+				<span class="article_title_tag">[BLOG]</span>\
+				<span class="article_title" art_id="'+data.Id+'"> '+data.Title+'</span></div>');
+			var tags =$('<div class="article_tags"></div>');
+			data.Tags.forEach(function(tag) {
+				var tag = $('<span class="article_tag" id="'+tag.Id+
+					'">'+tag.Name +'</span>');
+				tags.append(tag);
+			});
+			tags.append($('<span class="article_created">'+data.Created+'</span>'));
+			var content = $('<div class="article_content">'+data.Content+'</div>');
+			
+			var body_content_article = $('<div class="body_content_article"></div>');
+			body_content_article.append(title);
+			body_content_article.append(tags);
+			body_content_article.append(content);
+			var body_content_label = $('<div class="body_content_label" tag_id="'+data.Id+'"></div>');
+			body_content_label.append(body_content_article);
+			newbody2.append(body_content_label);
+		
+			// 更改地址栏URL
+			var stateObject = {id: data.Id ,type:"blog"};
+			var title = "Ckeyer - "+data.Title;
+			var newUrl = "article_"+data.Id+".html";
+			history.pushState(stateObject,title,newUrl);
 		}
 	}
 	return proto;

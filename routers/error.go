@@ -33,6 +33,7 @@ var errtpl = `
         		<li class="layer" data-depth="0.60" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(69.66px, -35.664px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="wave light-blue depth-60"></div></li>
         		<li class="layer" data-depth="0.00" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
         		    <div class="error-message">
+                        <div align="center" ><font color="white" size=5 >{{ .Url }}<font></div><br>
         		    	<div align="center" ><font color="white" size=5 >{{ .Title }}<font></div><br>
             		    	<div class="button"><a href="/">回到首页</a></div>
         		    </div>
@@ -48,6 +49,7 @@ func NotFound(rw http.ResponseWriter, r *http.Request) {
 	// template.New("sd").ParseFiles(...)
 	data := make(map[string]interface{})
 	data["Title"] = "Page Not Found"
+	data["Url"] = r.URL
 	//rw.WriteHeader(http.StatusNotFound)
 	t.Execute(rw, data)
 }
