@@ -9,11 +9,11 @@ import (
 
 type Blog struct {
 	Id      int64
-	Title   string `orm:"size(32)"`
+	Title   string `orm:"size(256)"`
 	Page    int    `orm:"default(0)"`
-	Summary string `orm:"type(text) "`
-	Content string `orm:"type(text) "`
-	Type    string `orm:"size(12)"`
+	Summary string `orm:"type(text); null"`
+	Content string `orm:"type(text); null"`
+	Type    string `orm:"size(32)"`
 	Status  int    `orm:"default(0)"`
 
 	Tags []*Tag `orm:"-"`

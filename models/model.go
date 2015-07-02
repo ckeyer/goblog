@@ -14,7 +14,7 @@ var (
 	log     *logpkg.Logger
 	db_str  string
 	force   = false // force create tables
-	verbose = true  // show sql
+	verbose = true // show sql
 )
 
 func init() {
@@ -33,5 +33,8 @@ func RegistDB() {
 	orm.SetMaxIdleConns("default", 10)
 	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog), new(BlogTagRelation))
 
-	orm.RunSyncdb("default", force, verbose)
+	err := orm.RunSyncdb("default", force, verbose)
+	if err != nil {
+		panic(err)
+	}
 }
