@@ -96,19 +96,35 @@ func (this *Blog) Delete() error {
 	return err
 }
 
-// 用于格式化时间字段
-// func (this Blog) MarshalText() ([]byte, error) {
+//用于格式化时间字段
+func getTimeString(ttt time.Time) string {
+	return (fmt.Sprintf("%d-%02d-%02d %02d:%02d",
+		ttt.Year(), ttt.Month(), ttt.Day(),
+		ttt.Hour(), ttt.Minute()))
+}
+
+// func (this time.Time) MarshalText() ([]byte, error) {
 // 	return []byte(fmt.Sprintf("%d-%02d-%02d %02d:%02d",
 // 		this.Created.Year(), this.Created.Month(), this.Created.Day(),
 // 		this.Created.Hour(), this.Created.Minute())), nil
 // }
-
 func (this *Blog) ToJSON() (s string) {
 	b, e := json.Marshal(this)
 	if e != nil {
 		return ""
 	}
 	fmt.Println(string(b))
+	var mp map[string]interface{}
+	e = json.Unmarshal(b, &mp)
+	if e != nil {
+		return ""
+	}
+	mp["Created"] = getTimeString(this.Created)
+	mp["Updated"] = getTimeString(this.Updated)
+	b, e = json.Marshal(&mp)
+	if e != nil {
+		return ""
+	}
 	return string(b)
 }
 

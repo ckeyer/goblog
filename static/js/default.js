@@ -72,9 +72,16 @@ matrix=(function(){
 article =(function(){
 	var proto ={
 		server_url : "/blog",
+		content:$('#body_content_2'),
 		init:function(){
 			$(".article_title").click(proto.clickArticleTitle);
 			$(".article_summary").click(proto.clickArticleTitle);
+			window.onpopstate = function(e){
+				console.log("hello");
+				console.log(e);
+				// proto.content.append( $(history.state.content));
+				// page = history.state.page;
+			} 
 		},
 		clickArticleTitle:function(){
 			var id = parseInt($(this).attr("art_id"));
@@ -119,10 +126,15 @@ article =(function(){
 			newbody2.append(body_content_label);
 		
 			// 更改地址栏URL
-			var stateObject = {id: data.Id ,type:"blog"};
+			var stateObject = {
+				id: data.Id, 
+				type:"blog",
+				oldurl:window.location.href,
+				content:proto.content.innerHTML
+			};
 			var title = "Ckeyer - "+data.Title;
 			var newUrl = "article_"+data.Id+".html";
-			history.pushState(stateObject,title,newUrl);
+			console.log(history.pushState(stateObject,title,newUrl));
 		}
 	}
 	return proto;
