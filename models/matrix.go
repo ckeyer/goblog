@@ -14,11 +14,11 @@ const (
 type MatrixArray [MATRIX_H][MATRIX_W]int
 
 type MatrixUpJson struct {
-	Code int                     `form:"code",json:"code"`
-	H    int                     `form:"h",json:"h"`
-	W    int                     `form:"w",json:"w"`
-	Col  int                     `form:"val",json:"val"`
-	Data [MATRIX_H][MATRIX_W]int `form:"matrix",json:"matrix"`
+	Code int                     `form:"code" json:"code"`
+	H    int                     `form:"h" json:"h"`
+	W    int                     `form:"w" json:"w"`
+	Col  int                     `form:"val" json:"val"`
+	Data [MATRIX_H][MATRIX_W]int `form:"matrix" json:"matrix"`
 }
 
 var key_matrix = "matrix"
