@@ -1,16 +1,16 @@
 package controllers
 
 import (
-	// "encoding/base64"
-	"github.com/astaxie/beego"
-	// "github.com/ckeyer/goblog/models"
-	// "log"
-	// "strconv"
-	// "strings"
+// "encoding/base64"
+// "github.com/astaxie/beego"
+// "github.com/ckeyer/goblog/models"
+// "log"
+// "strconv"
+// "strings"
 )
 
 type TagController struct {
-	beego.Controller
+	BaseController
 }
 
 // func (this *TagController) Get() {

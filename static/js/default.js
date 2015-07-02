@@ -76,12 +76,18 @@ article =(function(){
 		init:function(){
 			$(".article_title").click(proto.clickArticleTitle);
 			$(".article_summary").click(proto.clickArticleTitle);
+			
 			window.onpopstate = function(e){
-				console.log("hello");
 				console.log(e);
+				console.log("hello");
+				if(e && e.state) {
+					console.log(e.state);
+					console.log("hello");
+					console.log(history.state);
+				  }
 				// proto.content.append( $(history.state.content));
 				// page = history.state.page;
-			} 
+			};
 		},
 		clickArticleTitle:function(){
 			var id = parseInt($(this).attr("art_id"));
@@ -126,15 +132,16 @@ article =(function(){
 			newbody2.append(body_content_label);
 		
 			// 更改地址栏URL
-			var stateObject = {
-				id: data.Id, 
-				type:"blog",
-				oldurl:window.location.href,
-				content:proto.content.innerHTML
+			var state = {
+				// id: data.Id, 
+				type:"blog"
+				// oldurl:window.location.href,
+				// content:proto.content.innerHTML
 			};
 			var title = "Ckeyer - "+data.Title;
 			var newUrl = "article_"+data.Id+".html";
-			console.log(history.pushState(stateObject,title,newUrl));
+			// history.pushState(state,title,newUrl);
+			window.history.pushState(state,'',newUrl);
 		}
 	}
 	return proto;
@@ -145,5 +152,6 @@ main = function(){
 	article.init();
 	matrix.init();
 };
+
 
 $(document).ready(main());
