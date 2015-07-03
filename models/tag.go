@@ -65,12 +65,27 @@ func (this *Tag) Delete() error {
 	_, err := o.Delete(this)
 	return err
 }
-func (this *Tag) getBlogs() {
-	o := orm.NewOrm()
-	sql := "select blog.* from blog, blog_tag_relation as bt  where blog.id = bt.blog_id and bt.tag_id = ?"
-	o.Raw(sql, this.Id).QueryRows(&this.Blogs)
 
+// func (this *Tag) getBlogs() {
+// 	o := orm.NewOrm()
+// 	sql := "select blog.* from blog, blog_tag_relation as bt  where blog.id = bt.blog_id and bt.tag_id = ?"
+// 	o.Raw(sql, this.Id).QueryRows(&this.Blogs)
+
+// }
+func (this *Tag) GetBlogs(start, count int) (bs []*Blog) {
+	o := orm.NewOrm()
+	// res := make(orm.Params)
+	sql := `select blog.* from blog, blog_tag_relation as bt  where blog.id = bt.blog_id and bt.tag_id = ? order by blog.created desc limit ?,?`
+	num, err := o.Raw(sql, this.Id, start, start+count).QueryRows(&bs)
+	if num == 0 || err != nil {
+		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	}
+	for _, v := range bs {
+		v.getTags()
+	}
+	return
 }
+
 func (this *Tag) GetBlogCount() int64 {
 	if this.Blogs != nil {
 		this.BlogCount = int64(len(this.Blogs))
