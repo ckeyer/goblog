@@ -24,21 +24,10 @@ func (this *TagController) Get() {
 	tag := &models.Tag{Id: tag_id}
 
 	this.Data["TagBlogs"] = tag.GetBlogs(0, 5)
-
 	this.TplNames = "tag.tpl"
 }
 
 // func (this *TagController) checkError() {
-// 	wp := models.NewWebPage("首页")
-// 	wp.IncrViewCount()
-
-// 	this.Data["PageTitle"] = wp.GetPageTitle()
-// 	this.Data["ImgHost"] = wp.GetImgHost()
-// 	this.Data["StaticHost"] = wp.GetStaticHost()
-
-// 	b, _ := models.GetBlogById(1)
-// 	this.Data["Blogs"] = b.GetBlogs(0, 5)
-// 	// this.Data["HotTags"] = b.GetHotTags()
 
 // 	this.TplNames = "index.tpl"
 // }

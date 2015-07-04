@@ -6,6 +6,19 @@ import (
 	"strings"
 )
 
+type IMessage interface {
+	DecodeJson(data []byte) error
+	EncodeJson() ([]byte, error)
+}
+
+func (this *IMessage) String() string {
+	bs := this.EncodeJson()
+	return string(bs)
+}
+func (this *IMessage) Bytes() []byte {
+	return this.EncodeJson()
+}
+
 type Message struct {
 	Code string
 	Data string
@@ -17,6 +30,16 @@ func NewMsg() (msg *Message) {
 	msg = &Message{}
 	return
 }
+func (this *Message) DecodeJson(data []byte) error {
+	this = &Message{}
+	err = json.Unmarshal(data, this)
+	return err
+}
+func (this *Message) EncodeJson() ([]byte, error) {
+	return json.Marshal(this)
+}
+
+/// OLD
 func DecodeJson(data []byte) (msg *Message, err error) {
 	s := strings.Replace(string(data), "+", "-", -1)
 	bs, err := base64.StdEncoding.DecodeString(s)

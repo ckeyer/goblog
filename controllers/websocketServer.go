@@ -58,20 +58,6 @@ func ChatroomServer(ws *websocket.Conn) {
 		} else {
 			w.controlMsg(rmsg)
 		}
-
-		// msg := NewMsg()
-		// msg.Code = "HeroServer"
-		// log.Println("Send Will Start")
-
-		// log.Println(WSChatClients.Len())
-		// w.SendMessage(nil, msg.ToBase64String())
-		// log.Println("Send Will Over")
-		// log.Println(`{"Code":"online_user_list","Data": "` + ch.OnlineListToBase64() + `"}`)
-		// var msg Msg
-		// err = json.Unmarshal(data, &msg)
-		// if err != nil {
-		// 	SendMessage(item_ws, `{"Code":"error","Data":"JSON Error","Desc":"Nothing"}`)
-		// }
 	}
 	log.Println("Listenning Over")
 }
