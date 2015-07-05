@@ -67,6 +67,10 @@ func (this *Message) ToString() (s string) {
 		return string(b)
 	}
 }
+
+/*
+  change to base64
+*/
 func (this *Message) ToBase64String() (s string) {
 	b, e := this.ToBytes()
 	if e != nil {
