@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-type IMessage interface {
-	DecodeJson(data []byte) error
-	EncodeJson() ([]byte, error)
-}
+// type IMessage interface {
+// 	DecodeJson(data []byte) error
+// 	EncodeJson() ([]byte, error)
+// }
 
-func (this *IMessage) String() string {
-	bs := this.EncodeJson()
-	return string(bs)
-}
-func (this *IMessage) Bytes() []byte {
-	return this.EncodeJson()
-}
+// func (this *IMessage) String() string {
+// 	bs := this.EncodeJson()
+// 	return string(bs)
+// }
+// func (this *IMessage) Bytes() []byte {
+// 	return this.EncodeJson()
+// }
 
 type Message struct {
 	Code string
@@ -32,7 +32,7 @@ func NewMsg() (msg *Message) {
 }
 func (this *Message) DecodeJson(data []byte) error {
 	this = &Message{}
-	err = json.Unmarshal(data, this)
+	err := json.Unmarshal(data, this)
 	return err
 }
 func (this *Message) EncodeJson() ([]byte, error) {

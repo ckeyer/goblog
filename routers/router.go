@@ -8,6 +8,7 @@ import (
 )
 
 func init() {
+	controllers.Test()
 	ns := beego.NewNamespace("/v1",
 		beego.NSBefore(resource_init),
 		beego.NSAfter(log_info),
@@ -31,6 +32,7 @@ func init() {
 				beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:EditBlog"),
 			),
 		),
+		beego.NSRouter("/chat", &controllers.ChatController{}),
 		beego.NSRouter("/test", &controllers.TestController{}),
 	)
 	beego.AddNamespace(ns)

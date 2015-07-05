@@ -5,7 +5,7 @@ import (
 	// "github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
 	// "log"
-	// "strconv"
+	"strconv"
 	// "strings"
 )
 
@@ -21,7 +21,7 @@ func (this *TagController) Get() {
 		this.Ctx.WriteString("Error")
 		return
 	}
-	tag := &models.Tag{Id: tag_id}
+	tag := &models.Tag{Id: int64(tag_id)}
 
 	this.Data["TagBlogs"] = tag.GetBlogs(0, 5)
 	this.TplNames = "tag.tpl"

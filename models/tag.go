@@ -26,6 +26,7 @@ func GetTag(tag_name string) *Tag {
 	tag.getByName()
 	return tag
 }
+
 func (this *Tag) Get() (err error) {
 	if this.Name != "" {
 		err = this.getByName()
@@ -35,7 +36,7 @@ func (this *Tag) Get() (err error) {
 	if err != nil {
 		return
 	}
-	this.getBlogs()
+	// this.getBlogs()
 	return
 }
 func (this *Tag) getById() error {
