@@ -1,40 +1,10 @@
-<!DOCTYPE html>
-<html><head>
-		<meta charset="utf-8">
-		<title></title>
-		<link rel="stylesheet" href="https://dn-daoerror-page.qbox.me/bower_components/normalize-css/normalize.css">
-		<link rel="stylesheet" href="https://dn-daoerror-page.qbox.me/styles/css/main.css">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="https://dn-daoerror-page.qbox.me/bower_components/parallax/deploy/jquery.parallax.js"></script>
-	</head><body style="overflow: hidden;"></body>
-	<body>
-		<div id="container">
-    		<ul id="scene" style="transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
-    		    <li class="layer" data-depth="0.10" style="position: relative; display: block; left: 0px; top: 0px; transform: translate3d(11.61px, -5.944px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="star diamond"></div></li>
-        		<li class="layer" data-depth="0.30" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(34.83px, -17.832px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="star dot"></div></li>
-        		<li class="layer" data-depth="0.50" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(58.05px, -29.72px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="star sparkle"></div></li>
-        		<li class="layer" data-depth="0.05" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(5.805px, -2.972px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="lighthouse"></div></li>
-        		<li class="layer" data-depth="0.20" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(23.22px, -11.888px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="wave dark-blue depth-20"></div></li>
-        		<li class="layer" data-depth="0.40" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(46.44px, -23.776px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="wave medium-blue depth-40"></div></li>
-        		<li class="layer" data-depth="0.60" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(69.66px, -35.664px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"><div class="wave light-blue depth-60"></div></li>
-        		<li class="layer" data-depth="0.00" style="position: absolute; display: block; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
-        		    <div class="error-message">
-            		    <div class="button"><a href="/">回到首页</a></div>
-        		    </div>
-    		    </li>
-    		</ul>
-        </div>
-	
-	<script type="text/javascript">	
-        $('#scene').parallax({
-        invertX: false,
-        invertY: false,
-        limitX: false,
-        limitY: false,
-        scalarX: 10,
-        scalarY: 8,
-        frictionX: 0.5,
-        frictionY: 0.5
-        });
-    </script>
-</body></html>
+<div class="body_content_label">
+    <div id="div1">
+      <div id="div1_1">hello</div>
+      <div id="div1_2">fuck</div>
+      <div id="div1_3">hero</div>
+    </div>
+    <div id="div_commit">
+      <span>COMMIT</span>
+    </div>
+</div>

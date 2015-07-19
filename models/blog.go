@@ -36,10 +36,10 @@ func GetBlogById(id int64) (b *Blog, err error) {
 
 	err = o.Read(b)
 	if err != nil {
-		log.Println(err)
+		log.Error(err.Error())
 	}
 	b.getTags()
-	log.Printf("%V\n", b)
+	log.Debug("%V\n", b)
 	return
 }
 func (this *Blog) Insert() error {
@@ -64,10 +64,10 @@ func (this *Blog) WriteToDB() (e error) {
 	e = this.Insert()
 	if e == nil {
 		for _, v := range this.Tags {
-			log.Println(v)
+			log.Debug("%#v", v)
 			e = v.Get()
 			if e != nil {
-				log.Println(e)
+				log.Error(e.Error())
 				break
 			}
 			InsertBlogTagRelation(this, v)
@@ -158,7 +158,7 @@ func GetBlogs(start, count int) (bs []*Blog) {
 	sql := "select * from blog order by created desc limit ?,?"
 	num, err := o.Raw(sql, start, start+count).QueryRows(&bs)
 	if num == 0 || err != nil {
-		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+		log.Error("Error Getblogs :Get :%d,Error: %v\n", num, err)
 	}
 	for _, v := range bs {
 		v.getTags()
@@ -173,7 +173,7 @@ func GetBlogsMonth(cols int) (bs []*BlogsMonth) {
 
 	num, err := o.Raw(sql, cols).QueryRows(&bs)
 	if num == 0 || err != nil {
-		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+		log.Error("Error Getblogs :Get :%d,Error: %v\n", num, err)
 	}
 	return
 }

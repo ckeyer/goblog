@@ -45,13 +45,13 @@ func ChatroomServer(ws *websocket.Conn) {
 	defer w.Close()
 
 	r := bufio.NewReader(ws)
-	log.Println("Connected ")
+	log.Info("Connected ")
 	for {
 		data, err := r.ReadBytes('\n')
 		if err != nil {
 			break
 		}
-		log.Println("Received: " + string(data))
+		log.Info("Received: " + string(data))
 		rmsg, _ := models.DecodeJson(data)
 		if rmsg.Code == "close" {
 			break
@@ -59,7 +59,7 @@ func ChatroomServer(ws *websocket.Conn) {
 			w.controlMsg(rmsg)
 		}
 	}
-	log.Println("Listenning Over")
+	log.Info("Listenning Over")
 }
 func (wc *WSChatClient) controlMsg(rmsg *models.Message) {
 	msg := models.NewMsg()

@@ -5,6 +5,7 @@
 .fuse*
 goblog
 blog
+\#*
 *.fuse*
 *.rdb
 conf/app.conf

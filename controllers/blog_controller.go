@@ -29,7 +29,7 @@ type BlogUpJson struct {
 
 // @router /v1/blog [get]
 func (this *BlogController) ShowList() {
-	log.Println("// @router /v1/blog [get]")
+	log.Debug("// @router /v1/blog [get]")
 	wp := models.NewWebPage("博客")
 	wp.IncrViewCount()
 	this.Ctx.WriteString("// @router /v1/blog [get]")
@@ -54,7 +54,7 @@ func (this *BlogController) ShowBlog() {
 }
 
 func (this *BlogController) Post() {
-	log.Println("Post oKKKKKKKK")
+	log.Debug("Post oKKKKKKKK")
 	code, _ := this.GetInt32("code")
 	switch code {
 	case 1:
@@ -68,7 +68,7 @@ func (this *BlogController) Post() {
 			this.Ctx.WriteString(`{"code":-3,"data":"Get err blog "}`)
 			break
 		}
-		log.Println("...")
+		log.Debug("...")
 		this.Ctx.WriteString(`{"code":-3,"data":` + blog.ToJSON() + `}`)
 		return
 	default:
@@ -78,7 +78,7 @@ func (this *BlogController) Post() {
 
 // @router /v1/admin/blog [get]
 func (this *BlogController) ShowEditList() {
-	log.Println("// @router /v1/admin/blog [get]")
+	log.Debug("// @router /v1/admin/blog [get]")
 	this.Ctx.WriteString("// @router /v1/admin/blog [get]")
 }
 
@@ -110,12 +110,12 @@ func (this *BlogController) NewBlog() {
 	blogpost := &BlogData{}
 	err := this.ParseForm(blogpost)
 	if err != nil {
-		log.Println(err.Error())
+		log.Debug(err.Error())
 		this.Ctx.WriteString(`{"code":-1,"data":"` + err.Error() + `""}`)
 	}
-	log.Println("tags", blogpost.Tags)
-	log.Println("post datat", blogpost)
-	// log.Println(authCommit(blogpost.Password, blogpost.CommitSalt))
+	log.Debug("tags", blogpost.Tags)
+	log.Debug("post datat", blogpost)
+	// log.Debug(authCommit(blogpost.Password, blogpost.CommitSalt))
 	switch blogpost.Code {
 	case 1:
 		if !authCommit(blogpost.Password, blogpost.CommitSalt) {
@@ -133,7 +133,7 @@ func (this *BlogController) NewBlog() {
 			Type:    blogpost.BlogType,
 			Tags:    tags,
 		}
-		// log.Println("add blog", blog.Tags[0])
+		// log.Debug("add blog", blog.Tags[0])
 		if err := blog.WriteToDB(); err != nil {
 			this.Ctx.WriteString(`{"code":-3,"data":"` + err.Error() + `""}`)
 		} else {

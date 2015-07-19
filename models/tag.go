@@ -57,7 +57,7 @@ func (this *Tag) Update() error {
 	o := orm.NewOrm()
 	_, err := o.Update(this)
 	if err != nil {
-		log.Println(err.Error())
+		log.Error(err.Error())
 	}
 	return err
 }
@@ -79,7 +79,7 @@ func (this *Tag) GetBlogs(start, count int) (bs []*Blog) {
 	sql := `select blog.* from blog, blog_tag_relation as bt  where blog.id = bt.blog_id and bt.tag_id = ? order by blog.created desc limit ?,?`
 	num, err := o.Raw(sql, this.Id, start, start+count).QueryRows(&bs)
 	if num == 0 || err != nil {
-		log.Printf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+		log.Error("Error Getblogs :Get :%d,Error: %v\n", num, err)
 	}
 	for _, v := range bs {
 		v.getTags()

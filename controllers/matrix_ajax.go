@@ -40,7 +40,7 @@ func (this *MatrixController) Post() {
 
 		b, e := models.UpdateMatrix(resmag.H, resmag.W)
 		if e != nil {
-			log.Println(e)
+			log.Error(e.Error())
 			this.Ctx.WriteString(`{"code":-3,"data":"up error"}`)
 		} else if b {
 			this.Ctx.WriteString(`{"code":0,"data":"up false"}`)

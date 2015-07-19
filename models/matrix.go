@@ -29,12 +29,12 @@ func initMatrixRedis() {
 			rc.Hset(key_matrix, fmt.Sprintf("%d_%d", i, j), []byte(fmt.Sprint((i+j)%5)))
 		}
 	}
-	log.Println("Redis Init Matrix Success.")
+	log.Info("Redis Init Matrix Success.")
 }
 func GetAllMatrix() (vals *MatrixArray, err error) {
 	var b bool
 	if b, err = rc.Exists(key_matrix); err != nil {
-		log.Println("error redis", err.Error())
+		log.Error(err.Error())
 		return
 	} else if !b {
 		initMatrixRedis()
@@ -49,7 +49,7 @@ func getAllToArray() (vals *MatrixArray, err error) {
 			var b []byte
 			b, err = rc.Hget(key_matrix, fmt.Sprintf("%d_%d", i, j))
 			if err != nil {
-				log.Println("error hget ", key_matrix, err.Error())
+				log.Error("%v, %s", key_matrix, err.Error())
 				initMatrixRedis()
 				return
 			}

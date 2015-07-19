@@ -16,7 +16,7 @@ type Favorite struct {
 	Status       int    `orm:"default(0)"`
 	Source       string `orm:"null "`
 
-	Tags []*Tag `orm:"rel(m2m)"`
+	Tags []*Tag  `orm:"-"`  // `orm:"rel(m2m)"`
 
 	Created time.Time `orm:"auto_now_add;type(datetime)"`
 	Updated time.Time `orm:"auto_now;type(datetime)"`

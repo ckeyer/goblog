@@ -3,14 +3,15 @@ package controllers
 import (
 	_ "container/list"
 	"github.com/astaxie/beego"
+	logpkg "github.com/ckeyer/go-log"
 	"github.com/ckeyer/goblog/models"
-	logpkg "log"
 	"os"
 )
 
 var (
-	log *logpkg.Logger
-
+	logfmt = logpkg.MustStringFormatter(
+		"%{time:15:04:05} %{shortfile} %{longfunc}%{color} ▶ %{color:reset}[%{color}%{level:.4s}%{color:reset}] %{message}")
+	log                = logpkg.MustGetLogger("example")
 	STATIC_URL         = beego.AppConfig.String("static_url")
 	STATIC_URL_JS_SSL  = beego.AppConfig.String("static_url_js_ssl")
 	STATIC_URL_CSS_SSL = beego.AppConfig.String("static_url_css_ssl")
@@ -26,7 +27,23 @@ var (
 )
 
 func init() {
-	log = logpkg.New(os.Stderr, "controller", logpkg.Ltime|logpkg.Lshortfile)
+	backend1 := logpkg.NewLogBackend(os.Stderr, "", 0)
+	backend2 := logpkg.NewLogBackend(os.Stderr, "", 0)
+
+	// For messages written to backend2 we want to add some additional
+	// information to the output, including the used log level and the name of
+	// the function.
+	backend2Formatter := logpkg.NewBackendFormatter(backend2, logfmt)
+
+	// Only errors and more severe messages should be sent to backend1
+	backend1Leveled := logpkg.AddModuleLevel(backend1)
+	backend1Leveled.SetLevel(logpkg.ERROR, "")
+
+	// Set the backends to be used.
+	logpkg.SetBackend(backend1Leveled, backend2Formatter)
+
+	// log = logpkg.New(os.Stderr, "controller", logpkg.Ltime|logpkg.Lshortfile)
+	// log = logpkg.new
 }
 
 type BaseController struct {

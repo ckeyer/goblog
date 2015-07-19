@@ -8,7 +8,6 @@ import (
 )
 
 func init() {
-	controllers.Test()
 	ns := beego.NewNamespace("/v1",
 		beego.NSBefore(resource_init),
 		beego.NSAfter(log_info),
