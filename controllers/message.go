@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	_ "encoding/json"
+	"github.com/ckeyer/goblog/lib"
 )
 
 type MessageController struct {
@@ -25,10 +25,8 @@ func (m *MessageController) Leave() {
 	if err != nil {
 		log.Error(err.Error())
 	}
-	log.Debug(m.GetString("content"))
-	log.Debug("FUCK")
-	log.Debug(in.Name)
-	log.Debug(in.Content)
-	m.Ctx.WriteString(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="333; url=` +
-		STATIC_URL + `" /></head><body>感谢您反馈...</body></html>`)
+	if err == nil && lib.IsEmail(in.Email) && len(in.Content) > 0 && len(in.Name) > 3 {
+	} else {
+		m.Ctx.WriteString(`{"code":"error"}`)
+	}
 }

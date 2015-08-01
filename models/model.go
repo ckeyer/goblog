@@ -27,7 +27,9 @@ func RegistDB() {
 
 	orm.RegisterDataBase("default", "mysql", db_str)
 	orm.SetMaxIdleConns("default", 10)
-	orm.RegisterModel(new(Blog), new(Tag), new(Review), new(ConnLog), new(BlogTagRelation))
+	orm.RegisterModel(new(Blog), new(Tag), new(Review),
+		new(ConnLog), new(BlogTagRelation), new(User),
+		new(Profile), new(Message))
 
 	err := orm.RunSyncdb("default", force, verbose)
 	if err != nil {

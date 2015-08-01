@@ -12,6 +12,7 @@ func init() {
 		beego.NSAfter(log_info),
 		beego.NSRouter("/", &controllers.MainController{}),
 		beego.NSRouter("/test", &controllers.TestController{}),
+		beego.NSRouter("/status", &controllers.StatusController{}, "get:Any;post:Any"),
 		beego.NSRouter("/matrix", &controllers.MatrixController{}),
 		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
 		beego.NSRouter("/article_:key([0-9]+).html", &controllers.BlogController{}, "get:ShowBlog"),
@@ -34,8 +35,6 @@ func init() {
 				beego.NSRouter("/:key([0-9]+).html", &controllers.BlogController{}, "get:EditBlog"),
 			),
 		),
-		beego.NSRouter("/chat", &controllers.ChatController{}),
-		beego.NSRouter("/test", &controllers.TestController{}),
 	)
 	beego.AddNamespace(ns)
 }

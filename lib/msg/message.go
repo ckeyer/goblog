@@ -1,10 +1,8 @@
 package msg
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"strings"
 )
 
 type Message struct {
@@ -16,9 +14,9 @@ type Message struct {
 
 func NewMsg(d ...[]byte) (msg *Message, err error) {
 	msg = &Message{}
-	if len(n) == 1 {
+	if len(d) == 1 {
 		err = msg.Decode(d[0])
-	} else if len(n) != 0 {
+	} else if len(d) != 0 {
 		err = errors.New("Too many args")
 	}
 	return
@@ -30,4 +28,13 @@ func (m *Message) Decode(data []byte) error {
 }
 func (m *Message) Encode() ([]byte, error) {
 	return json.Marshal(m)
+}
+func (m *Message) String() (s string, err error) {
+	bs, err := m.Bytes()
+	s = string(bs)
+	return
+}
+func (m *Message) Bytes() (bs []byte, err error) {
+	bs, err = m.Encode()
+	return
 }

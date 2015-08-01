@@ -3,12 +3,10 @@ package controllers
 import (
 	_ "container/list"
 	"github.com/astaxie/beego"
-	"github.com/ckeyer/goblog/lib/logging"
 	"github.com/ckeyer/goblog/models"
 )
 
 var (
-	log                = logging.GetLogger()
 	STATIC_URL         = beego.AppConfig.String("static_url")
 	STATIC_URL_JS_SSL  = beego.AppConfig.String("static_url_js_ssl")
 	STATIC_URL_CSS_SSL = beego.AppConfig.String("static_url_css_ssl")
@@ -23,11 +21,8 @@ var (
 	ALLOW_HOSTS = []string{"http://localhost/", "http://ingdown.com/", "http://www.ckeyer.com/"}
 )
 
-func init() {
-}
-
 type BaseController struct {
-	beego.Controller
+	Controller
 }
 
 func (this *BaseController) Prepare() {
