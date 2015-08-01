@@ -9,7 +9,6 @@ import (
 
 func init() {
 	ns := beego.NewNamespace("/v1",
-		beego.NSBefore(resource_init),
 		beego.NSAfter(log_info),
 		beego.NSRouter("/", &controllers.MainController{}),
 		beego.NSRouter("/test", &controllers.TestController{}),
@@ -22,6 +21,10 @@ func init() {
 		beego.NSNamespace("/tag",
 			beego.NSRouter("/", &controllers.TagController{}),
 			beego.NSRouter("/:key([0-9]+).html", &controllers.TagController{}),
+		),
+		beego.NSNamespace("/msg",
+			beego.NSRouter("/", &controllers.MessageController{}),
+			beego.NSRouter("/leave", &controllers.MessageController{}, "post:Leave"),
 		),
 		beego.NSNamespace("/admin",
 			beego.NSRouter("/", &controllers.MainController{}),
@@ -37,17 +40,6 @@ func init() {
 	beego.AddNamespace(ns)
 }
 
-func resource_init(ctx *context.Context) {
-	if ctx.Input.IsSecure() {
-		ctx.Output.Session("STATIC_URL_JS", beego.AppConfig.String("static_url_js_ssl"))
-		ctx.Output.Session("STATIC_URL_CSS", beego.AppConfig.String("static_url_css_ssl"))
-		ctx.Output.Session("STATIC_URL_IMG", beego.AppConfig.String("static_url_img_ssl"))
-	} else {
-		ctx.Output.Session("STATIC_URL_JS", beego.AppConfig.String("static_url_js"))
-		ctx.Output.Session("STATIC_URL_CSS", beego.AppConfig.String("static_url_css"))
-		ctx.Output.Session("STATIC_URL_IMG", beego.AppConfig.String("static_url_img"))
-	}
-}
 func log_info(ctx *context.Context) {
 
 	connlog := &models.ConnLog{

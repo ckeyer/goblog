@@ -25,12 +25,14 @@
     <label for="sectionlabel-1"><span class="sectionlabel-title">博客</span></label>
     <div class="content">
       <ul>
+
         <% range $index, $elem := .BlogsMonth %>
-        <li class="tag_label" onclick="console.log('<%$elem.Month%>');">
-          <i class="fa fa-inbox"></i>
-          <span><% $elem.Month %></span>
-          (<span><% $elem.BlogCount %></span>)
-      </li>
+        <li class="tag_label">
+                <a href="/<% $elem.Month %>" onclick="return false;">
+                           <i class="fa fa-inbox"></i>
+                           <span><% $elem.Month %></span>(<span><% $elem.BlogCount %></span>)
+                </a>    
+        </li>        
       <% end %>
   </ul>
 </div>
@@ -75,11 +77,15 @@
     <label for="sectionlabel-4"><span>工具</span></label>
     <div class="content">
       <ul>
-        <li onclick="window.location.href='/chat';"><i class="fa fa-coffee"></i><span>聊天室</span></li>
-        <li onclick="window.location.href='http://earth.ckeyer.com/';"><i class="fa fa-coffee"></i><span>地球</span></li>
-        <li onclick="window.location.href='http://ntop.ckeyer.com/';"><i class="fa fa-coffee"></i><span>流量监控</span></li>
-        <li onclick="window.location.href='/d/blacklist.txt';"><i class="fa fa-coffee"></i><span>我的黑名单</span></li>
-        <li onclick="window.location.href='/admin/blog';"><i class="fa fa-coffee"></i><span>管理</span></li>
+        <li>
+                <a href="http://go.ckeyer.com/doc"><i class="fa fa-coffee"></i><span>Go Doc</span></a>    
+        </li>
+        <li>
+                <a href="/d/blacklist.txt"><i class="fa fa-coffee"></i><span>我的黑名单</span></a>    
+        </li>
+        <li>
+                <a href="/admin/blog"><i class="fa fa-coffee"></i><span>管理</span></a>    
+        </li>
     </ul>
 </div>
 </div>
@@ -89,7 +95,7 @@
     <label for="sectionlabel-5"onclick="clic('/admin');"><span>留言</span></label>
     <div class="content">
       给我留言
-  </div>
+	</div>
 </div>
 
 <div class="sectionlabel">
@@ -101,7 +107,6 @@
       <h3>Email.</h3>
       <a href="Mailto:me@ckeyer.com">me@ckeyer.com</a> <br>
       <h4><a href="/about/me.html">More...</a> </h4>
-
   </div>
 </div>
 </div>

@@ -9,7 +9,8 @@ html, body {
       position: relative;
 }
 a {
-      color: white;
+    color: white;
+	text-decoration:none;
 }
 canvas {
       position:fixed;
@@ -198,13 +199,16 @@ ul li:hover i {
       padding-top: 30px;
       background-color: rgba(0,0,0,0.1);
 }
+#body_content a{
+	color:black;
+}
  .body_content_label{
         margin: 5px 20px 0px 20px ;
         padding-top: 10px;
         padding-bottom: 10px;
         border-radius: 10px; 
         min-width: 620px;
-        border: 2px solid #CCC;
+        border: 3px solid #CCC;
       background-color: rgba(255,255,255,0.7);
 }
  .body_content_label:hover{

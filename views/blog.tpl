@@ -2,7 +2,7 @@
 	<div class="body_content_article">
 		<div class="article_title_div">
 			<span class="article_title_tag">[BLOG]</span>
-			<span class="article_title" art_id="<% .Article.Id  %>"> <% .Article.Title %></span>
+			<a href="/blog/<% .Article.Id  %>" class="article_title" art_id="<% .Article.Id  %>"> <% .Article.Title %></a>
 		</div>
 
 		<div class="article_tags">
