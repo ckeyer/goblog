@@ -19,3 +19,5 @@
       </div>
 </div>
 <% end %>
+
+<% template "Game2048" %>
