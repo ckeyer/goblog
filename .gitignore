@@ -12,7 +12,6 @@ blog
 *.rdb
 conf/app.conf
 # Folders
-conf
 _obj
 _test
 *.conf
