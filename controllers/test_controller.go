@@ -13,7 +13,7 @@ type TestController struct {
 func (this *TestController) Get() {
 	this.Data["PageTitle"] = "测试"
 	// this.Data["TestStr"] = "s"
-	this.Data["CusScripts"] = `<script src="` + STATIC_URL_JS + `test.js"></script>`
+	// this.Data["CusScripts"] = `<script src="` + STATIC_URL_JS + `test.js"></script>`
 	this.TplNames = "test.tpl"
 }
 func (t *TestController) Post() {

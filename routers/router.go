@@ -11,7 +11,7 @@ func init() {
 	ns := beego.NewNamespace("/v1",
 		beego.NSAfter(log_info),
 		beego.NSRouter("/", &controllers.MainController{}),
-		beego.NSRouter("/test", &controllers.G2048Controller{}),
+		beego.NSRouter("/test", &controllers.TestController{}),
 		beego.NSRouter("/status", &controllers.StatusController{}, "get:Any;post:Any"),
 		beego.NSRouter("/matrix", &controllers.MatrixController{}),
 		beego.NSRouter("/note:key([0-9]+).html", &controllers.TagController{}),
