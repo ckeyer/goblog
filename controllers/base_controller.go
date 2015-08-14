@@ -18,7 +18,7 @@ var (
 	custom_url_css     = beego.AppConfig.String("custom_url_css")
 	custom_url_img     = beego.AppConfig.String("custom_url_img")
 
-	ALLOW_HOSTS = []string{"http://localhost/", "http://ingdown.com/", "http://www.ckeyer.com/"}
+	ALLOW_HOSTS = []string{"http://www.ckeyer.com/", "http://localhost/", "http://ingdown.com/"}
 )
 
 type BaseController struct {
@@ -26,6 +26,7 @@ type BaseController struct {
 }
 
 func (this *BaseController) Prepare() {
+	this.Ctx.Request.Header.Add("Access-Control-Allow-Origin", "*")
 	if !this.isAllowHost() {
 		this.Ctx.WriteString(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=` +
 			STATIC_URL + string([]byte(this.Ctx.Input.Url())[4:]) + `" /></head></html>`)
