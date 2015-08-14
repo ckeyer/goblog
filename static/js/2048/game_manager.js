@@ -188,6 +188,24 @@ GameManager.prototype.move = function (direction) {
 
     this.actuate();
   }
+  var map = {
+    0: "Up", // Up
+    1: "Right", // Right
+    2: "Down", // Down
+    3: "Left", // Left
+  };
+/* 请将 LabelValue 与 Value 替换为对应字段的取值 */
+window._CiQ11070 = window._CiQ11070 || [];
+window._CiQ11070.push(['_trackEvent', {
+  type: 2,
+  labels:[
+    {'按键':map[direction]}
+    ],
+  values: [
+    {'方向':1}
+    ]
+}]);
+window.CClickiV3 && window.CClickiV3[11070] && window.CClickiV3[11070]._flushObserver(function(){});
 };
 
 // Get the vector representing the chosen direction

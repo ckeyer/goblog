@@ -39,6 +39,18 @@ matrix=(function(){
 					console.log("Download your use my life");
 				}
 			});
+			/* 请将 LabelValue 与 Value 替换为对应字段的取值 */
+			window._CiQ11070 = window._CiQ11070 || [];
+			window._CiQ11070.push(['_trackEvent', {
+				type: 1,
+				labels:[
+					{'位置':"<"+w+","+h+">"}
+					],
+				values: [
+					{'次数':1}
+					]
+			}]);
+			window.CClickiV3 && window.CClickiV3[11070] && window.CClickiV3[11070]._flushObserver(function(){});
 		},
 		//$(document).ready(
 		init:function() {
