@@ -1,12 +1,14 @@
 /*
+标签相关
 **/
 
 package models
 
 import (
 	// "strings"
-	"github.com/astaxie/beego/orm"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type Tag struct {

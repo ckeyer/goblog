@@ -1,11 +1,12 @@
 package models
 
 import (
+	"time"
+
 	"github.com/astaxie/beego/orm"
 	"github.com/ckeyer/goblog/lib/logging"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hoisie/redis"
-	"time"
 )
 
 var (
@@ -17,7 +18,7 @@ var (
 )
 
 func init() {
-	db_str = "root:root@/db_blog?charset=utf8"
+	db_str = "root:root@tcp(d.local:3306)/db_blog?charset=utf8"
 	rc.Addr = "localhost:6379"
 }
 
