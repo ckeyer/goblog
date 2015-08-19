@@ -2,13 +2,15 @@ package main
 
 import (
 	"encoding/base64"
+
 	"github.com/astaxie/beego"
 	// "github.com/astaxie/beego/session"
 	"fmt"
-	"github.com/ckeyer/goblog/models"
-	"github.com/ckeyer/goblog/routers"
 	"strings"
 	"time"
+
+	"github.com/ckeyer/goblog/models"
+	"github.com/ckeyer/goblog/routers"
 )
 
 func main() {

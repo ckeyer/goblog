@@ -2,6 +2,7 @@ package controllers
 
 import (
 	_ "container/list"
+
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/models"
 )
@@ -18,7 +19,7 @@ var (
 	custom_url_css     = beego.AppConfig.String("custom_url_css")
 	custom_url_img     = beego.AppConfig.String("custom_url_img")
 
-	ALLOW_HOSTS = []string{"http://www.ckeyer.com/", "http://localhost/", "http://ingdown.com/"}
+	ALLOW_HOSTS = []string{"http://www.ckeyer.com/", "http://d.local/", "http://localhost/", "http://ingdown.com/"}
 )
 
 type BaseController struct {
@@ -65,5 +66,6 @@ func (this *BaseController) isAllowHost() bool {
 			return true
 		}
 	}
+	log.Debug(this.Ctx.Input.Host())
 	return false
 }

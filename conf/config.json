@@ -1,0 +1,13 @@
+{
+	"redis":{
+		"host":"d.local",
+		"port":6379,
+		"password":""
+	},
+	"mysql":{
+		"host":"d.local",
+		"port":3306,
+		"user":"root",
+		"password":"root",
+	}
+}

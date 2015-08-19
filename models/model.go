@@ -19,7 +19,7 @@ var (
 
 func init() {
 	db_str = "root:root@tcp(d.local:3306)/db_blog?charset=utf8"
-	rc.Addr = "localhost:6379"
+	rc.Addr = "d.local:6379"
 }
 
 func RegistDB() {
