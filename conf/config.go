@@ -37,15 +37,22 @@ type Mysql struct {
 var config *Config
 
 // 配置文件路径
-var path string = "./config.json"
+var path string = "conf/config.json"
 
 // init 配置相关初始化
-func init() {
-	var err error
-	config, err = load(path)
-	if err != nil {
-		panic(err)
-	}
+// func init() {
+// 	var err error
+// 	config, err = load(path)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// }
+
+// SetFilePath 设置配置文件路径
+func SetFilePath(filepath string) error {
+	path = filepath
+	_, err := load(path)
+	return err
 }
 
 // (c *Config)Load 加载配置
@@ -89,6 +96,20 @@ func (m *Mysql) GetConnStr() string {
 			m.Password = "root"
 		}
 		return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", m.Username, m.Password, m.Host, m.Port, m.Database)
+	}
+	return ""
+}
+
+// (r *Redis)GetConnStr 获取Redis连接字符串
+func (r *Redis) GetConnStr() string {
+	if r != nil {
+		if r.Host == "" {
+			r.Host = "localhost"
+		}
+		if r.Port == 0 {
+			r.Port = 6379
+		}
+		return fmt.Sprintf("%s:%d", r.Host, r.Port)
 	}
 	return ""
 }

@@ -9,14 +9,30 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ckeyer/goblog/conf"
 	"github.com/ckeyer/goblog/models"
 	"github.com/ckeyer/goblog/routers"
 )
 
+var (
+	config *conf.Config
+)
+
+// init 初始化
+func init() {
+	var err error
+	conf.SetFilePath("conf/config.json")
+	config, err = conf.GetConfig()
+	if err != nil {
+		panic(err)
+	}
+
+}
+
 func main() {
 	db_init()
 	server_init()
-	config_init()
+	tpl_init()
 	routers.Error_init()
 	beego.Run()
 }
@@ -34,7 +50,7 @@ func server_init() {
 func db_init() {
 	models.RegistDB()
 }
-func config_init() {
+func tpl_init() {
 	beego.TemplateLeft = "<%"
 	beego.TemplateRight = "%>"
 
@@ -45,30 +61,30 @@ func config_init() {
 	beego.AddFuncMap("FMT_DATE_MONTH", func(t time.Time) string {
 		return fmt.Sprintf("%v-%02d", t.Year(), t.Month())
 	})
-	beego.AddFuncMap("STATIC_URL", func() string {
-		return beego.AppConfig.String("static_rul")
-	})
-	beego.AddFuncMap("SITE_URL", func() string {
-		return beego.AppConfig.String("site_url")
-	})
-	beego.AddFuncMap("STATIC_URL_JS", func() string {
-		return beego.AppConfig.String("static_url_js_ssl")
-	})
-	beego.AddFuncMap("STATIC_URL_CSS", func() string {
-		return beego.AppConfig.String("static_url_css_ssl")
-	})
-	beego.AddFuncMap("STATIC_URL_IMG", func() string {
-		return beego.AppConfig.String("static_url_img_ssl")
-	})
-	beego.AddFuncMap("CUSTOM_URL_JS", func() string {
-		return beego.AppConfig.String("custom_url_js")
-	})
-	beego.AddFuncMap("CUSTOM_URL_CSS", func() string {
-		return beego.AppConfig.String("custom_url_css")
-	})
-	beego.AddFuncMap("CUSTOM_URL_IMG", func() string {
-		return beego.AppConfig.String("custom_url_img")
-	})
+	// beego.AddFuncMap("STATIC_URL", func() string {
+	// 	return beego.AppConfig.String("static_rul")
+	// })
+	// beego.AddFuncMap("SITE_URL", func() string {
+	// 	return beego.AppConfig.String("site_url")
+	// })
+	// beego.AddFuncMap("STATIC_URL_JS", func() string {
+	// 	return beego.AppConfig.String("static_url_js_ssl")
+	// })
+	// beego.AddFuncMap("STATIC_URL_CSS", func() string {
+	// 	return beego.AppConfig.String("static_url_css_ssl")
+	// })
+	// beego.AddFuncMap("STATIC_URL_IMG", func() string {
+	// 	return beego.AppConfig.String("static_url_img_ssl")
+	// })
+	// beego.AddFuncMap("CUSTOM_URL_JS", func() string {
+	// 	return beego.AppConfig.String("custom_url_js")
+	// })
+	// beego.AddFuncMap("CUSTOM_URL_CSS", func() string {
+	// 	return beego.AppConfig.String("custom_url_css")
+	// })
+	// beego.AddFuncMap("CUSTOM_URL_IMG", func() string {
+	// 	return beego.AppConfig.String("custom_url_img")
+	// })
 
 	beego.AddFuncMap("DECODEBASE64", func(s string) string {
 		s = strings.Replace(s, "+", "-", -1)

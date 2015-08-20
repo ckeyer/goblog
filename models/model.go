@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/ckeyer/goblog/conf"
 	"github.com/ckeyer/goblog/lib/logging"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hoisie/redis"
@@ -18,8 +19,10 @@ var (
 )
 
 func init() {
-	db_str = "root:root@tcp(d.local:3306)/db_blog?charset=utf8"
-	rc.Addr = "d.local:6379"
+	config, _ := conf.GetConfig()
+	log.Debugf("%#v\n", config.Mysql.GetConnStr())
+	db_str = config.Mysql.GetConnStr()  //"root:root@tcp(d.local:3306)/db_blog?charset=utf8"
+	rc.Addr = config.Redis.GetConnStr() //"d.local:6379"
 }
 
 func RegistDB() {
