@@ -26,7 +26,11 @@ var key_matrix = "matrix"
 func initMatrixRedis() {
 	for i := 0; i < MATRIX_H; i++ {
 		for j := 0; j < MATRIX_W; j++ {
-			rc.Hset(key_matrix, fmt.Sprintf("%d_%d", i, j), []byte(fmt.Sprint((i+j)%5)))
+			_, err := rc.Hset(key_matrix, fmt.Sprintf("%d_%d", i, j), []byte(fmt.Sprint((i+j)%5)))
+			if err != nil {
+				log.Warningf("Hset Error %s \n", err.Error())
+			}
+
 		}
 	}
 	log.Info("Redis Init Matrix Success.")
@@ -49,7 +53,7 @@ func getAllToArray() (vals *MatrixArray, err error) {
 			var b []byte
 			b, err = rc.Hget(key_matrix, fmt.Sprintf("%d_%d", i, j))
 			if err != nil {
-				log.Error("%v, %s", key_matrix, err.Error())
+				log.Warningf("%v, %s", key_matrix, err.Error())
 				initMatrixRedis()
 				return
 			}

@@ -3,8 +3,9 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/astaxie/beego/orm"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type Blog struct {
@@ -39,7 +40,7 @@ func GetBlogById(id int64) (b *Blog, err error) {
 		log.Error(err.Error())
 	}
 	b.getTags()
-	log.Debug("%V\n", b)
+	log.Debugf("%V\n", b)
 	return
 }
 func (this *Blog) Insert() error {
@@ -64,7 +65,7 @@ func (this *Blog) WriteToDB() (e error) {
 	e = this.Insert()
 	if e == nil {
 		for _, v := range this.Tags {
-			log.Debug("%#v", v)
+			log.Debugf("%#v", v)
 			e = v.Get()
 			if e != nil {
 				log.Error(e.Error())
@@ -158,7 +159,7 @@ func GetBlogs(start, count int) (bs []*Blog) {
 	sql := "select * from blog order by created desc limit ?,?"
 	num, err := o.Raw(sql, start, start+count).QueryRows(&bs)
 	if num == 0 || err != nil {
-		log.Error("Error Getblogs :Get :%d,Error: %v\n", num, err)
+		log.Errorf("Error Getblogs :Get :%d,Error: %v\n", num, err)
 	}
 	for _, v := range bs {
 		v.getTags()
@@ -173,7 +174,7 @@ func GetBlogsMonth(cols int) (bs []*BlogsMonth) {
 
 	num, err := o.Raw(sql, cols).QueryRows(&bs)
 	if num == 0 || err != nil {
-		log.Error("Error Getblogs :Get :%d,Error: %v\n", num, err)
+		log.Errorf("Error Getblogs :Get :%d,Error: %v\n", num, err)
 	}
 	return
 }

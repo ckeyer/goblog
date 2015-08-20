@@ -2,6 +2,7 @@ package controllers
 
 import (
 	_ "container/list"
+
 	"github.com/ckeyer/goblog/models"
 )
 
@@ -34,11 +35,6 @@ func (m *MainController) Get() {
   <script src="/static/js/2048/application.js"></script>`
 
 	m.Data["LatestBlogs"] = models.GetBlogs(0, 5)
-	log.Debug("hello Debug")
-	log.Info("hello Info")
-	log.Notice("hello Notice")
-	log.Warning("hello Warning")
-	log.Error("hello Error")
 
 	m.TplNames = "index.tpl"
 }

@@ -1,4 +1,8 @@
 {
+	"app":{
+		"name":"goblog",
+		"port":8080
+	},
 	"redis":{
 		"host":"d.local",
 		"port":6379,
@@ -9,5 +13,6 @@
 		"port":3306,
 		"user":"root",
 		"password":"root",
+		"database":"db_blog"
 	}
 }
