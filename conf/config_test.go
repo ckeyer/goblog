@@ -6,6 +6,7 @@ import (
 
 // TestConfig conf包测试
 func TestConfig(t *testing.T) {
+	SetFilePath("./config.json")
 	c, err := GetConfig()
 	if err != nil {
 		t.Error(err.Error())

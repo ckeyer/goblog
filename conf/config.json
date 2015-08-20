@@ -14,5 +14,18 @@
 		"user":"root",
 		"password":"root",
 		"database":"db_blog"
+	},
+	"website":{
+		"host_url":"http://www.ckeyer.com/",
+		"file_server":"http://www.ckeyer.com/",
+		"js_server":"http://www.ckeyer.com/",
+		"img_server":"http://www.ckeyer.com/",
+		"css_server":"http://www.ckeyer.com/",
+		"enable_domain":[
+			"ckeyer.com",
+			"cjstudio.org",
+			"localhost",
+			"d.local"
+		]
 	}
 }
