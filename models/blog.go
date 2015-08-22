@@ -158,9 +158,15 @@ func GetBlogs(start, count int) (bs []*Blog) {
 	// res := make(orm.Params)
 	sql := "select * from blog order by created desc limit ?,?"
 	num, err := o.Raw(sql, start, start+count).QueryRows(&bs)
-	if num == 0 || err != nil {
-		log.Errorf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	if err != nil {
+		log.Errorf("Error Getblogs ,Error: %v\n", err)
+		return
 	}
+	if num == 0 {
+		log.Info("Not Get Any Blogs'")
+		return nil
+	}
+
 	for _, v := range bs {
 		v.getTags()
 	}
@@ -173,8 +179,13 @@ func GetBlogsMonth(cols int) (bs []*BlogsMonth) {
 	sql := "select DATE_FORMAT(created,'%Y-%m') as month,count(id) as blog_count from blog   group by month   order by month limit 0,?"
 
 	num, err := o.Raw(sql, cols).QueryRows(&bs)
-	if num == 0 || err != nil {
-		log.Errorf("Error Getblogs :Get :%d,Error: %v\n", num, err)
+	if err != nil {
+		log.Errorf("Error Getblogs ,Error: %v\n", err)
+		return nil
+	}
+	if num == 0 {
+		log.Info("Not Get Any Blogs'")
+		return nil
 	}
 	return
 }

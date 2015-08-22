@@ -4,7 +4,7 @@
 		"port":8080
 	},
 	"redis":{
-		"host":"d.local",
+		"host":"192.168.59.103",
 		"port":6379
 	},
 	"mysql":{
@@ -12,7 +12,8 @@
 		"port":3306,
 		"user":"root",
 		"password":"root",
-		"database":"db_blog"
+		"database":"db_blog",
+		"debug":false
 	},
 	"website":{
 		"host_url":"http://www.ckeyer.com/",

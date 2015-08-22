@@ -30,7 +30,6 @@ func initMatrixRedis() {
 			if v.Err() != nil {
 				log.Warningf("Hset Error %s \n", v.Err().Error())
 			}
-
 		}
 	}
 	log.Info("Redis Init Matrix Success.")
@@ -43,6 +42,9 @@ func GetAllMatrix() (vals *MatrixArray, err error) {
 		initMatrixRedis()
 	}
 	vals, err = getAllToArray()
+	if err != nil {
+		log.Errorf("GetAllMatrix Failed, %s\n", err)
+	}
 	return
 }
 func getAllToArray() (vals *MatrixArray, err error) {
@@ -55,7 +57,10 @@ func getAllToArray() (vals *MatrixArray, err error) {
 				initMatrixRedis()
 				return
 			}
-			v, _ := strconv.Atoi(fmt.Sprintf("%s", b))
+			v, err := strconv.Atoi(fmt.Sprintf("%s", b.Val()))
+			if err != nil {
+				log.Warningf("GetAllMatrix Atoi %s ,%s", b, err.Error())
+			}
 			vals[i][j] = v % 5
 		}
 	}
@@ -63,8 +68,16 @@ func getAllToArray() (vals *MatrixArray, err error) {
 }
 func UpdateMatrix(h, w int) (bool, error) {
 	v := rc.HGet(key_matrix, fmt.Sprintf("%d_%d", h, w))
-	count, _ := strconv.Atoi(fmt.Sprintf("%s", v.Val()))
-	v2 := rc.HSet(key_matrix, fmt.Sprintf("%d_%d", h, w), (strconv.Itoa(count + 1)))
+	log.Debugf("Redis Get %d_%d, Val: %s\n", h, w, v.Val())
+	count, err := strconv.Atoi(fmt.Sprintf("%s", v.Val()))
+	if err != nil {
+		log.Warningf("Update Matrix Atoi A: %s, Err: %s\n", v.Val(), err.Error())
+	}
+	v2 := rc.HSet(key_matrix, fmt.Sprintf("%d_%d", h, w), strconv.Itoa(count+1))
+	if v2.Err() != nil {
+		log.Warningf("Update Matrix Failed ,Err: %s\n", v2.Err().Error())
+	}
+	log.Debugf("Update Matrix, Err: %v, Val: %v\n", v2.Err(), v2.Val())
 	return v2.Val(), v2.Err()
 }
 func (this *MatrixArray) ToJson() string {

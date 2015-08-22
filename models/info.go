@@ -36,7 +36,7 @@ func (w *WebPage) GetViewCount() (count int) {
 	if v.Err() == nil {
 		count, _ = strconv.Atoi(v.Val())
 	} else {
-		rc.Set(key, "100")
+		rc.Set(key, "100", 0)
 		count = 100
 	}
 	return
@@ -47,7 +47,7 @@ func (w *WebPage) GetViewCountByName(name string) (count int) {
 	if v.Err() == nil {
 		count, _ = strconv.Atoi((v.Val()))
 	} else {
-		rc.Set(key, ("100"))
+		rc.Set(key, ("100"), 0)
 		count = 100
 	}
 	return

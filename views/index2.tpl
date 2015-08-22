@@ -7,14 +7,14 @@
 	<meta name="description" content="" />
 	<!-- <link href="< CUSTOM_URL_CSS%>default.css" rel="stylesheet" type="text/css" /> -->
 	<!-- <link href="< CUSTOM_URL_CSS%>home.css" rel="stylesheet" type="text/css" /> -->
-	<!-- <link rel="stylesheet" type="text/css" href="<% CUSTOM_URL_CSS %>matrix.css" /> -->
-	<!-- <link rel="shortcut icon" href="<% CUSTOM_URL_IMG%>i_logo1.png" > -->
+	<!-- <link rel="stylesheet" type="text/css" href="< CUSTOM_URL_CSS %>matrix.css" /> -->
+	<!-- <link rel="shortcut icon" href="< CUSTOM_URL_IMG%>i_logo1.png" > -->
 	<title><% .PageTitle %></title>
 </head>
 <body>
 <div id="header">
 	<div id="logo">
-		<!-- <h1><img href="/" src="<%STATIC_URL_IMG%>ckeyer.png" alt="ckeyer" /></h1> -->
+		<!-- <h1><img href="/" src="<STATIC_URL_IMG%>ckeyer.png" alt="ckeyer" /></h1> -->
 		<h2><a href="/">Man, I just luv technology...... </a></h2>
 		<!-- <h2><a href="/">O ever youthful, O ever weeping. </a></h2> -->
 	</div>
@@ -98,7 +98,7 @@
 <div id="footer"><br>
 	<p>Copyright &copy; 2014 lab204. Designed by <a href="#"><strong>Lab204-CJStudio</strong></a></p>
 </div>
-<script type="text/javascript" src="<% STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="<% CUSTOM_URL_JS %>matrix.js"></script>
+<script type="text/javascript" src="< STATIC_URL_JS %>jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="< CUSTOM_URL_JS %>matrix.js"></script>
 </body>
 </html>
