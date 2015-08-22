@@ -11,7 +11,7 @@ type MainController struct {
 }
 
 func (m *MainController) Get() {
-
+	m.AddKeyWord("极客", "个人博客")
 	m.Data["CusStyles"] = `  <link href="/static/css/2048/main.css" rel="stylesheet" type="text/css">
   <link rel="apple-touch-startup-image" href="/static/img/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
   <link rel="apple-touch-startup-image" href="/static/img/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
