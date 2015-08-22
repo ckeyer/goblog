@@ -3,23 +3,12 @@ package controllers
 import (
 	_ "container/list"
 
-	"github.com/astaxie/beego"
+	"github.com/ckeyer/goblog/conf"
 	"github.com/ckeyer/goblog/models"
 )
 
 var (
-	STATIC_URL         = beego.AppConfig.String("static_url")
-	STATIC_URL_JS_SSL  = beego.AppConfig.String("static_url_js_ssl")
-	STATIC_URL_CSS_SSL = beego.AppConfig.String("static_url_css_ssl")
-	STATIC_URL_IMG_SSL = beego.AppConfig.String("static_url_img_ssl")
-	STATIC_URL_JS      = beego.AppConfig.String("static_url_js")
-	STATIC_URL_CSS     = beego.AppConfig.String("static_url_css")
-	STATIC_URL_IMG     = beego.AppConfig.String("static_url_img")
-	custom_url_js      = beego.AppConfig.String("custom_url_js")
-	custom_url_css     = beego.AppConfig.String("custom_url_css")
-	custom_url_img     = beego.AppConfig.String("custom_url_img")
-
-	ALLOW_HOSTS = []string{"http://www.ckeyer.com/", "http://d.local/", "http://localhost/", "http://ingdown.com/"}
+	website = conf.GetConf().WebSite
 )
 
 type BaseController struct {
@@ -28,23 +17,26 @@ type BaseController struct {
 
 func (this *BaseController) Prepare() {
 	this.Ctx.Request.Header.Add("Access-Control-Allow-Origin", "*")
+
+	// 验证是否来自合法域名访问
 	if !this.isAllowHost() {
 		this.Ctx.WriteString(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=` +
-			STATIC_URL + string([]byte(this.Ctx.Input.Url())[4:]) + `" /></head></html>`)
+			website.HostUrl + string([]byte(this.Ctx.Input.Url())[4:]) + `" /></head></html>`)
 		this.StopRun()
 	}
+
 	this.Data["Metes"] = ""
 	this.Data["Keywords"] = "CKeyer"
 	this.Data["Description"] = "CKeyer"
 	this.Data["PageTitle"] = "Home"
-	this.Data["Styles"] = `<link rel="stylesheet" href="` + STATIC_URL_CSS + `style.css" media="screen" type="text/css" />`
-	this.Data["Scripts"] = `<script type="text/javascript" src="` + STATIC_URL_JS + `jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="` + STATIC_URL_JS + `default.js"></script>
-<script src="` + STATIC_URL_JS + `modernizr.js"></script>
-<script src='` + STATIC_URL_JS + `dat.gui.min.js'></script>
-<script src='` + STATIC_URL_JS + `toxiclibs.min.js'></script>
-<script src='` + STATIC_URL_JS + `animitter.min.js'></script>
-<script src="` + STATIC_URL_JS + `bg_index.js"></script>`
+	this.Data["Styles"] = `<link rel="stylesheet" href="` + website.CssUrl + `style.css" media="screen" type="text/css" />`
+	this.Data["Scripts"] = `<script type="text/javascript" src="` + website.JsUrl + `jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="` + website.JsUrl + `default.js"></script>
+<script src="` + website.JsUrl + `modernizr.js"></script>
+<script src='` + website.JsUrl + `dat.gui.min.js'></script>
+<script src='` + website.JsUrl + `toxiclibs.min.js'></script>
+<script src='` + website.JsUrl + `animitter.min.js'></script>
+<script src="` + website.JsUrl + `bg_index.js"></script>`
 	this.Data["CusStyles"] = ``
 	this.Data["CusScripts"] = ``
 	this.Data["Tail"] = `Download your use my life`
@@ -57,15 +49,11 @@ func (this *BaseController) Prepare() {
 
 // 是否是通过允许的域名访问
 func (this *BaseController) isAllowHost() bool {
-	url_head := this.Ctx.Input.Scheme() + "://" + this.Ctx.Input.Host()
-	if url_head+"/" == STATIC_URL {
-		return true
-	}
-	for _, v := range ALLOW_HOSTS {
-		if url_head+"/" == v {
+	for _, v := range website.EnableDomain {
+		if this.Ctx.Input.Host() == v {
 			return true
 		}
 	}
-	log.Debug(this.Ctx.Input.Host())
+	log.Debugf("Not Enable Domain %s\n", this.Ctx.Input.Host())
 	return false
 }

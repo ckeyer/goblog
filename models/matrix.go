@@ -26,9 +26,9 @@ var key_matrix = "matrix"
 func initMatrixRedis() {
 	for i := 0; i < MATRIX_H; i++ {
 		for j := 0; j < MATRIX_W; j++ {
-			_, err := rc.Hset(key_matrix, fmt.Sprintf("%d_%d", i, j), []byte(fmt.Sprint((i+j)%5)))
-			if err != nil {
-				log.Warningf("Hset Error %s \n", err.Error())
+			v := rc.HSet(key_matrix, fmt.Sprintf("%d_%d", i, j), (fmt.Sprint((i + j) % 5)))
+			if v.Err() != nil {
+				log.Warningf("Hset Error %s \n", v.Err().Error())
 			}
 
 		}
@@ -36,11 +36,10 @@ func initMatrixRedis() {
 	log.Info("Redis Init Matrix Success.")
 }
 func GetAllMatrix() (vals *MatrixArray, err error) {
-	var b bool
-	if b, err = rc.Exists(key_matrix); err != nil {
-		log.Error(err.Error())
+	if b := rc.Exists(key_matrix); b.Err() != nil {
+		log.Error(b.Err().Error())
 		return
-	} else if !b {
+	} else if !b.Val() {
 		initMatrixRedis()
 	}
 	vals, err = getAllToArray()
@@ -50,10 +49,9 @@ func getAllToArray() (vals *MatrixArray, err error) {
 	vals = &MatrixArray{}
 	for i := 0; i < MATRIX_H; i++ {
 		for j := 0; j < MATRIX_W; j++ {
-			var b []byte
-			b, err = rc.Hget(key_matrix, fmt.Sprintf("%d_%d", i, j))
-			if err != nil {
-				log.Warningf("%v, %s", key_matrix, err.Error())
+			b := rc.HGet(key_matrix, fmt.Sprintf("%d_%d", i, j))
+			if b.Err() != nil {
+				log.Warningf("%v, %s", key_matrix, b.Err().Error())
 				initMatrixRedis()
 				return
 			}
@@ -64,9 +62,10 @@ func getAllToArray() (vals *MatrixArray, err error) {
 	return
 }
 func UpdateMatrix(h, w int) (bool, error) {
-	bs, _ := rc.Hget(key_matrix, fmt.Sprintf("%d_%d", h, w))
-	count, _ := strconv.Atoi(fmt.Sprintf("%s", bs))
-	return rc.Hset(key_matrix, fmt.Sprintf("%d_%d", h, w), []byte(strconv.Itoa(count+1)))
+	v := rc.HGet(key_matrix, fmt.Sprintf("%d_%d", h, w))
+	count, _ := strconv.Atoi(fmt.Sprintf("%s", v.Val()))
+	v2 := rc.HSet(key_matrix, fmt.Sprintf("%d_%d", h, w), (strconv.Itoa(count + 1)))
+	return v2.Val(), v2.Err()
 }
 func (this *MatrixArray) ToJson() string {
 	b, e := json.Marshal(*this)

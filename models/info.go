@@ -1,25 +1,23 @@
 package models
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/hoisie/redis"
 	_ "log"
 	"strconv"
 	"strings"
+
+	"github.com/astaxie/beego"
 )
 
 type WebPage struct {
 	Name string
-	rc   redis.Client
 }
 
 func NewWebPage(name string) (w *WebPage) {
 	w = &WebPage{}
 	w.Name = name
-	w.rc = rc
 
 	if "none" != name {
-		w.rc.Sadd("WebPages", []byte(strings.ToUpper(w.Name)))
+		rc.SAdd("WebPages", (strings.ToUpper(w.Name)))
 	}
 	return
 }
@@ -28,28 +26,28 @@ func (w *WebPage) GetPageTitle() string {
 }
 func (w *WebPage) IncrViewCount() (count int) {
 	key := strings.ToUpper(w.Name + "_ViewCount")
-	v, _ := w.rc.Incr(key)
-	count = int(v)
+	v := rc.Incr(key)
+	count = int(v.Val())
 	return
 }
 func (w *WebPage) GetViewCount() (count int) {
 	key := strings.ToUpper(w.Name + "_ViewCount")
-	v, err := w.rc.Get(key)
-	if err == nil {
-		count, _ = strconv.Atoi(string(v))
+	v := rc.Get(key)
+	if v.Err() == nil {
+		count, _ = strconv.Atoi(v.Val())
 	} else {
-		w.rc.Set(key, []byte("100"))
+		rc.Set(key, "100")
 		count = 100
 	}
 	return
 }
 func (w *WebPage) GetViewCountByName(name string) (count int) {
 	key := strings.ToUpper(name + "_ViewCount")
-	v, err := w.rc.Get(key)
-	if err == nil {
-		count, _ = strconv.Atoi(string(v))
+	v := rc.Get(key)
+	if v.Err() == nil {
+		count, _ = strconv.Atoi((v.Val()))
 	} else {
-		w.rc.Set(key, []byte("100"))
+		rc.Set(key, ("100"))
 		count = 100
 	}
 	return
@@ -57,16 +55,16 @@ func (w *WebPage) GetViewCountByName(name string) (count int) {
 func (w *WebPage) GetWebPages() map[string]int {
 	key := "WebPages"
 	s := make(map[string]int)
-	vs, _ := w.rc.Smembers(key)
-	for _, v := range vs {
+	vs := rc.SMembers(key)
+	for _, v := range vs.Val() {
 		s["/"+strings.ToLower(string(v))] = w.GetViewCountByName(string(v))
 	}
 	return s
 }
 func (w *WebPage) GetWebPageCount() int {
 	key := "WebPages"
-	v, _ := w.rc.Scard(key)
-	return v
+	v := rc.SCard(key)
+	return int(v.Val())
 }
 func (w *WebPage) GetImgHost() (s string) {
 	s = beego.AppConfig.String("img_host")

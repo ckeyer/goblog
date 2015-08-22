@@ -5,8 +5,7 @@
 	},
 	"redis":{
 		"host":"d.local",
-		"port":6379,
-		"password":""
+		"port":6379
 	},
 	"mysql":{
 		"host":"d.local",
@@ -17,10 +16,13 @@
 	},
 	"website":{
 		"host_url":"http://www.ckeyer.com/",
-		"file_server":"http://www.ckeyer.com/",
-		"js_server":"http://www.ckeyer.com/",
-		"img_server":"http://www.ckeyer.com/",
-		"css_server":"http://www.ckeyer.com/",
+		"file_url":"http://www.ckeyer.com/",
+		"js_url":"/static/js/",
+		"img_url":"/static/img/",
+		"css_url":"/static/css/",
+		"custom_js_url":"/static/js/",
+		"custom_img_url":"/static/img/",
+		"custom_css_url":"/static/css/",
 		"enable_domain":[
 			"ckeyer.com",
 			"cjstudio.org",

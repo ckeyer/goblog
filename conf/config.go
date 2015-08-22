@@ -9,9 +9,10 @@ import (
 )
 
 type Config struct {
-	App   *App   `json:"app"`
-	Redis *Redis `json:"redis"`
-	Mysql *Mysql `json:"mysql"`
+	App     *App     `json:"app"`
+	Redis   *Redis   `json:"redis"`
+	Mysql   *Mysql   `json:"mysql"`
+	WebSite *WebSite `json:"website"`
 }
 
 type App struct {
@@ -21,17 +22,29 @@ type App struct {
 
 type Redis struct {
 	Host     string `json:"host"`
-	Port     int    `json:"port"`
+	Port     int64  `json:"port"`
 	Password string `json:"password"`
-	Database int    `json:"database"`
+	Database int64  `json:"database"`
 }
 
 type Mysql struct {
 	Host     string `json:"host"`
-	Port     int    `json:"port"`
+	Port     int64  `json:"port"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Database string `json:"database"`
+}
+
+type WebSite struct {
+	HostUrl      string   `json:"host_url"`
+	FileUrl      string   `json:"file_url"`
+	JsUrl        string   `json:"js_url"`
+	CssUrl       string   `json:"css_url"`
+	ImgUrl       string   `json:"img_url"`
+	CustomJsUrl  string   `json:"custom_js_url"`
+	CustomCssUrl string   `json:"custom_css_url"`
+	CustomImgUrl string   `json:"custom_img_url"`
+	EnableDomain []string `json:"enable_domain"`
 }
 
 var config *Config
@@ -71,13 +84,23 @@ func load(path string) (*Config, error) {
 	return &c, err
 }
 
-// GetConfig 获取所有配置
+// GetConfig 获取所有配置及错误信息
 func GetConfig() (*Config, error) {
 	if config != nil {
 		return config, nil
 	}
 	config, err := load(path)
 	return config, err
+}
+
+// GetConf 仅仅获取配置信息，有错则panic
+func GetConf() *Config {
+	c, err := GetConfig()
+	if err != nil {
+		panic(err)
+	}
+	return c
+
 }
 
 // (m *Mysql)GetConnStr 获取Mysql的连接字符串

@@ -7,11 +7,12 @@ import (
 	"github.com/ckeyer/goblog/conf"
 	"github.com/ckeyer/goblog/lib/logging"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/hoisie/redis"
+	"github.com/vmihailenco/redis"
 )
 
 var (
-	rc      redis.Client
+	config  = conf.GetConf()
+	rc      *redis.Client
 	log     = logging.GetLogger()
 	db_str  string
 	force   = false // force create tables
@@ -19,10 +20,15 @@ var (
 )
 
 func init() {
-	config, _ := conf.GetConfig()
-	log.Debugf("%#v\n", config.Mysql.GetConnStr())
-	db_str = config.Mysql.GetConnStr()  //"root:root@tcp(d.local:3306)/db_blog?charset=utf8"
-	rc.Addr = config.Redis.GetConnStr() //"d.local:6379"
+	db_str = config.Mysql.GetConnStr() //"root:root@tcp(d.local:3306)/db_blog?charset=utf8"
+
+	if rc == nil {
+		rc = redis.NewTCPClient("d.local:6379", config.Redis.Password, config.Redis.Database)
+		// rc = redis.NewTCPClient(config.Redis.GetConnStr(), config.Redis.Password, config.Redis.Database)
+		if err := rc.Ping().Err(); err != nil {
+			log.Warningf("Redis Ping Failed by %s, ConnStr is: %s\n", err, config.Redis.GetConnStr())
+		}
+	}
 }
 
 func RegistDB() {
