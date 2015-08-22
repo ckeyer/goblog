@@ -5,10 +5,11 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
   <meta name="keywords" content="<% .Keywords %>" />
   <meta name="description" content="<% .Description %>" />
-  <!-- <link rel="shortcut icon" href=" CUSTOM_URL_IMGi_logo1.png" > -->
+  <link rel="shortcut icon" href="<% .WebSite.ImgUrl %>logo.jpg" >
   <title>CKeyer - <% .PageTitle %></title>
   <% str2html .Styles %>
-  <% str2html .CusStyles %>
+
+  <!-- B Clicki 统计 -->
   <script type="text/javascript">
     (function() {
         window._CiQ11070 = window._CiQ11070 || [];
@@ -25,6 +26,8 @@
   <noscript>
     <link href="//collect.cn.miaozhen.com/refer/collect?i=11070&v=13922245942&pu=http%3A//%28NoScriptPageviews%29&pt=NoScriptPageviews&ru=http%3A//%28NoScriptClients%29&csh=1000&csw=1000&css=10" rel="stylesheet" type="text/css" />
   </noscript>
+  <!-- E Clicki 统计 -->
+
 </head>
 
 <body>
@@ -141,7 +144,6 @@
 
 <div><% str2html .Tail %></div>
 <% str2html .Scripts %>
-<% str2html .CusScripts %>
 
  <script type="text/javascript" charset="utf-8" >
 //     function clic(new_url){

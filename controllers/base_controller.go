@@ -35,8 +35,6 @@ func (this *BaseController) Prepare() {
 	this.Data["Metes"] = ""
 	this.AddCssStyle("style.css")
 	this.AddJsScript("jquery-2.1.3.min.js", "default.js", "modernizr.js", "dat.gui.min.js", "toxiclibs.min.js", "animitter.min.js", "bg_index.js")
-	this.Data["CusStyles"] = ``
-	this.Data["CusScripts"] = ``
 	this.Data["Tail"] = `Download your use my life`
 
 	this.Data["BlogsMonth"] = models.GetBlogsMonth(5)
@@ -114,7 +112,7 @@ func (this *BaseController) AddCustomCssStyle(src_url string, args ...string) {
 		csstags = strings.Split(fmt.Sprint(this.Data["Styles"]), "\n")
 	}
 	for _, css := range args {
-		newtag := fmt.Sprintf(`<link rel="stylesheet" media="screen" type="text/css"  href="%s%s"/>`, src_url, css)
+		newtag := fmt.Sprintf(`<link rel="stylesheet" media="screen" type="text/css" href="%s%s"/>`, src_url, css)
 		csstags = append(csstags, newtag)
 	}
 	this.Data["Styles"] = strings.Join(csstags, "\n")
