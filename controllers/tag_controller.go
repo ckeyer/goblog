@@ -13,25 +13,25 @@ type TagController struct {
 	BaseController
 }
 
-func (this *TagController) Get() {
+func (t *TagController) Get() {
 
-	skey := this.Ctx.Input.Param(":key")
+	skey := t.Ctx.Input.Param(":key")
 	tag_id, err := strconv.Atoi(skey)
 	if err != nil {
-		this.Ctx.WriteString("Error")
+		t.Ctx.WriteString("Error")
 		return
 	}
 	tag := &models.Tag{Id: int64(tag_id)}
 
-	this.Data["TagBlogs"] = tag.GetBlogs(0, 5)
-	this.TplNames = "tag.tpl"
+	t.Data["TagBlogs"] = tag.GetBlogs(0, 5)
+	t.TplNames = "tag.tpl"
 }
 
 // func (this *TagController) checkError() {
 
-// 	this.TplNames = "index.tpl"
+// 	t.TplNames = "index.tpl"
 // }
 
-// // func (this *TagController) Post() {
-// // 	log.Println("")
-// // }
+func (t *TagController) Post() {
+	t.Ctx.WriteString("hello post")
+}

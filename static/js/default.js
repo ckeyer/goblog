@@ -151,7 +151,7 @@ article =(function(){
 				// content:proto.content.innerHTML
 			};
 			var title = "Ckeyer - "+data.Title;
-			var newUrl = "article_"+data.Id+".html";
+			var newUrl = "/article_"+data.Id+".html";
 			// history.pushState(state,title,newUrl);
 			window.history.pushState(state,'',newUrl);
 		}

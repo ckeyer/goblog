@@ -1,160 +1,162 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <% str2html .Metes %>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <meta name="keywords" content="<% .Keywords %>" />
-  <meta name="description" content="<% .Description %>" />
-  <link rel="shortcut icon" href="<% .WebSite.ImgUrl %>logo.jpg" >
-  <title>CKeyer - <% .PageTitle %></title>
-  <% str2html .Styles %>
+  <head>
+	<% str2html .Metes %>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="keywords" content="<% .Keywords %>" />
+	<meta name="description" content="<% .Description %>" />
+	<link rel="shortcut icon" href="<% .WebSite.ImgUrl %>logo.jpg" >
+	<title>CKeyer - <% .PageTitle %></title>
+	<% str2html .Styles %>
 
-  <!-- B Clicki 统计 -->
-  <script type="text/javascript">
-    (function() {
-        window._CiQ11070 = window._CiQ11070 || [];
-        window._CiQ11070.push(['_cookieUseRootDomain', true]);
-        var c = document.createElement('script');
-        c.type = 'text/javascript';
-        c.async = true;
-        c.charset = 'utf-8';
-        c.src = '//collect.cn.miaozhen.com/ca/11070';
-        var h = document.getElementsByTagName('script')[0];
-        h.parentNode.insertBefore(c, h);
-    })();
-  </script>
-  <noscript>
-    <link href="//collect.cn.miaozhen.com/refer/collect?i=11070&v=13922245942&pu=http%3A//%28NoScriptPageviews%29&pt=NoScriptPageviews&ru=http%3A//%28NoScriptClients%29&csh=1000&csw=1000&css=10" rel="stylesheet" type="text/css" />
-  </noscript>
-  <!-- E Clicki 统计 -->
+	<!-- B Clicki 统计 -->
+	<script type="text/javascript">
+      (function() {
+      window._CiQ11070 = window._CiQ11070 || [];
+      window._CiQ11070.push(['_cookieUseRootDomain', true]);
+      var c = document.createElement('script');
+      c.type = 'text/javascript';
+      c.async = true;
+      c.charset = 'utf-8';
+      c.src = '//collect.cn.miaozhen.com/ca/11070';
+      var h = document.getElementsByTagName('script')[0];
+      h.parentNode.insertBefore(c, h);
+      })();
+	</script>
+	<noscript>
+      <link href="//collect.cn.miaozhen.com/refer/collect?i=11070&v=13922245942&pu=http%3A//%28NoScriptPageviews%29&pt=NoScriptPageviews&ru=http%3A//%28NoScriptClients%29&csh=1000&csw=1000&css=10" rel="stylesheet" type="text/css" />
+	</noscript>
+	<!-- E Clicki 统计 -->
 
-</head>
+  </head>
 
-<body>
-  <div class="left-menu">
-    <div class="logo"><i class="fa fa-align-justify"></i>
-      <div><h2> Ckeyer</h2></div>
-      <div>
-        <font size="3">Man, just luv techoligy.</font>
-    </div>
-</div>
-<div class="accordion">
-  <div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-1" checked="checked"/>
-    <label for="sectionlabel-1"><span class="sectionlabel-title">博客</span></label>
-    <div class="content">
-      <ul>
+  <body>
+	<div class="left-menu">
+      <div class="logo"><i class="fa fa-align-justify"></i>
+		<div><h2> Ckeyer</h2></div>
+		<div>
+          <font size="3">Man, just luv techoligy.</font>
+		</div>
+	  </div>
+	  <div class="accordion">
+		<div class="sectionlabel">
+		  <input type="radio" name="accordion-1" id="sectionlabel-1" checked="checked"/>
+		  <label for="sectionlabel-1"><span class="sectionlabel-title">博客</span></label>
+		  <div class="content">
+			<ul>
 
-        <% range $index, $elem := .BlogsMonth %>
-        <li class="tag_label">
+			  <% range $index, $elem := .BlogsMonth %>
+			  <li class="tag_label">
                 <a href="/<% $elem.Month %>" onclick="return false;">
-                           <i class="fa fa-inbox"></i>
-                           <span><% $elem.Month %></span>(<span><% $elem.BlogCount %></span>)
+                  <i class="fa fa-inbox"></i>
+                  <span><% $elem.Month %></span>(<span><% $elem.BlogCount %></span>)
                 </a>    
-        </li>        
-      <% end %>
-  </ul>
-</div>
-</div>
+			  </li>        
+			  <% end %>
+			</ul>
+		  </div>
+		</div>
 
-<div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-2" value="toggle"/>
-    <label for="sectionlabel-2"><span>标签</span></label>
-    <div class="content">
-      <ul>
-        <ul>
-          <% range $index, $elem := .BlogsTag %>
-          <li class="tag_label" tag_id="<% $elem.Id %>">
-            <i class="fa fa-inbox"></i>
-            <span><% $elem.Name %></span>
-            (<span><% $elem.BlogCount %></span>)
-        </li>
-        <% end %>
-    </ul>
-</div>
-</div>
+		<div class="sectionlabel">
+		  <input type="radio" name="accordion-1" id="sectionlabel-2" value="toggle"/>
+		  <label for="sectionlabel-2"><span>标签</span></label>
+		  <div class="content">
+			<ul>
+			  <% range $index, $elem := .BlogsTag %>
+			  <li class="tag_label" tag_id="<% $elem.Id %>">
+				<a href="/tag/<% $elem.Id %>.html" >
+				  <i class="fa fa-inbox"></i>
+				  <span><% $elem.Name %></span>
+				  (<span><% $elem.BlogCount %></span>)
+				</a>
+			  </li>
+			  <% end %>
+			</ul>
+		  </div>
+		</div>
 
-<div class="sectionlabel">
-  <input type="radio" name="accordion-1" id="sectionlabel-3" value="toggle"/>
-  <label for="sectionlabel-3"><span>收藏夹 </span></label>
-  <div class="content">
-    <ul>
-      <ul>
-        <% range $index, $elem := .BlogsTag %>
-        <li class="tag_label" tag_id="<% $elem.Id %>">
-          <i class="fa fa-inbox"></i>
-          <span><% $elem.Name %></span>
-          (<span><% $elem.BlogCount %></span>)
-      </li>
-      <% end %>
-  </ul>
-</div>
-</div>
+		<div class="sectionlabel">
+		  <input type="radio" name="accordion-1" id="sectionlabel-3" value="toggle"/>
+		  <label for="sectionlabel-3"><span>收藏夹 </span></label>
+		  <div class="content">
+			<ul>
+			  <ul>
+				<% range $index, $elem := .BlogsTag %>
+				<li class="tag_label" tag_id="<% $elem.Id %>">
+				  
+				  <i class="fa fa-inbox"></i>
+				  <span><% $elem.Name %></span>
+				  (<span><% $elem.BlogCount %></span>)
+				</li>
+				<% end %>
+			  </ul>
+		  </div>
+		</div>
 
-<div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-4" value="toggle"/>
-    <label for="sectionlabel-4"><span>工具</span></label>
-    <div class="content">
-      <ul>
-        <li>
+		<div class="sectionlabel">
+		  <input type="radio" name="accordion-1" id="sectionlabel-4" value="toggle"/>
+		  <label for="sectionlabel-4"><span>工具</span></label>
+		  <div class="content">
+			<ul>
+			  <li>
                 <a href="http://go.ckeyer.com/doc"><i class="fa fa-coffee"></i><span>Go Doc</span></a>    
-        </li>
-        <li>
+			  </li>
+			  <li>
                 <a href="/d/blacklist.txt"><i class="fa fa-coffee"></i><span>我的黑名单</span></a>    
-        </li>
-        <li>
+			  </li>
+			  <li>
                 <a href="/admin/blog"><i class="fa fa-coffee"></i><span>管理</span></a>    
-        </li>
-    </ul>
-</div>
-</div>
+			  </li>
+			</ul>
+		  </div>
+		</div>
 
-<div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-5" value="toggle"/>
-    <label for="sectionlabel-5"><span>留言</span></label>
-    <div class="content">
-      给我留言
+		<div class="sectionlabel">
+		  <input type="radio" name="accordion-1" id="sectionlabel-5" value="toggle"/>
+		  <label for="sectionlabel-5"><span>留言</span></label>
+		  <div class="content">
+			给我留言
+		  </div>
+		</div>
+
+		<div class="sectionlabel">
+		  <input type="radio" name="accordion-1" id="sectionlabel-6" value="toggle"/>
+		  <label for="sectionlabel-6"><span>关于</span></label>
+		  <div class="content">
+			<h3>Github.</h3>
+			<a href="https://github.com/ckeyer" target="_blank">https://github.com/ckeyer</a> 
+			<h3>Email.</h3>
+			<a href="Mailto:me@ckeyer.com">me@ckeyer.com</a> <br>
+			<h4><a href="/about/me.html">More...</a> </h4>
+		  </div>
+		</div>
+	  </div>
 	</div>
-</div>
 
-<div class="sectionlabel">
-    <input type="radio" name="accordion-1" id="sectionlabel-6" value="toggle"/>
-    <label for="sectionlabel-6"><span>关于</span></label>
-    <div class="content">
-      <h3>Github.</h3>
-      <a href="https://github.com/ckeyer" target="_blank">https://github.com/ckeyer</a> 
-      <h3>Email.</h3>
-      <a href="Mailto:me@ckeyer.com">me@ckeyer.com</a> <br>
-      <h4><a href="/about/me.html">More...</a> </h4>
-  </div>
-</div>
-</div>
-</div>
+	<div id ="body_content" style="text-align:center;clear:both">
+      <div id="body_content_1" class="body_content_label">
+		<div id="matrix_content"></div>
+	  </div>
 
-<div id ="body_content" style="text-align:center;clear:both">
-    <div id="body_content_1" class="body_content_label">
-      <div id="matrix_content"></div>
-  </div>
+	  <div id="body_content_2">
+		<% .LayoutContent %>
+	  </div>
 
-  <div id="body_content_2">
-   <% .LayoutContent %>
-  </div>
+	  <canvas id="body_bg" >A drawing of something...</canvas>
 
-<canvas id="body_bg" >A drawing of something...</canvas>
+	  <div><% str2html .Tail %></div>
+	  <% str2html .Scripts %>
 
-<div><% str2html .Tail %></div>
-<% str2html .Scripts %>
+	  <script type="text/javascript" charset="utf-8" >
+		//     function clic(new_url){
+		//       var title = document.title;
+		//       var url = window.location.pathname;
+		//       var state = { title: title,url:url};
+		//       bg_app.reset();
+		//       console.log(state);
+		//       window.history.pushState(state, document.title, new_url);
+		//   };
 
- <script type="text/javascript" charset="utf-8" >
-//     function clic(new_url){
-//       var title = document.title;
-//       var url = window.location.pathname;
-//       var state = { title: title,url:url};
-//       bg_app.reset();
-//       console.log(state);
-//       window.history.pushState(state, document.title, new_url);
-//   };
-
-// </script>
-</body>
+		// </script>
+  </body>
 </html>

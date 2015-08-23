@@ -95,12 +95,8 @@ func (this *BlogController) AddBlog() {
 	// s := this.Ctx.Input.Param(":key")
 	// this.Ctx.WriteString(s)
 	// this.Ctx.WriteString("// @router /v1/admin/blog [get]")
-	this.Data["CusStyles"] = `<link rel="Stylesheet" type="text/css" href="` + website.CssUrl + `jquery-ui.1.11.3.min.css" />
-<link rel="Stylesheet" type="text/css" href="` + website.CssUrl + `jHtmlArea.css" />`
-
-	this.Data["CusScripts"] = `<script type="text/javascript" src="` + website.JsUrl + `jquery-ui.1.11.3.min.js"></script>
-<script type="text/javascript" src="` + website.JsUrl + `jHtmlArea-0.8.min.js"></script>
-<script type="text/javascript" src="` + website.JsUrl + `edit_blog.js"></script>`
+	this.AddCssStyle("jquery-ui.1.11.3.min.css", "jHtmlArea.css")
+	this.AddJsScript("jquery-ui.1.11.3.min.js", "jHtmlArea-0.8.min.js", "edit_blog.js")
 
 	this.TplNames = "blogEdit.tpl"
 }

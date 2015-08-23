@@ -30,6 +30,12 @@ canvas {
 .accordion {
       color: #FFF;
       width: 100%;
+     font-size: 14px;
+}
+
+.accordion a{
+	color:white;
+	underline:none;
 }
 .accordion .sectionlabel {
       width: 100%;
@@ -108,9 +114,6 @@ canvas {
       box-sizing: border-box;
 }
 
-.accordion {
-      font-size: 14px;
-}
 .accordion .sectionlabel .content {
       padding: 0 15px;
 }
@@ -225,7 +228,7 @@ ul li:hover i {
         margin: 0px 20px 0px 30px;
 }
  .body_content_article .article_title{
-        margin-left: 5px;
+        margin: 0px 0px 10px 5px;
         font-size: 33px;
 }
  .body_content_article .article_title:hover{
@@ -238,7 +241,8 @@ ul li:hover i {
         color:rgb(242, 172, 20);
 }
  .body_content_article .article_tags{
-        font-size: 18px;
+	 margin:10px 0px 0px 0px ;
+     font-size: 18px;
 }
  .body_content_article .article_tag{
         font-size: 15px;
@@ -266,14 +270,15 @@ ul li:hover i {
 
 /********** 编辑栏及显示的部分 START  ********/
  .article_content{
-        margin: 0px 20px 0px 30px;
+        margin: 30px 10px 20px 10px;
         text-indent: 2em;
 }
 #blog_edit{
          margin: 0px 20px 0px 30px;
 }
 .article_content p{
-  color: red;
+    margin: 10px 0px px 0px;
+	color: red;
 }
 .article_content h1{
   
