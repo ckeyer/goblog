@@ -5,6 +5,7 @@
 .fuse*
 goblog
 blog
+.DS_Store
 \#*
 .\#*
 *~
