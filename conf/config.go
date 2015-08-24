@@ -13,6 +13,7 @@ type Config struct {
 	Redis   *Redis   `json:"redis"`
 	Mysql   *Mysql   `json:"mysql"`
 	WebSite *WebSite `json:"website"`
+	WebHook *WebHook `json:"webhook"`
 }
 
 type App struct {
@@ -48,10 +49,23 @@ type WebSite struct {
 	EnableDomain []string `json:"enable_domain"`
 }
 
+type WebHook struct {
+	Repos    string     `json:"repos"`
+	Monitors []*Monitor `json:"monitor"`
+}
+
+type Monitor struct {
+	Branch string `json:"branch"`
+	User   string `json:"user"`
+	Action string `json:"action"`
+	Script string `json:"script"`
+}
+
 var config *Config
 
 // 配置文件路径
 var path string = "conf/config.json"
+var HOOK_SECRET = os.Getenv("HOOK_SECRET")
 
 // init 配置相关初始化
 // func init() {
