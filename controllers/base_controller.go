@@ -45,8 +45,9 @@ func (this *BaseController) Prepare() {
 
 // 是否是通过允许的域名访问
 func (this *BaseController) isAllowHost() bool {
+	host := this.Ctx.Input.Host()
 	for _, v := range website.EnableDomain {
-		if this.Ctx.Input.Host() == v {
+		if strings.Index(host, v) >= 0 {
 			return true
 		}
 	}
