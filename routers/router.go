@@ -36,7 +36,14 @@ func init() {
 			),
 		),
 	)
+
+	// For API
+	ns2 := beego.NewNamespace("v2",
+		beego.NSBefore(auth),
+		beego.NSRouter("/", &controllers.MainController{}),
+	)
 	beego.AddNamespace(ns)
+	beego.AddNamespace(ns2)
 }
 
 func log_info(ctx *context.Context) {
@@ -55,4 +62,10 @@ func log_info(ctx *context.Context) {
 	if err != nil {
 		println(err.Error())
 	}
+}
+
+// auth API认证
+func auth(ctx *context.Context) {
+	sha := ctx.Input.Header("CKEYER_SHA")
+	_ = sha
 }
