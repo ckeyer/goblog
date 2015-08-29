@@ -44,15 +44,17 @@
 		  <label for="sectionlabel-1"><span class="sectionlabel-title">博客</span></label>
 		  <div class="content">
 			<ul>
-
-			  <% range $index, $elem := .BlogsMonth %>
-			  <li class="tag_label">
-                <a href="/<% $elem.Month %>" onclick="return false;">
-                  <i class="fa fa-inbox"></i>
-                  <span><% $elem.Month %></span>(<span><% $elem.BlogCount %></span>)
-                </a>    
-			  </li>        
-			  <% end %>
+			  <li>
+				<a href="http://blog.ckeyer.com/">个人博客已转移</a>
+			  </li>
+			  <!-- <% range $index, $elem := .BlogsMonth %> -->
+			  <!-- <li class="tag_label"> -->
+              <!--   <a href="/<% $elem.Month %>" onclick="return false;"> -->
+              <!--     <i class="fa fa-inbox"></i> -->
+              <!--     <span><% $elem.Month %></span>(<span><% $elem.BlogCount %></span>) -->
+              <!--   </a>     -->
+			  <!-- </li>         -->
+			  <!-- <% end %> -->
 			</ul>
 		  </div>
 		</div>
