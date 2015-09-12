@@ -13,9 +13,10 @@ blog
 *.rdb
 conf/app.conf
 # Folders
+blog
+notes
 _obj
 _test
-*.conf
 key.pem
 cert.pem
 # Architecture specific extensions/prefixes
