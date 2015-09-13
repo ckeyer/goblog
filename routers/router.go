@@ -1,10 +1,14 @@
 package routers
 
 import (
-	"github.com/ckeyer/goblog/controllers"
 	"github.com/astaxie/beego"
+	"github.com/ckeyer/goblog/controllers"
+	"github.com/ckeyer/goblog/libs"
 )
 
+var log = libs.GetLogger()
+
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	log.Info("加载路由信息")
+	beego.Router("/", &controllers.IndexController{})
 }
