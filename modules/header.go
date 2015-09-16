@@ -5,6 +5,7 @@ import (
 )
 
 type Header struct {
+	Name     string   `json:"name"`
 	Author   string   `json:"author"`
 	Head     string   `json:"head"`
 	Date     string   `json:"date"`
@@ -16,10 +17,10 @@ type Header struct {
 }
 
 // (h *Header) 获取blog头部信息
-func (h *Header)Load(bs []byte)(err error)  {
+func (h *Header) Load(bs []byte) (err error) {
 	err = json.Unmarshal(bs, h)
 	if err != nil {
-		log.Errorf("头部信息解析错误  %s",err)
+		log.Errorf("头部信息解析错误  %s", err)
 	}
 	return
 }

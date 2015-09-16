@@ -19,7 +19,23 @@ var (
 
 type Config struct {
 	sync.RWMutex
-	BlogPath string `json:"blog_path"`
+	BlogPath string   `json:"blog_path"`
+	WebSite  *WebSite `json:"website"`
+}
+
+type WebSite struct {
+	Title        string   `json:"title"`
+	Keywords     []string `json:"keywords"`
+	Description  string   `json:"description"`
+	HostUrl      string   `json:"host_url"`
+	FileUrl      string   `json:"file_url"`
+	JsUrl        string   `json:"js_url"`
+	CssUrl       string   `json:"css_url"`
+	ImgUrl       string   `json:"img_url"`
+	CustomJsUrl  string   `json:"custom_js_url"`
+	CustomCssUrl string   `json:"custom_css_url"`
+	CustomImgUrl string   `json:"custom_img_url"`
+	EnableDomain []string `json:"enable_domain"`
 }
 
 // init
@@ -55,7 +71,7 @@ func LoadConf(path string) (err error) {
 	}
 	config = c
 
-	log.Noticef("加载配置 %s 成功",path)
+	log.Noticef("加载配置 %s 成功", path)
 	return
 }
 
@@ -69,5 +85,6 @@ func GetConf() *Config {
 			return config
 		}
 	}
+	log.Errorf("%s, %#v", confpath, config)
 	panic("获取配置异常...")
 }

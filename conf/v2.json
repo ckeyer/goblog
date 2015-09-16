@@ -1,3 +1,41 @@
 {
-	"blog_dir":"blog/"
+	"blog_dir":"blog/",
+	"website":{
+		"index_num": 10,
+		"lastest_num": 5,
+		"title":"Ckeyer博客",
+		"keywords":[
+			"ckeyer",
+			"golang",
+			"大数据"
+		],
+		"description":"不折腾会死",
+		"host_url":"http://blog.ckeyer.com/",
+		"file_url":"http://www.ckeyer.com/",
+		"js_url":"/static/js/",
+		"img_url":"/static/img/",
+		"css_url":"/static/css/",
+		"custom_js_url":"/static/js/",
+		"custom_img_url":"/static/img/",
+		"custom_css_url":"/static/css/",
+		"enable_domain":[
+			"ckeyer.com",
+			"cjstudio.org",
+			"localhost",
+			"d.local"
+		]
+	},
+	"webhook":[
+		{
+			"repos":"notes",
+			"monitor":[
+				{
+					"branch":"online",
+					"user":"",
+					"action":"",
+					"script":"commit.sh"
+				}
+			]
+		}
+	]
 }

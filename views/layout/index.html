@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<<< str2html .Metes >>>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="keywords" content="<<< .Keywords >>>" />
+	<meta name="description" content="<<< .Description >>>" />
+	<link rel="shortcut icon" href="<<< .WebSite.ImgUrl >>>logo.jpg" >
+	<title><<< .PageTitle >>></title>
+	<<< str2html .Styles >>>
+
+	<!-- B Clicki 统计 -->
+	<!-- <script type="text/javascript"> -->
+    <!--   (function() { -->
+    <!--   window._CiQ11070 = window._CiQ11070 || []; -->
+    <!--   window._CiQ11070.push(['_cookieUseRootDomain', true]); -->
+    <!--   var c = document.createElement('script'); -->
+    <!--   c.type = 'text/javascript'; -->
+    <!--   c.async = true; -->
+    <!--   c.charset = 'utf-8'; -->
+    <!--   c.src = '//collect.cn.miaozhen.com/ca/11070'; -->
+    <!--   var h = document.getElementsByTagName('script')[0]; -->
+    <!--   h.parentNode.insertBefore(c, h); -->
+    <!--   })(); -->
+	<!-- </script> -->
+	<!-- <noscript> -->
+    <!--   <link href="//collect.cn.miaozhen.com/refer/collect?i=11070&v=13922245942&pu=http%3A//%28NoScriptPageviews%29&pt=NoScriptPageviews&ru=http%3A//%28NoScriptClients%29&csh=1000&csw=1000&css=10" rel="stylesheet" type="text/css" /> -->
+	<!-- </noscript> -->
+	<!-- E Clicki 统计 -->
+
+  </head>
+
+  <body class="home blog wide">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+	<div id="page" class="hfeed site">
+
+	  
+	  <header id="masthead" class="main-header" role="banner">
+		<div class="container">
+		  <div class="row">
+			<div class="site-branding col-md-4">
+			  <h1 class="site-title"><a href="<<< .HostUrl >>>" rel="home"><<< .PageTitle >>></a></h1>
+			  <span class="site-description"><<< .Description >>></span>
+			</div>
+		  </div>
+		</div>
+	  </header>
+
+	  
+	  <div id="content">
+		<div class="quest-row site-content">
+		  <div class="container">
+			<div class="row">
+			  
+			  <<< .LayoutContent >>>
+			  <<< .Sidebar >>>
+
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+	<footer id="colophon" class="copyright quest-row" role="contentinfo">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 copyright-text">
+				<a href="<<<.HostUrl>>>"><<<.Tail>>></a>
+			</div>
+			<div class="col-md-6 social-icon-container clearfix">
+				<ul></ul>
+			</div>
+		</div>
+		<!-- end row -->
+	</div>
+	<!-- end container -->
+</footer>
+	</div>
+	<<< str2html .Scripts >>>
+  </body>
+</html>

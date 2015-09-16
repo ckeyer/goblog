@@ -1,13 +1,30 @@
 package main
 
 import (
-	_ "github.com/ckeyer/goblog/routers"
 	"github.com/astaxie/beego"
 	"github.com/ckeyer/goblog/conf"
+	"github.com/ckeyer/goblog/libs"
+	"github.com/ckeyer/goblog/modules"
+	"github.com/ckeyer/goblog/routers"
 )
 
-func main() {
+var log = libs.GetLogger()
+
+func init() {
 	conf.LoadConf("conf/v2.json")
+	err := modules.LoadBlogs("blog/*.md")
+	if err != nil {
+		log.Error(err)
+	}
+}
+
+func main() {
+	BeegoInit()
 	beego.Run()
 }
 
+func BeegoInit() {
+	beego.TemplateLeft = "<<<"
+	beego.TemplateRight = ">>>"
+	routers.LoadRouters()
+}

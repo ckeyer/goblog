@@ -8,7 +8,13 @@ import (
 
 var log = libs.GetLogger()
 
-func init() {
+func LoadRouters() {
 	log.Info("加载路由信息")
 	beego.Router("/", &controllers.IndexController{})
+	beego.Router("/:name:string.html", &controllers.BlogController{})
+	beego.Router("/tag", &controllers.TagController{})
+	beego.Router("/category", &controllers.CategoryController{})
+	beego.Router("/archive/:year:string-:month:string.html", &controllers.ArchiveController{})
+
+	beego.Router("/webhook", &controllers.WebhookController{})
 }

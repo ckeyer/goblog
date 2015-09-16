@@ -7,18 +7,18 @@ import (
 )
 
 var (
-	log = libs.GetLogger()
-	pool = (Pool)(new(MemPooler))
+	log    = libs.GetLogger()
+	MyPool = (Pool)(new(MemPooler))
 )
 
 // LoadBlogs 加载md博客
-func LoadBlogs(dir string)(err error) {
+func LoadBlogs(dir string) (err error) {
 	log.Infof("加载mv博客 %s", dir)
-	fs,err:=getMDFiles(dir)
-	if err!=nil {
-		return 
+	fs, err := getMDFiles(dir)
+	if err != nil {
+		return
 	}
-	pool.AddBlogs(fs...)
+	MyPool.AddBlogs(fs...)
 	return
 }
 
@@ -29,5 +29,21 @@ func getMDFiles(dir string) (files []string, err error) {
 		log.Errorf("%s", err)
 		return
 	}
-	return 
+	return
+}
+
+// ReLoadBlogs ...
+func ReLoadBlogs(dir string) (err error) {
+	log.Infof("更新mv博客 %s", dir)
+	fs, err := getMDFiles(dir)
+	if err != nil {
+		return
+	}
+	tmp := (Pool)(new(MemPooler))
+	count, e := tmp.AddBlogs(fs...)
+	log.Notice("共加载文件: ", count, " 错误：", e)
+
+	MyPool = tmp
+
+	return
 }

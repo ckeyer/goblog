@@ -4,15 +4,20 @@ import (
 	"github.com/ckeyer/goblog/models"
 )
 
-type IndexController struct {
+type CategoryController struct {
 	BaseController
 }
 
-func (c *IndexController) Get() {
-	page, _ := c.GetInt("page")
-	step := 15
+func (c *CategoryController) Get() {
+	name := c.GetString("c")
 
-	c.Data["Blogs"] = models.GetBlogs(page*step, (page+1)*step)
+	if tg := models.GetBlogsByCategory(name); tg != nil {
+		c.Data["Blogs"] = tg
+	} else {
+		log.Errorf("Category Errer %s", name)
+		c.Data["Blogs"] = models.GetBlogs(0, 10)
+	}
+
 	c.Data["LastestBlogs"] = models.GetBlogs(0, 5)
 	c.Data["Tags"] = models.GetAllTags()
 	c.Data["Category"] = models.GetAllCategory()
