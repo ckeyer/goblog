@@ -4,10 +4,12 @@ import (
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/ckeyer/goblog/conf"
+	"github.com/ckeyer/goblog/modules"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"os/exec"
 	"strings"
 )
@@ -15,6 +17,8 @@ import (
 type Alertor interface{}
 
 type WebHook struct {
+	Config *conf.WebHook
+
 	Header *HookHeader
 
 	Repos  string
@@ -58,6 +62,7 @@ type GitUser struct {
 
 func DoWebhook(res http.ResponseWriter, req *http.Request) {
 	hook := &WebHook{}
+	hook.Config = conf.GetConf().WebHook
 	hook.HookHandle(res, req)
 }
 
@@ -68,7 +73,7 @@ func (w *WebHook) HookHandle(res http.ResponseWriter, req *http.Request) {
 		log.Errorf("WebHook Error. %s", err)
 		return
 	}
-	if signature != "sha1="+HmacSha1(bs, []byte("HOOK_SECRET")) {
+	if signature != "sha1="+HmacSha1(bs, []byte(w.Config.Secret)) {
 		log.Notice("Check Error...")
 		return
 	}
@@ -78,7 +83,7 @@ func (w *WebHook) HookHandle(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	if ok := w.Check(); ok {
-		go w.Done()
+		go w.Done(w.Script)
 	}
 	res.Write([]byte("receive over"))
 }
@@ -97,43 +102,42 @@ func (w *WebHook) LoadPayload(data []byte) (err error) {
 		w.Branch = tmp[l-1]
 	}
 	w.Repos = p.Repo.FullName
+	if p.Pusher == nil {
+		return errors.New("不匹配的webhook方法")
+	}
 	w.User = p.Pusher.Name
 	return
 }
 
-func (w *WebHook) Done() {
-	script := w.Script
-	if _, err := os.Stat(script); err != nil {
-		log.Errorf("WebHook Error. %s", err)
-		return
-	}
+func (w *WebHook) Done(script string) {
+	log.Debug("Run Script: ", script)
 	out, err := exec.Command("bash", "-c", script).Output()
 	if err != nil {
-		log.Errorf("WebHook Error. %s", err)
+		log.Errorf("Script Error. %s", err)
 		return
 	}
-	log.Notice(out)
+	log.Noticef("Out. %s", out)
+	modules.ReLoadBlogs(conf.GetConf().BlogDir)
 }
 
 // 检查是否应该触发
 func (w *WebHook) Check() (ok bool) {
-	// for _, h := range w.Config.Hooks {
-	// 	if h.Repos != w.Repos {
-	// 		continue
-	// 	}
-	// 	for _, m := range h.Monitors {
-	// 		if m.Branch != w.Branch && m.Branch != "" {
-	// 			continue
-	// 		}
-	// 		if m.User != w.User && m.User != "" {
-	// 			continue
-	// 		}
-	// 		if m.Script != "" {
-	// 			w.Script = m.Script
-	// 			return true
-	// 		}
-	// 	}
-	// }
+	h := w.Config
+	if h.Repos != w.Repos {
+		log.Error("Error Repos Name, ", w.Repos)
+	}
+	for _, m := range h.Monitors {
+		if m.Branch != w.Branch && m.Branch != "" {
+			continue
+		}
+		if m.User != w.User && m.User != "" {
+			continue
+		}
+		if m.Script != "" {
+			w.Script = m.Script
+			return true
+		}
+	}
 	return false
 }
 

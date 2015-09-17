@@ -1,5 +1,5 @@
 {
-	"blog_dir":"blog/",
+	"blog_dir":"blog/*.md",
 	"website":{
 		"index_num": 10,
 		"lastest_num": 5,
@@ -25,17 +25,16 @@
 			"d.local"
 		]
 	},
-	"webhook":[
-		{
-			"repos":"notes",
-			"monitor":[
-				{
-					"branch":"online",
-					"user":"",
-					"action":"",
-					"script":"commit.sh"
-				}
-			]
-		}
-	]
+	"webhook":{
+		"repos":"ckeyer/notes",
+		"secret":"test1234",
+		"monitor":[
+			{
+				"branch":"online",
+				"user":"",
+				"action":"",
+				"script":"cd blog && git pull origin online"
+			}
+		]
+	}
 }

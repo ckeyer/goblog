@@ -5,7 +5,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/russross/blackfriday"
+	"github.com/ckeyer/blackfriday"
 	"time"
 )
 
@@ -51,6 +51,7 @@ func NewBlog(file string) (b *Blog, err error) {
 	b.Header = new(Header)
 	err = b.Header.Load(head)
 	if err != nil {
+		log.Error("文件加载错误: ", file)
 		return
 	}
 	return
@@ -94,26 +95,24 @@ func (b *Blog) decode2html(bs []byte) (err error) {
 	return nil
 }
 
-
-// 
-func (b Blogs)Len( ) (count int) {
+//
+func (b Blogs) Len() (count int) {
 	return len(b)
 }
 
-// 
-func (b Blogs)Less(i,j int) bool {
-	ti,_:=time.Parse( "2006-01-02", b[i].Date)
-	tj,_:=time.Parse( "2006-01-02", b[j].Date)
+//
+func (b Blogs) Less(i, j int) bool {
+	ti, _ := time.Parse("2006-01-02", b[i].Date)
+	tj, _ := time.Parse("2006-01-02", b[j].Date)
 	// log.Debug("ti: ", ti)
 	// log.Debug("tj: ", tj)
 	if ti.Unix() > tj.Unix() {
 		return true
 	}
-	return false 
+	return false
 }
 
 // (g *Group)Sort ...
-func (b Blogs)Swap(i,j int)  {
-	b[i],b[j] = b[j],b[i]
+func (b Blogs) Swap(i, j int) {
+	b[i], b[j] = b[j], b[i]
 }
-

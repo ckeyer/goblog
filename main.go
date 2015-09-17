@@ -12,7 +12,8 @@ var log = libs.GetLogger()
 
 func init() {
 	conf.LoadConf("conf/v2.json")
-	err := modules.LoadBlogs("blog/*.md")
+
+	err := modules.LoadBlogs(conf.GetConf().BlogDir)
 	if err != nil {
 		log.Error(err)
 	}

@@ -19,8 +19,9 @@ var (
 
 type Config struct {
 	sync.RWMutex
-	BlogPath string   `json:"blog_path"`
-	WebSite  *WebSite `json:"website"`
+	BlogDir string   `json:"blog_dir"`
+	WebSite *WebSite `json:"website"`
+	WebHook *WebHook `json:"webhook"`
 }
 
 type WebSite struct {
@@ -36,6 +37,18 @@ type WebSite struct {
 	CustomCssUrl string   `json:"custom_css_url"`
 	CustomImgUrl string   `json:"custom_img_url"`
 	EnableDomain []string `json:"enable_domain"`
+}
+type WebHook struct {
+	Repos    string     `json:"repos"`
+	Secret   string     `json:"secret"`
+	Monitors []*Monitor `json:"monitor"`
+}
+
+type Monitor struct {
+	Branch string `json:"branch"`
+	User   string `json:"user"`
+	Action string `json:"action"`
+	Script string `json:"script"`
 }
 
 // init
