@@ -11,6 +11,7 @@ blog
 *~
 *.fuse*
 *.rdb
+v2.json
 conf/app.conf
 # Folders
 blog
