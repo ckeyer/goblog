@@ -1,0 +1,24 @@
+{
+	"ImportPath": "github.com/ckeyer/goblog",
+	"GoVersion": "go1.6",
+	"Deps": [
+		{
+			"ImportPath": "github.com/astaxie/beego",
+			"Comment": "v1.5.0-389-g23bb36d",
+			"Rev": "23bb36d35cf83ca8b95c4432aa846326530d24b9"
+		},
+		{
+			"ImportPath": "github.com/ckeyer/blackfriday",
+			"Comment": "v1.2-117-g300106c",
+			"Rev": "300106c228d52c8941d4b3de6054a6062a86dda3"
+		},
+		{
+			"ImportPath": "github.com/ckeyer/go-log",
+			"Rev": "a302d38144e4c4b7b5e348fa3835e96f86a29c93"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
+			"Rev": "244f5ac324cb97e1987ef901a0081a77bfd8e845"
+		}
+	]
+}

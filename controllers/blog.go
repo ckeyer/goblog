@@ -26,5 +26,5 @@ func (b *BlogController) Get() {
 
 	b.LayoutSections["Sidebar"] = "sidebar.tpl"
 	b.LayoutSections["Duoshuo"] = "duoshuo.tpl"
-	b.TplNames = "show.tpl"
+	b.TplName = "show.tpl"
 }

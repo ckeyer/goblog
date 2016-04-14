@@ -8,7 +8,7 @@ var (
 
 func init() {
 	if log == nil {
-		log = logpkg.GetDefaultLogger()
+		log = logpkg.GetDefaultLogger("blog")
 	}
 }
 

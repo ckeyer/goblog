@@ -9,7 +9,6 @@ type ArchiveController struct {
 }
 
 func (c *ArchiveController) Get() {
-
 	year := c.Ctx.Input.Param(":year")
 	month := c.Ctx.Input.Param(":month")
 	name := year + "-" + month
@@ -28,5 +27,5 @@ func (c *ArchiveController) Get() {
 
 	c.LayoutSections["Sidebar"] = "sidebar.tpl"
 
-	c.TplNames = "list.tpl"
+	c.TplName = "list.tpl"
 }

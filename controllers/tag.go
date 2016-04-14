@@ -25,5 +25,5 @@ func (c *TagController) Get() {
 
 	c.LayoutSections["Sidebar"] = "sidebar.tpl"
 
-	c.TplNames = "list.tpl"
+	c.TplName = "list.tpl"
 }

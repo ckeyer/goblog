@@ -25,7 +25,7 @@ func main() {
 }
 
 func BeegoInit() {
-	beego.TemplateLeft = "<<<"
-	beego.TemplateRight = ">>>"
+	beego.BConfig.WebConfig.TemplateLeft = "<<<"
+	beego.BConfig.WebConfig.TemplateRight = ">>>"
 	routers.LoadRouters()
 }
